@@ -13,14 +13,15 @@ public class Test {
 		Session session =  factory.openSession();
 		Transaction transaction = session.beginTransaction();
 		
-		User user = new User();
-		user.setUsername("hello1111");
-		user.setPassword("hihi");
+		Users user = new Users();
+		user.setName("Nguyễn Hoàng Hải");
+		user.setPhone("0123456951");
+		user.setAddress("Hồ Hoàng Kiếm - Đống Đa - Hà Nội");
+		user.setRole(1);
 		
 		session.save(user);
 		transaction.commit();
-		
-		System.out.println(user.getUsername());
+		session.close();
 		
 	}
 }
