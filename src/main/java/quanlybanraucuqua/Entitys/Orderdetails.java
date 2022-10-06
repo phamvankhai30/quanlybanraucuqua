@@ -1,4 +1,4 @@
-package quanlybanraucuqua.pojos;
+package quanlybanraucuqua.Entitys;
 
 import java.io.Serializable;
 

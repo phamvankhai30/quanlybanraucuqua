@@ -1,4 +1,4 @@
-package quanlybanraucuqua.pojos;
+package quanlybanraucuqua.Entitys;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

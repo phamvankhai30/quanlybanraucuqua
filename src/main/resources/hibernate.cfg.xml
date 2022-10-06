@@ -12,13 +12,13 @@
   <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
   
   <!-- Mapping class java -->
-  <mapping class="quanlybanraucuqua.pojos.Categorys"/>
-  <mapping class="quanlybanraucuqua.pojos.Orderdetails"/>
-  <mapping class="quanlybanraucuqua.pojos.Orders"/>
-  <mapping class="quanlybanraucuqua.pojos.Products"/>
-  <mapping class="quanlybanraucuqua.pojos.Providers"/>
-  <mapping class="quanlybanraucuqua.pojos.Reports"/>
-  <mapping class="quanlybanraucuqua.pojos.Users"/>
+  <mapping class="quanlybanraucuqua.Entitys.Categorys"/>
+  <mapping class="quanlybanraucuqua.Entitys.Orderdetails"/>
+  <mapping class="quanlybanraucuqua.Entitys.Orders"/>
+  <mapping class="quanlybanraucuqua.Entitys.Products"/>
+  <mapping class="quanlybanraucuqua.Entitys.Providers"/>
+  <mapping class="quanlybanraucuqua.Entitys.Reports"/>
+  <mapping class="quanlybanraucuqua.Entitys.Users"/>
   
  </session-factory>
 </hibernate-configuration>
