@@ -1,4 +1,4 @@
-package quanlybanraucuqua.Entitys;
+package Entitys;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -34,6 +34,10 @@ public class Reports implements Serializable {
 	@Column(name = "id_user")
 	private int idUser;
 	
+	@Column(name = "Quatity")
+	private double quatity;
+	
+
 	@Column(name = "Total")
 	private double total;
 	
@@ -70,6 +74,14 @@ public class Reports implements Serializable {
 
 	public void setIdUser(int idUser) {
 		this.idUser = idUser;
+	}
+
+	public double getQuatity() {
+		return quatity;
+	}
+
+	public void setQuatity(double quatity) {
+		this.quatity = quatity;
 	}
 
 	public double getTotal() {

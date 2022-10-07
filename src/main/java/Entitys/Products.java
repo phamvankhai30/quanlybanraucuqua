@@ -1,6 +1,7 @@
-package quanlybanraucuqua.Entitys;
+package Entitys;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,13 +35,18 @@ public class Products implements Serializable {
 	private double price;
 	
 	@Column(name = "Quatity")
-	private int quatity;
+	private double quatity;
 	
 	@Column(name = "Description")
 	private String description;
 
 	@Column(name = "img")
 	private String img;
+	
+	@Column(name = "Date")
+	private LocalDateTime date;
+
+	
 
 	public int getId_product() {
 		return id_product;
@@ -82,11 +88,11 @@ public class Products implements Serializable {
 		this.price = price;
 	}
 
-	public int getQuatity() {
+	public double getQuatity() {
 		return quatity;
 	}
 
-	public void setQuatity(int quatity) {
+	public void setQuatity(double quatity) {
 		this.quatity = quatity;
 	}
 
@@ -106,7 +112,13 @@ public class Products implements Serializable {
 		this.img = img;
 	}
 	
-	
+	public LocalDateTime getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDateTime date) {
+		this.date = date;
+	}
 	
 	
 }

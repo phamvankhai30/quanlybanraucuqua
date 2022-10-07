@@ -1,4 +1,4 @@
-package quanlybanraucuqua.Entitys;
+package Entitys;
 
 import java.io.Serializable;
 

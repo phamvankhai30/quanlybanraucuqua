@@ -1,4 +1,4 @@
-package quanlybanraucuqua.Entitys;
+package Entitys;
 
 import java.io.Serializable;
 
@@ -10,8 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "users")
-public class Users implements Serializable{
+@Table(name = "providers")
+
+public class Providers implements Serializable {
 	
 	/**
 	 * 
@@ -20,28 +21,24 @@ public class Users implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_user")
-	private int idUser;
+	@Column(name = "id_provider")
+	private int idProvider;
 	
-	@Column(name = "Name")
+	@Column(name = "nameProvider")
 	private String name;
-	
-	@Column(name = "Role")
-	private int role;
 	
 	@Column(name = "Phone")
 	private String phone;
 	
-	@Column(name = "Address")
+	@Column (name = "Address")
 	private String address;
 
-
-	public int getIdUser() {
-		return idUser;
+	public int getIdProvider() {
+		return idProvider;
 	}
 
-	public void setIdUser(int idUser) {
-		this.idUser = idUser;
+	public void setIdProvider(int idProvider) {
+		this.idProvider = idProvider;
 	}
 
 	public String getName() {
@@ -50,14 +47,6 @@ public class Users implements Serializable{
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public int getRole() {
-		return role;
-	}
-
-	public void setRole(int role) {
-		this.role = role;
 	}
 
 	public String getPhone() {
@@ -75,6 +64,5 @@ public class Users implements Serializable{
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
 	
 }

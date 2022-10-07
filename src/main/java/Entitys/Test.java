@@ -1,10 +1,10 @@
-package quanlybanraucuqua.Entitys;
+package Entitys;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import quanlybanraucuqua.Utils.HibernateUtil;
+import Utils.HibernateUtil;
 
 public class Test {
 	static final SessionFactory factory = HibernateUtil.getSessionFactory();

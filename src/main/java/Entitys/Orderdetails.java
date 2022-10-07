@@ -1,4 +1,4 @@
-package quanlybanraucuqua.Entitys;
+package Entitys;
 
 import java.io.Serializable;
 
@@ -29,8 +29,12 @@ public class Orderdetails implements Serializable{
 	@Column(name = "id_product")
 	private int idProduct;
 	
+	@Column(name = "name_product")
+	private int nameProduct;
+	
+
 	@Column(name = "Quatity")
-	private int quatity;
+	private double quatity;
 
 	@Column(name = "Price")
 	private double price;
@@ -58,12 +62,21 @@ public class Orderdetails implements Serializable{
 	public void setIdProduct(int idProduct) {
 		this.idProduct = idProduct;
 	}
+	
+	
+	public int getNameProduct() {
+		return nameProduct;
+	}
 
-	public int getQuatity() {
+	public void setNameProduct(int nameProduct) {
+		this.nameProduct = nameProduct;
+	}
+
+	public double getQuatity() {
 		return quatity;
 	}
 
-	public void setQuatity(int quatity) {
+	public void setQuatity(double quatity) {
 		this.quatity = quatity;
 	}
 
@@ -71,8 +84,9 @@ public class Orderdetails implements Serializable{
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
+
 	
 }
