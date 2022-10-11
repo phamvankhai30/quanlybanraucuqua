@@ -5,7 +5,12 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import BUS.Providers_BUS;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -19,19 +24,24 @@ public class Update_Provider_Form extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField_SDT;
-	private JTextField textField_DiaChi;
-	private JTextField textField_IdNhaCC;
-	private JTextField textField_TenNhaCC;
+	JTextField textField_SDT;
+	JTextField textField_DiaChi;
+	JTextField textField_IdNhaCC;
+	JTextField textField_TenNhaCC;
 
 	/**
 	 * Launch the application.
 	 */
+	public Update_Provider_Form() {
+		initComponents();
+		
+	}
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					Update_Provider_Form frame = new Update_Provider_Form();
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -43,7 +53,7 @@ public class Update_Provider_Form extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Update_Provider_Form() {
+	public void initComponents() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 468, 290);
 		contentPane = new JPanel();
@@ -111,6 +121,18 @@ public class Update_Provider_Form extends JFrame {
 		JButton btnSua = new JButton("Sửa");
 		btnSua.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Providers_BUS provider_BUS = new Providers_BUS();
+				String message = "";
+				if(textField_TenNhaCC.getText().equals("")|| textField_SDT.getText().equals("")|| textField_DiaChi.getText().equals("")) {
+					
+					message = "Bạn không được bỏ trống";
+					JOptionPane.showMessageDialog(rootPane, message);
+				}else {
+					provider_BUS.updateProvider(textField_TenNhaCC.getText(), textField_SDT.getText(), textField_DiaChi.getText());
+					message = "Cập nhật thành công";
+					ResetTextField();
+				}
+				
 			}
 		});
 		btnSua.setBounds(92, 11, 96, 31);
@@ -125,6 +147,18 @@ public class Update_Provider_Form extends JFrame {
 		});
 		btnQuayLai.setBounds(271, 11, 96, 31);
 		panel_2.add(btnQuayLai);
+		
+		
 	}
+	
+	private void ResetTextField() {
+		textField_TenNhaCC.setText("");
+		textField_SDT.setText("");
+		textField_DiaChi.setText("");
+		
+	}
+	
+
+
 
 }

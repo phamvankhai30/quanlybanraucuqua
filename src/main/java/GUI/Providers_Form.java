@@ -12,10 +12,19 @@ import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+
+import BUS.Providers_BUS;
+import Entitys.Providers;
+
 import java.awt.event.ActionListener;
+
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Providers_Form extends JFrame {
 
@@ -23,18 +32,24 @@ public class Providers_Form extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JTextField textField_TimKiem;
-	private JTable table_QLNCC;
+	JPanel contentPane;
+	JTextField textField_TimKiem;
+	JTable table_QLNCC;
 
 	/**
 	 * Launch the application.
 	 */
+	public Providers_Form() {
+		initComponents();
+		showProviders();
+	}
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					Providers_Form frame = new Providers_Form();
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -46,7 +61,7 @@ public class Providers_Form extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Providers_Form() {
+	public void initComponents() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 581, 348);
 		contentPane = new JPanel();
@@ -110,13 +125,20 @@ public class Providers_Form extends JFrame {
 		
 		
 		table_QLNCC = new JTable();
+		table_QLNCC.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+			}
+		});
+
 		table_QLNCC.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null, null},
-				{null, null, null, null},
+				
+				
 			},
 			new String[] {
-				"ID Nh\u00E0 Cung C\u1EA5p", "T\u00EAn Nh\u00E0 Cung C\u1EA5p", "S\u1ED1 \u0110i\u1EC7n Tho\u1EA1i", "\u0110\u1ECBa Ch\u1EC9"
+					
 			}
 		));
 		table_QLNCC.setBounds(154, 149, 1, 1);
@@ -143,5 +165,29 @@ public class Providers_Form extends JFrame {
 		panel_1_1.add(btnTrangChu);
 		
 	}
+	
+	
+	public  void showProviders () {
+
+		 Providers_BUS providers_BUS = new Providers_BUS();
+		 DefaultTableModel model = new DefaultTableModel();
+		 Object[] columns = {"ID Nhà Cung Cấp", "Tên Nhà Cung Cấp", "Số Điện Thoại", "Địa Chỉ"};
+		 model.setColumnIdentifiers(columns);
+		
+		 List<Providers> providers = providers_BUS.showProviders();
+		 for(int i = 0; i < providers.size(); i++) {
+			 model.addRow(new Object[] {
+					 providers.get(i).getIdProvider(),
+					 providers.get(i).getName(),
+					 providers.get(i).getPhone(),
+					 providers.get(i).getAddress()
+					 
+			 });
+		 }
+		 table_QLNCC.setModel(model);
+
+	}
+	
+	
 
 }

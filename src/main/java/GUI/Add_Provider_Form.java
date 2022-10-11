@@ -5,7 +5,12 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import BUS.Providers_BUS;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -109,6 +114,21 @@ public class Add_Provider_Form extends JFrame {
 		contentPane.add(panel_2);
 		
 		JButton btnThem = new JButton("Thêm");
+		btnThem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Providers_BUS provider_BUS = new Providers_BUS();
+				String message = "";
+				if(textField_TenNhaCC.getText().equals("") || textField_SDT.getText().equals("") ||textField_DiaChi.getText().equals("")) {
+					message = "Bạn nhập còn thiếu";
+					JOptionPane.showMessageDialog(rootPane, message);
+				}else {
+					provider_BUS.addProvider(textField_TenNhaCC.getText(),textField_SDT.getText(),textField_DiaChi.getText());
+					message = "Thêm thành công";
+					JOptionPane.showMessageDialog(rootPane, message);
+					ResetTextField();
+				} 
+			}
+		});
 		btnThem.setBounds(77, 11, 96, 31);
 		panel_2.add(btnThem);
 		
@@ -121,6 +141,14 @@ public class Add_Provider_Form extends JFrame {
 		});
 		btnQuayLai.setBounds(242, 11, 96, 31);
 		panel_2.add(btnQuayLai);
+		
+		
 	}
-
+	private void ResetTextField() {
+		textField_TenNhaCC.setText("");
+		textField_SDT.setText("");
+		textField_DiaChi.setText("");
+		
+	}
+	
 }
