@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -72,13 +74,13 @@ public class Providers_Form extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel.setBounds(146, 0, 419, 49);
+		panel.setBounds(146, 0, 275, 49);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
 		JLabel lbl_QLNCC = new JLabel("Quản Lý Nhà Cung Cấp");
 		lbl_QLNCC.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lbl_QLNCC.setBounds(87, 0, 204, 47);
+		lbl_QLNCC.setBounds(39, 0, 206, 47);
 		panel.add(lbl_QLNCC);
 		
 		JPanel panel_1 = new JPanel();
@@ -101,19 +103,49 @@ public class Providers_Form extends JFrame {
 		JButton btnSua = new JButton("Sửa");
 		btnSua.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Update_Provider_Form update_Provider_Form  = new Update_Provider_Form ();
-				update_Provider_Form.setLocationRelativeTo(null);
-				update_Provider_Form.setVisible(true);
+				int i = table_QLNCC.getSelectedRow();
+				if(i <= -1) {
+					JOptionPane.showMessageDialog(rootPane, "Chưa chọn thông tin cần sửa");
+				}else {
+					String id = table_QLNCC.getModel().getValueAt(i, 0)+"";
+					String ten = table_QLNCC.getModel().getValueAt(i, 1)+"";
+					String SDT = table_QLNCC.getModel().getValueAt(i, 2)+"";
+					String DiaChi = table_QLNCC.getModel().getValueAt(i, 3)+"";
+					Update_Provider_Form update_Provider_Form  = new Update_Provider_Form (id,ten,SDT,DiaChi);
+					update_Provider_Form.setLocationRelativeTo(null);
+					update_Provider_Form.setVisible(true);
+				}
 			}
 		});
 		btnSua.setBounds(369, 11, 89, 23);
 		panel_1.add(btnSua);
 		
 		JButton btnXoa = new JButton("Xoá");
+		btnXoa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int i = table_QLNCC.getSelectedRow();
+				if(i <= -1) {
+					JOptionPane.showMessageDialog(rootPane, "Chưa chọn thông tin cần xoá");
+				}else {
+					String id_Provider = table_QLNCC.getModel().getValueAt(i, 0).toString();
+					int id = Integer.parseInt(id_Provider);
+
+					Providers_BUS providers_BUS= new Providers_BUS();
+					providers_BUS.deleteProviderById(id);
+					JOptionPane.showMessageDialog(rootPane, "Xoá thành công");
+					showProviders();
+				}
+			}
+		});
 		btnXoa.setBounds(466, 11, 89, 23);
 		panel_1.add(btnXoa);
 		
 		JButton btnTimKiem = new JButton("Tìm kiếm");
+		btnTimKiem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				searchProviderById();
+			}
+		});
 		btnTimKiem.setBounds(171, 11, 89, 23);
 		panel_1.add(btnTimKiem);
 		
@@ -164,10 +196,26 @@ public class Providers_Form extends JFrame {
 		btnTrangChu.setBounds(27, 6, 94, 28);
 		panel_1_1.add(btnTrangChu);
 		
+		JPanel panel_1_1_1 = new JPanel();
+		panel_1_1_1.setLayout(null);
+		panel_1_1_1.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel_1_1_1.setBounds(419, 0, 146, 49);
+		contentPane.add(panel_1_1_1);
+		
+		JButton btnReset = new JButton("Reset");
+		btnReset.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				showProviders();
+			}
+		});
+		btnReset.setBounds(27, 6, 94, 28);
+		panel_1_1_1.add(btnReset);
+		
 	}
 	
 	
-	public  void showProviders () {
+	
+	public void showProviders () {
 
 		 Providers_BUS providers_BUS = new Providers_BUS();
 		 DefaultTableModel model = new DefaultTableModel();
@@ -187,7 +235,28 @@ public class Providers_Form extends JFrame {
 		 table_QLNCC.setModel(model);
 
 	}
-	
-	
 
+	
+	public  void searchProviderById () {
+		 Providers_BUS providers_BUS = new Providers_BUS();
+		 DefaultTableModel model = new DefaultTableModel();
+		 Object[] columns = {"ID Nhà Cung Cấp", "Tên Nhà Cung Cấp", "Số Điện Thoại", "Địa Chỉ"};
+		 model.setColumnIdentifiers(columns);
+		 if(textField_TimKiem.getText().equals("")) {
+			 JOptionPane.showMessageDialog(rootPane, "Chưa nhập Id cần tìm kiếm");
+		 }else {
+			 String id = textField_TimKiem.getText();
+			 int id_Provider = Integer.parseInt(id);			
+			 Providers providers = providers_BUS.getProvidersById(id_Provider);
+		
+			 model.addRow(new Object[] {
+					 providers.getIdProvider(),
+					 providers.getName(),
+					 providers.getPhone(),
+					providers.getAddress() 
+			 });
+			 table_QLNCC.setModel(model);
+		 }
+		 
+	}
 }

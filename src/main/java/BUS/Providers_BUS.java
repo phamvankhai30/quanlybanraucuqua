@@ -6,8 +6,8 @@ import DAO.Providers_DAO;
 import Entitys.Providers;
 
 public class Providers_BUS {
-	Providers_DAO provider_DAO = new Providers_DAO();
 	Providers provider = new Providers();
+	Providers_DAO provider_DAO = new Providers_DAO();
 	
     public void addProvider(String name,String phone,String address){
         	
@@ -25,8 +25,15 @@ public class Providers_BUS {
         provider_DAO.updateProvider(provider);
     }
     
+    public void deleteProviderById(int id) {
+    	provider_DAO.deleteProviderById(id);
+    }
+    
     public List<Providers> showProviders() {
     	return provider_DAO.getAllProvider();
+    }
+    public Providers getProvidersById(int id) {
+    	return provider_DAO.getProviderById(id);
     }
 
 }

@@ -1,5 +1,6 @@
 package GUI;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -16,6 +17,8 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Add_Provider_Form extends JFrame {
 
@@ -95,6 +98,13 @@ public class Add_Provider_Form extends JFrame {
 		panel_1.add(lbl_IdNhaCC);
 		
 		textField_IdNhaCC = new JTextField();
+		textField_IdNhaCC.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				textField_IdNhaCC.setEditable(false);
+				textField_IdNhaCC.setBackground(Color.LIGHT_GRAY);
+			}
+		});
 		textField_IdNhaCC.setColumns(10);
 		textField_IdNhaCC.setBounds(130, 8, 129, 20);
 		panel_1.add(textField_IdNhaCC);
@@ -116,16 +126,14 @@ public class Add_Provider_Form extends JFrame {
 		JButton btnThem = new JButton("Thêm");
 		btnThem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Providers_BUS provider_BUS = new Providers_BUS();
-				String message = "";
-				if(textField_TenNhaCC.getText().equals("") || textField_SDT.getText().equals("") ||textField_DiaChi.getText().equals("")) {
-					message = "Bạn nhập còn thiếu";
-					JOptionPane.showMessageDialog(rootPane, message);
+				if(textField_TenNhaCC.getText().equals("") || textField_SDT.getText().equals("") ||textField_DiaChi.getText().equals("")) {	
+					JOptionPane.showMessageDialog(rootPane, "Bạn nhập còn thiếu");
 				}else {
+					Providers_BUS provider_BUS = new Providers_BUS();
 					provider_BUS.addProvider(textField_TenNhaCC.getText(),textField_SDT.getText(),textField_DiaChi.getText());
-					message = "Thêm thành công";
-					JOptionPane.showMessageDialog(rootPane, message);
+					JOptionPane.showMessageDialog(rootPane, "Thêm thành công");
 					ResetTextField();
+					
 				} 
 			}
 		});

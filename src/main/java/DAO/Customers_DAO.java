@@ -1,30 +1,25 @@
 package DAO;
 
-
-
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-
-import Entitys.Providers;
+import Entitys.Users;
 import Utils.HibernateUtil;
 
-
-
-public class Providers_DAO {
+public class Customers_DAO {
 	static final SessionFactory factory = HibernateUtil.getSessionFactory();
 	Session session = null;
 	Transaction transaction = null;
 
 
-	public void addProvider(Providers provider) {
+	public void addCustomer(Users customer ) {
 		try {
 			session = factory.openSession();
 			transaction = session.beginTransaction();
-			session.save(provider);
+			session.save(customer);
 			transaction.commit();
 			
 		} catch (Exception e) {
@@ -38,12 +33,12 @@ public class Providers_DAO {
 		}
 	}
 	
-	public void updateProvider(Providers provider) {
+	public void updateCustomer(Users customer) {
 
 		try {
 			session = factory.openSession();
 			transaction = session.beginTransaction();
-			session.saveOrUpdate(provider);
+			session.saveOrUpdate(customer);
 			transaction.commit();
 		} catch (Exception e) {
 			if (transaction != null) {
@@ -56,18 +51,18 @@ public class Providers_DAO {
 		}
 	}
 
-	public void deleteProviderById(int id) {	
+	public void deleteCustomerById(int id) {	
 		
 		try {
 			session = factory.openSession();
-			Providers provider = session.get(Providers.class, id);
+			Users customer = session.get(Users.class, id);
 			
-			if(provider != null) {
+			if(customer != null) {
 				transaction = session.beginTransaction();
-				session.delete(provider);
+				session.delete(customer);
 				transaction.commit();
 			}else {
-				System.out.println("Nhà Cung Cấp Không Tồn Tại !");
+				System.out.println("Khách hàng Không Tồn Tại !");
 			}
 			
 			
@@ -83,12 +78,12 @@ public class Providers_DAO {
 	}
 	
 	
-	public Providers getProviderById(int id) {
-		Providers provider = null;
+	public Users getCustomerById(int id) {
+		Users customer = null;
 		try {
 			session = factory.openSession();
 			transaction = session.beginTransaction();
-			provider = session.get(Providers.class, id);
+			customer = session.get(Users.class, id);
 			transaction.commit();
 		} catch (Exception e) {
 			if (transaction != null) {
@@ -99,19 +94,19 @@ public class Providers_DAO {
 			session.clear();
 			session.close();
 		}
-		return provider;
+		return customer;
 		
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Providers> getAllProvider() {
+	public List<Users> getAllCustomer() {
 
-		List <Providers> providers = null;
+		List <Users> customer = null;
 		try {
 			session = factory.openSession();
 			transaction = session.beginTransaction();
 			
-			providers = session.createQuery("from Providers").list();
+			customer = session.createQuery("from Users").list();
 
 			
 			transaction.commit();
@@ -124,17 +119,16 @@ public class Providers_DAO {
 			session.clear();
 			session.close();
 		}
-		return providers;
+		return customer;
 		
 	}
-	
-	
 	public static void main(String[] args) {
-		Providers_DAO dao = new Providers_DAO();
-//		Providers provider = new Providers(1,"khai","mot","hai");
-		Providers dd = dao.getProviderById(15);
-		System.out.print(dd.getAddress());
+		Customers_DAO dao = new Customers_DAO();
+		List<Users> list_users = dao.getAllCustomer();
+		
+		for (Users i : list_users) {
+			System.out.println(i);
+			
+		}
 	}
-	
-	
 }

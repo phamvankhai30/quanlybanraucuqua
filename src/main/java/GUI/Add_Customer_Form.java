@@ -1,16 +1,26 @@
 package GUI;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import BUS.Customers_BUS;
+
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 
 public class Add_Customer_Form extends JFrame {
 
@@ -90,6 +100,13 @@ public class Add_Customer_Form extends JFrame {
 		panel_1.add(lbl_IdKhachHang);
 		
 		textField_KhachHang = new JTextField();
+		textField_KhachHang.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				textField_KhachHang.setEditable(false);
+				textField_KhachHang.setBackground(Color.LIGHT_GRAY);
+			}
+		});
 		textField_KhachHang.setColumns(10);
 		textField_KhachHang.setBounds(102, 8, 129, 20);
 		panel_1.add(textField_KhachHang);
@@ -109,6 +126,19 @@ public class Add_Customer_Form extends JFrame {
 		contentPane.add(panel_2);
 		
 		JButton btnThem = new JButton("Thêm");
+		btnThem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(textField_TenKhachHang.getText().equals("") || textField_SoDienThoai.getText().equals("") ||textField_DiaChi.getText().equals("")) {	
+					JOptionPane.showMessageDialog(rootPane, "Bạn nhập còn thiếu");
+				}else {
+					Customers_BUS customers_BUS = new Customers_BUS();
+					customers_BUS.addCustomer(textField_TenKhachHang.getText(),textField_SoDienThoai.getText(),textField_DiaChi.getText());
+					JOptionPane.showMessageDialog(rootPane, "Thêm thành công");
+					ResetTextField();
+					
+				} 
+			}
+		});
 		btnThem.setBounds(101, 11, 96, 31);
 		panel_2.add(btnThem);
 		
@@ -121,6 +151,16 @@ public class Add_Customer_Form extends JFrame {
 		});
 		btnQuayLai.setBounds(245, 11, 96, 31);
 		panel_2.add(btnQuayLai);
+		
+		
 	}
+	private void ResetTextField() {
+		textField_TenKhachHang.setText("");
+		textField_SoDienThoai.setText("");
+		textField_DiaChi.setText("");
+		
+	}
+	
+	
 
 }

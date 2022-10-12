@@ -33,6 +33,17 @@ public class Providers implements Serializable {
 	@Column (name = "Address")
 	private String address;
 
+	public Providers() {
+		
+	}
+	
+	public Providers(int idProvider, String name, String phone, String address) {
+		this.idProvider = idProvider;
+		this.name = name;
+		this.phone = phone;
+		this.address = address;
+	}
+
 	public int getIdProvider() {
 		return idProvider;
 	}

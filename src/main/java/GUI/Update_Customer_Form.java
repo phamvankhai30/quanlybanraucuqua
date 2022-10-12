@@ -1,16 +1,24 @@
 package GUI;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import BUS.Customers_BUS;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Update_Customer_Form extends JFrame {
 
@@ -19,19 +27,27 @@ public class Update_Customer_Form extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField_SDT;
-	private JTextField textField_DiaChi;
 	private JTextField textField_IdKH;
 	private JTextField textField_TenKH;
+	private JTextField textField_SDT;
+	private JTextField textField_DiaChi;
 
 	/**
 	 * Launch the application.
 	 */
+	public Update_Customer_Form(String idKH, String TenKH, String SDT, String DiaChi) {
+		initComponents();
+		textField_IdKH.setText(idKH);
+		textField_TenKH.setText(TenKH);
+		textField_SDT.setText(SDT);
+		textField_DiaChi.setText(DiaChi);
+	
+	}
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Update_Customer_Form frame = new Update_Customer_Form();
+					Update_Customer_Form frame = new Update_Customer_Form("","","","");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -43,7 +59,7 @@ public class Update_Customer_Form extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Update_Customer_Form() {
+	public void initComponents() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 471, 300);
 		contentPane = new JPanel();
@@ -90,6 +106,14 @@ public class Update_Customer_Form extends JFrame {
 		panel_1.add(lbl_IdKH);
 		
 		textField_IdKH = new JTextField();
+		textField_IdKH.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				textField_IdKH.setEditable(false);
+				textField_IdKH.setBackground(Color.LIGHT_GRAY);
+			}
+		});
 		textField_IdKH.setColumns(10);
 		textField_IdKH.setBounds(102, 8, 129, 20);
 		panel_1.add(textField_IdKH);
@@ -109,6 +133,19 @@ public class Update_Customer_Form extends JFrame {
 		contentPane.add(panel_2);
 		
 		JButton btnSua = new JButton("Sửa");
+		btnSua.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(textField_TenKH.getText().equals("")|| textField_SDT.getText().equals("")|| textField_DiaChi.getText().equals("")) {
+					
+					JOptionPane.showMessageDialog(rootPane, "Bạn không được bỏ trống");
+				}else {
+					Customers_BUS customers_BUS = new Customers_BUS();
+					customers_BUS.updateCustomer(textField_TenKH.getText(),textField_SDT.getText(),textField_DiaChi.getText());				
+					JOptionPane.showMessageDialog(rootPane, "Cập nhật thành công");
+				}
+			}
+		});
 		btnSua.setBounds(88, 11, 96, 31);
 		panel_2.add(btnSua);
 		
