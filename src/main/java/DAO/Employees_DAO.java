@@ -1,7 +1,6 @@
 package DAO;
 
 import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -10,17 +9,17 @@ import org.hibernate.query.Query;
 import Entitys.Users;
 import Utils.HibernateUtil;
 
-public class Customers_DAO {
+public class Employees_DAO {
 	static final SessionFactory factory = HibernateUtil.getSessionFactory();
 	Session session = null;
 	Transaction transaction = null;
 
 
-	public void addCustomer(Users customer ) {
+	public void addEmployee(Users employee ) {
 		try {
 			session = factory.openSession();
 			transaction = session.beginTransaction();
-			session.save(customer);
+			session.save(employee);
 			transaction.commit();
 			
 		} catch (Exception e) {
@@ -34,12 +33,12 @@ public class Customers_DAO {
 		}
 	}
 	
-	public void updateCustomer(Users customer) {
+	public void updateEmployee(Users employee) {
 
 		try {
 			session = factory.openSession();
 			transaction = session.beginTransaction();
-			session.saveOrUpdate(customer);
+			session.saveOrUpdate(employee);
 			transaction.commit();
 		} catch (Exception e) {
 			if (transaction != null) {
@@ -52,15 +51,15 @@ public class Customers_DAO {
 		}
 	}
 
-	public void deleteCustomerById(int id) {	
+	public void deleteEmployeeById(int id) {	
 		
 		try {
 			session = factory.openSession();
-			Users customer = session.get(Users.class, id);
+			Users employee = session.get(Users.class, id);
 			
-			if(customer != null) {
+			if(employee != null) {
 				transaction = session.beginTransaction();
-				session.delete(customer);
+				session.delete(employee);
 				transaction.commit();
 			}else {
 				System.out.println("Khách hàng Không Tồn Tại !");
@@ -80,14 +79,14 @@ public class Customers_DAO {
 	
 	
 	@SuppressWarnings("unchecked")
-	public List<Users> getAllCustomer() {
+	public List<Users> getAllEmployee() {
 
-		List <Users> customer = null;
+		List <Users> employee = null;
 		try {
 			session = factory.openSession();
 			transaction = session.beginTransaction();
 			
-			customer = session.createQuery("from Users U where U.role = 1").list();
+			employee = session.createQuery("from Users U where U.role = 2").list();
 
 			
 			transaction.commit();
@@ -100,20 +99,20 @@ public class Customers_DAO {
 			session.clear();
 			session.close();
 		}
-		return customer;
+		return employee;
 		
 	}
 	@SuppressWarnings("unchecked")
-	public List<Users> searchCustomerById(int user_id){
-		List <Users> customer = null;
+	public List<Users> searchEmployeeById(int user_id){
+		List <Users> employee = null;
 		try {
 			session = factory.openSession();
 			transaction = session.beginTransaction();
 			
-			String hql = "FROM Users U WHERE U.idUser = :userid and U.role = 1";
+			String hql = "FROM Users U WHERE U.idUser = :user_id and U.role = 2";
 			Query<Users> query = session.createQuery(hql);
-			query.setParameter("userid",user_id);
-			customer = query.list();
+			query.setParameter("user_id",user_id);
+			employee = query.list();
 			
 			transaction.commit();
 		} catch (Exception e) {
@@ -121,17 +120,8 @@ public class Customers_DAO {
 				transaction.rollback();
 			}
 		}
-		return customer;
+		return employee;
 		
 	}
-	public static void main(String[] args) {
-		Customers_DAO dao = new Customers_DAO();
-//		List<Users> list_users = dao.getAllCustomer();
-		
-//		for (Users i : list_users) {
-//			System.out.println(i);
-//			
-//		}
-		System.out.println(dao.searchCustomerById(200));
-	}
+
 }

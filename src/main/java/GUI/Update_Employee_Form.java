@@ -27,11 +27,19 @@ public class Update_Employee_Form extends JFrame {
 	/**
 	 * Launch the application.
 	 */
+	public Update_Employee_Form(String idNV, String TenNV, String SDT, String DiaChi) {
+		initComponents();
+		textField_IdNV.setText(idNV);
+		textField_TenNV.setText(TenNV);
+		textField_SDT.setText(SDT);
+		textField_DiaChi.setText(DiaChi);
+	
+	}
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Update_Employee_Form frame = new Update_Employee_Form();
+					Update_Employee_Form frame = new Update_Employee_Form("","","","");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -43,7 +51,7 @@ public class Update_Employee_Form extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Update_Employee_Form() {
+	public void initComponents() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 471, 300);
 		contentPane = new JPanel();

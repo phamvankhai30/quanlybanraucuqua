@@ -1,7 +1,6 @@
 package Entitys;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -44,7 +43,7 @@ public class Products implements Serializable {
 	private String img;
 	
 	@Column(name = "Date")
-	private LocalDateTime date;
+	private String date;
 
 	
 
@@ -111,14 +110,18 @@ public class Products implements Serializable {
 	public void setImg(String img) {
 		this.img = img;
 	}
-	
-	public LocalDateTime getDate() {
+
+
+
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDateTime date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
+	
+
 	
 	
 }

@@ -100,6 +100,11 @@ public class Products_Form extends JFrame {
 		panel_1.add(btnXoa);
 		
 		JButton btnTimKiem = new JButton("Tìm kiếm");
+		btnTimKiem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		btnTimKiem.setBounds(224, 11, 89, 23);
 		panel_1.add(btnTimKiem);
 		
@@ -156,9 +161,7 @@ public class Products_Form extends JFrame {
 		btnTrangChu.setBounds(27, 6, 94, 28);
 		panel_1_1.add(btnTrangChu);
 		
-		
-	
-		
-		
 	}
+
+
 }

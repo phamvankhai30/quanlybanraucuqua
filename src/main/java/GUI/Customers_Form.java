@@ -208,7 +208,7 @@ public class Customers_Form extends JFrame {
 		 Object[] columns = {"ID Khách Hàng", "Tên Khách Hàng", "Số Điện Thoại", "Địa Chỉ"};
 		 model.setColumnIdentifiers(columns);
 		
-		 List<Users> customer = customers_BUS.showCustomers();
+		 List<Users> customer = customers_BUS.listCustomers();
 		 for(int i = 0; i < customer.size(); i++) {
 			 model.addRow(new Object[] {
 					 customer.get(i).getIdUser(),
@@ -221,7 +221,7 @@ public class Customers_Form extends JFrame {
 
 	}
 	
-	public  void searchCustomerById () {
+	private  void searchCustomerById () {
 		 Customers_BUS customers_BUS = new Customers_BUS();
 		 DefaultTableModel model = new DefaultTableModel();
 		 Object[] columns = {"ID Khách Hàng", "Tên Nhà Khách Hàng", "Số Điện Thoại", "Địa Chỉ"};
@@ -230,15 +230,17 @@ public class Customers_Form extends JFrame {
 			 JOptionPane.showMessageDialog(rootPane, "Chưa nhập Id Cần Tìm Kiếm");
 		 }else {
 			 String id = textField_TimKiem.getText();
-			 int id_Customer = Integer.parseInt(id);			
-			 Users customer = customers_BUS.getCustomerById(id_Customer);
-		
-			 model.addRow(new Object[] {
-					 customer.getIdUser(),
-					 customer.getName(),
-					 customer.getPhone(),
-					 customer.getAddress() 
-			 });
+			 int id_Customer = Integer.parseInt(id);
+
+			 List<Users> customer = customers_BUS.searchCustomerById(id_Customer);
+				
+			 for(int i = 0; i < customer.size(); i++) {
+				 model.addRow(new Object[] {
+						 customer.get(i).getIdUser(),
+						 customer.get(i).getName(),
+						 customer.get(i).getPhone(),
+				 });
+			 }
 			 table_QLKH.setModel(model);
 		 }
 		 

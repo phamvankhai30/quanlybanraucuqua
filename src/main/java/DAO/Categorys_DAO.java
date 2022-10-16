@@ -5,22 +5,47 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 
-import Entitys.Users;
+
+import Entitys.Categorys;
+
 import Utils.HibernateUtil;
 
-public class Customers_DAO {
+public class Categorys_DAO {
 	static final SessionFactory factory = HibernateUtil.getSessionFactory();
 	Session session = null;
 	Transaction transaction = null;
+	
+	@SuppressWarnings("unchecked")
+	public List<Categorys> getAllCategorys() {
 
-
-	public void addCustomer(Users customer ) {
+		List <Categorys> category = null;
 		try {
 			session = factory.openSession();
 			transaction = session.beginTransaction();
-			session.save(customer);
+			
+			category = session.createQuery("from Categorys").list();
+
+			
+			transaction.commit();
+		} catch (Exception e) {
+			if (transaction != null) {
+				transaction.rollback();
+			}
+
+		}finally {
+			session.clear();
+			session.close();
+		}
+		return category;
+		
+	}
+
+	public void addCategory(Categorys category ) {
+		try {
+			session = factory.openSession();
+			transaction = session.beginTransaction();
+			session.save(category);
 			transaction.commit();
 			
 		} catch (Exception e) {
@@ -34,12 +59,12 @@ public class Customers_DAO {
 		}
 	}
 	
-	public void updateCustomer(Users customer) {
+	public void updateCategory(Categorys category) {
 
 		try {
 			session = factory.openSession();
 			transaction = session.beginTransaction();
-			session.saveOrUpdate(customer);
+			session.saveOrUpdate(category);
 			transaction.commit();
 		} catch (Exception e) {
 			if (transaction != null) {
@@ -52,18 +77,18 @@ public class Customers_DAO {
 		}
 	}
 
-	public void deleteCustomerById(int id) {	
+	public void deleteCategoryById(int id) {	
 		
 		try {
 			session = factory.openSession();
-			Users customer = session.get(Users.class, id);
+			Categorys category = session.get(Categorys.class, id);
 			
-			if(customer != null) {
+			if(category != null) {
 				transaction = session.beginTransaction();
-				session.delete(customer);
+				session.delete(category);
 				transaction.commit();
 			}else {
-				System.out.println("Khách hàng Không Tồn Tại !");
+				System.out.println("Loại Sản Phẩm Không Tồn Tại !");
 			}
 			
 			
@@ -77,19 +102,12 @@ public class Customers_DAO {
 		}
 		
 	}
-	
-	
-	@SuppressWarnings("unchecked")
-	public List<Users> getAllCustomer() {
-
-		List <Users> customer = null;
+	public Categorys getCategoryById(int id) {
+		Categorys category = null;
 		try {
 			session = factory.openSession();
 			transaction = session.beginTransaction();
-			
-			customer = session.createQuery("from Users U where U.role = 1").list();
-
-			
+			category = session.get(Categorys.class, id);
 			transaction.commit();
 		} catch (Exception e) {
 			if (transaction != null) {
@@ -100,38 +118,16 @@ public class Customers_DAO {
 			session.clear();
 			session.close();
 		}
-		return customer;
-		
-	}
-	@SuppressWarnings("unchecked")
-	public List<Users> searchCustomerById(int user_id){
-		List <Users> customer = null;
-		try {
-			session = factory.openSession();
-			transaction = session.beginTransaction();
-			
-			String hql = "FROM Users U WHERE U.idUser = :userid and U.role = 1";
-			Query<Users> query = session.createQuery(hql);
-			query.setParameter("userid",user_id);
-			customer = query.list();
-			
-			transaction.commit();
-		} catch (Exception e) {
-			if (transaction != null) {
-				transaction.rollback();
-			}
-		}
-		return customer;
+		return category;
 		
 	}
 	public static void main(String[] args) {
-		Customers_DAO dao = new Customers_DAO();
-//		List<Users> list_users = dao.getAllCustomer();
+		Categorys_DAO dao = new Categorys_DAO();
 		
-//		for (Users i : list_users) {
-//			System.out.println(i);
-//			
+		System.out.println(dao.getCategoryById(1));
+//		List<Categorys> data = dao.getAllCategorys();
+//		for(Categorys list : data) {
+//			System.out.println(list.getName());
 //		}
-		System.out.println(dao.searchCustomerById(200));
 	}
 }

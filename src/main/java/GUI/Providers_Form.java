@@ -222,7 +222,7 @@ public class Providers_Form extends JFrame {
 		 Object[] columns = {"ID Nhà Cung Cấp", "Tên Nhà Cung Cấp", "Số Điện Thoại", "Địa Chỉ"};
 		 model.setColumnIdentifiers(columns);
 		
-		 List<Providers> providers = providers_BUS.showProviders();
+		 List<Providers> providers = providers_BUS.listProviders();
 		 for(int i = 0; i < providers.size(); i++) {
 			 model.addRow(new Object[] {
 					 providers.get(i).getIdProvider(),
@@ -237,7 +237,7 @@ public class Providers_Form extends JFrame {
 	}
 
 	
-	public  void searchProviderById () {
+	private  void searchProviderById () {
 		 Providers_BUS providers_BUS = new Providers_BUS();
 		 DefaultTableModel model = new DefaultTableModel();
 		 Object[] columns = {"ID Nhà Cung Cấp", "Tên Nhà Cung Cấp", "Số Điện Thoại", "Địa Chỉ"};

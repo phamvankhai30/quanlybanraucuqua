@@ -13,7 +13,7 @@ public class HibernateUtil {
 
 			return configuration.buildSessionFactory();
 		} catch (Exception e) {
-			System.out.println("Lỗi Session Factory" + e);
+			System.out.println("Lỗi Hibernate chưa connect" + e);
 		}
 
 		return null;

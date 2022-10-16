@@ -31,11 +31,12 @@ public class Customers_BUS {
     	customer_DAO.deleteCustomerById(id);
     }
     
-    public List<Users> showCustomers() {
+    public List<Users> listCustomers() {
     	return customer_DAO.getAllCustomer();
     }
-    public Users getCustomerById(int id) {
-    	return customer_DAO.getCustomerById(id);
+
+    public List<Users> searchCustomerById(int id) {
+    	return customer_DAO.searchCustomerById(id);
     }
     
 }

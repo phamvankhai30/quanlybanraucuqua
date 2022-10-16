@@ -5,7 +5,12 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import BUS.Category_BUS;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -89,6 +94,20 @@ public class Add_Category_Form extends JFrame {
 		contentPane.add(panel_2);
 		
 		JButton btnThem = new JButton("Thêm");
+		btnThem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(textField_TenLoaiSP.getText().equals("")) {	
+					JOptionPane.showMessageDialog(rootPane, "Bạn nhập còn thiếu");
+				}else {
+					Category_BUS category_BUS = new Category_BUS();
+					category_BUS.addCategory(textField_TenLoaiSP.getText());
+					JOptionPane.showMessageDialog(rootPane, "Thêm thành công");
+					ResetTextField();
+					
+				} 
+				
+			}
+		});
 		btnThem.setBounds(86, 17, 96, 31);
 		panel_2.add(btnThem);
 		
@@ -101,6 +120,9 @@ public class Add_Category_Form extends JFrame {
 		});
 		btnQuayLai.setBounds(274, 17, 96, 31);
 		panel_2.add(btnQuayLai);
+	}
+	private void ResetTextField() {
+		textField_TenLoaiSP.setText("");
 	}
 
 }

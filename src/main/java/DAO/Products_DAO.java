@@ -5,22 +5,21 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 
-import Entitys.Users;
+import Entitys.Products;
 import Utils.HibernateUtil;
 
-public class Customers_DAO {
+public class Products_DAO {
 	static final SessionFactory factory = HibernateUtil.getSessionFactory();
 	Session session = null;
 	Transaction transaction = null;
 
 
-	public void addCustomer(Users customer ) {
+	public void addProduct(Products product) {
 		try {
 			session = factory.openSession();
 			transaction = session.beginTransaction();
-			session.save(customer);
+			session.save(product);
 			transaction.commit();
 			
 		} catch (Exception e) {
@@ -34,12 +33,12 @@ public class Customers_DAO {
 		}
 	}
 	
-	public void updateCustomer(Users customer) {
+	public void updateProduct(Products product) {
 
 		try {
 			session = factory.openSession();
 			transaction = session.beginTransaction();
-			session.saveOrUpdate(customer);
+			session.saveOrUpdate(product);
 			transaction.commit();
 		} catch (Exception e) {
 			if (transaction != null) {
@@ -52,19 +51,15 @@ public class Customers_DAO {
 		}
 	}
 
-	public void deleteCustomerById(int id) {	
+	public void deleteProductById(int id) {	
 		
 		try {
 			session = factory.openSession();
-			Users customer = session.get(Users.class, id);
+			Products product = session.get(Products.class, id);
 			
-			if(customer != null) {
-				transaction = session.beginTransaction();
-				session.delete(customer);
-				transaction.commit();
-			}else {
-				System.out.println("Khách hàng Không Tồn Tại !");
-			}
+			transaction = session.beginTransaction();
+			session.delete(product);
+			transaction.commit();
 			
 			
 		} catch (Exception e) {
@@ -78,18 +73,35 @@ public class Customers_DAO {
 		
 	}
 	
+	
+	public Products getProductById(int id) {
+		Products product = null;
+		try {
+			session = factory.openSession();
+			transaction = session.beginTransaction();
+			product = session.get(Products.class, id);
+			transaction.commit();
+		} catch (Exception e) {
+			if (transaction != null) {
+				transaction.rollback();
+			}
+
+		}finally {
+			session.clear();
+			session.close();
+		}
+		return product;
+		
+	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Users> getAllCustomer() {
+	public List<Products> getAllProduct() {
 
-		List <Users> customer = null;
+		List <Products> product = null;
 		try {
 			session = factory.openSession();
-			transaction = session.beginTransaction();
-			
-			customer = session.createQuery("from Users U where U.role = 1").list();
-
-			
+			transaction = session.beginTransaction();		
+			product = session.createQuery("from Products").list();
 			transaction.commit();
 		} catch (Exception e) {
 			if (transaction != null) {
@@ -100,38 +112,8 @@ public class Customers_DAO {
 			session.clear();
 			session.close();
 		}
-		return customer;
+		return product;
 		
 	}
-	@SuppressWarnings("unchecked")
-	public List<Users> searchCustomerById(int user_id){
-		List <Users> customer = null;
-		try {
-			session = factory.openSession();
-			transaction = session.beginTransaction();
-			
-			String hql = "FROM Users U WHERE U.idUser = :userid and U.role = 1";
-			Query<Users> query = session.createQuery(hql);
-			query.setParameter("userid",user_id);
-			customer = query.list();
-			
-			transaction.commit();
-		} catch (Exception e) {
-			if (transaction != null) {
-				transaction.rollback();
-			}
-		}
-		return customer;
-		
-	}
-	public static void main(String[] args) {
-		Customers_DAO dao = new Customers_DAO();
-//		List<Users> list_users = dao.getAllCustomer();
-		
-//		for (Users i : list_users) {
-//			System.out.println(i);
-//			
-//		}
-		System.out.println(dao.searchCustomerById(200));
-	}
+
 }

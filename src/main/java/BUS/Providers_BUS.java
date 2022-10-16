@@ -29,7 +29,7 @@ public class Providers_BUS {
     	provider_DAO.deleteProviderById(id);
     }
     
-    public List<Providers> showProviders() {
+    public List<Providers> listProviders() {
     	return provider_DAO.getAllProvider();
     }
     public Providers getProvidersById(int id) {

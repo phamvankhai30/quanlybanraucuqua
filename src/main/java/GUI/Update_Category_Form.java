@@ -5,7 +5,12 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import BUS.Category_BUS;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -25,11 +30,16 @@ public class Update_Category_Form extends JFrame {
 	/**
 	 * Launch the application.
 	 */
+	public Update_Category_Form(String idloaisp, String tenloaisp) {
+		initComponents();
+		textField_IdLoaiSP.setText(idloaisp);
+		textField_TenLoaiSP.setText(tenloaisp);
+	}
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Update_Category_Form frame = new Update_Category_Form();
+					Update_Category_Form frame = new Update_Category_Form("","");
 					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -42,7 +52,7 @@ public class Update_Category_Form extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Update_Category_Form() {
+	public void initComponents() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 466, 274);
 		contentPane = new JPanel();
@@ -90,6 +100,20 @@ public class Update_Category_Form extends JFrame {
 		contentPane.add(panel_2);
 		
 		JButton btnSua = new JButton("Sửa");
+		btnSua.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(textField_TenLoaiSP.getText().equals("")) {	
+					JOptionPane.showMessageDialog(rootPane, "Bạn nhập còn thiếu");
+				}else {
+					Category_BUS category_BUS = new Category_BUS();
+					category_BUS.updateCategory(textField_TenLoaiSP.getName());
+					JOptionPane.showMessageDialog(rootPane, "Thêm thành công");
+					ResetTextField();
+					
+				} 
+				
+			}
+		});
 		btnSua.setBounds(83, 17, 96, 31);
 		panel_2.add(btnSua);
 		
@@ -103,6 +127,9 @@ public class Update_Category_Form extends JFrame {
 		});
 		btnQuayLai.setBounds(276, 17, 96, 31);
 		panel_2.add(btnQuayLai);
+	}
+	private void ResetTextField() {
+		textField_TenLoaiSP.setText("");
 	}
 
 }
