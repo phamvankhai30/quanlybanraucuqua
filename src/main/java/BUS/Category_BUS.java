@@ -32,9 +32,5 @@ public class Category_BUS {
 	public List<Categorys> listCategorys() {
 	    	return category_DAO.getAllCategorys();
 	}
-	public static void main(String[] args) {
-		Category_BUS ca = new Category_BUS();
-		
-		System.out.println(ca.searchCategoryById(1));
-	}
+
 }

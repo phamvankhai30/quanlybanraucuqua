@@ -19,17 +19,13 @@ import java.awt.event.ActionEvent;
 
 public class Add_Category_Form extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField_TenLoaiSP;
 	private JTextField textField_LoaiSP;
+	private Category_BUS category_BUS = new Category_BUS();
 
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -43,9 +39,7 @@ public class Add_Category_Form extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+
 	public Add_Category_Form() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 466, 274);
@@ -96,16 +90,7 @@ public class Add_Category_Form extends JFrame {
 		JButton btnThem = new JButton("Thêm");
 		btnThem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(textField_TenLoaiSP.getText().equals("")) {	
-					JOptionPane.showMessageDialog(rootPane, "Bạn nhập còn thiếu");
-				}else {
-					Category_BUS category_BUS = new Category_BUS();
-					category_BUS.addCategory(textField_TenLoaiSP.getText());
-					JOptionPane.showMessageDialog(rootPane, "Thêm thành công");
-					ResetTextField();
-					
-				} 
-				
+				ThemLoaiSanPham();	
 			}
 		});
 		btnThem.setBounds(86, 17, 96, 31);
@@ -123,6 +108,18 @@ public class Add_Category_Form extends JFrame {
 	}
 	private void ResetTextField() {
 		textField_TenLoaiSP.setText("");
+	}
+	
+	private void ThemLoaiSanPham() {
+		if(textField_TenLoaiSP.getText().equals("")) {	
+			JOptionPane.showMessageDialog(rootPane, "Bạn nhập còn thiếu");
+		}else {
+			
+			category_BUS.addCategory(textField_TenLoaiSP.getText());
+			JOptionPane.showMessageDialog(rootPane, "Thêm thành công");
+			ResetTextField();
+			
+		} 
 	}
 
 }

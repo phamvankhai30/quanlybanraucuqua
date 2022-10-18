@@ -1,18 +1,6 @@
 package BUS;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-
-import javax.imageio.ImageIO;
 
 import DAO.Products_DAO;
 import Entitys.Products;
@@ -57,14 +45,17 @@ public class Products_BUS {
     public Products getProductById(int id) {
     	return product_DAO.getProductById(id);
     }
-    public static void main(String[] args) throws ParseException, IOException {
-		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-		String localDateTime = LocalDateTime.now().format(dateTimeFormatter);
-		
-		InputStream img = new FileInputStream(new File("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\img\\oi.jpg"));
-			
-		Products product = new Products();
-		Products_BUS products_BUS = new Products_BUS();
+    public double TongTienSP(double soluong, double giatien) {
+    	return product_DAO.TongTien(soluong, giatien);
+    }
+    public static void main(String[] args) {
+//		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+//		String localDateTime = LocalDateTime.now().format(dateTimeFormatter);
+//		
+//		InputStream img = new FileInputStream(new File("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\img\\oi.jpg"));
+//			
+//		Products product = new Products();
+//		Products_BUS products_BUS = new Products_BUS();
 
 //		product.setIdCategory(idCategory);
 //    	product.setIdProvider(provider);

@@ -3,9 +3,6 @@ package GUI;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.io.File;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -15,6 +12,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import BUS.Category_BUS;
 import BUS.Products_BUS;
 import BUS.Providers_BUS;
+import DTO.ClockThead;
 import Entitys.Categorys;
 import Entitys.Providers;
 
@@ -23,6 +21,8 @@ import javax.swing.JOptionPane;
 import java.util.List;
 
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -32,32 +32,38 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 
-
 public class Add_Product_Form extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
 	private JPanel contentPane;
+	
+	private JLabel lbl_HinhAnh;
+
 	private JTextField textField_TenSP;
 	private JTextField textField_SoLuong;
-	private JTextField textField_IdSP;
+	private JTextField textField_MaSP;
 	private JTextField textField_GiaTien;
 	private JTextField textField_MoTa;
 	private JTextField textField_ThoiGian;
-	private JLabel lbl_Img;
-	private JComboBox<Object> comboBox_LoaiSP;
+	private JTextField textField_PathIMG;
+	
+	private JComboBox<Object> comboBox_MaLSP;
 	private JComboBox<Object> comboBox_NhaCC;
+	
+	private JButton btnChonHinh;
+	private JButton btnThem;
+	private JButton btnQuayLai;
+	
+	private Category_BUS category_BUS = new Category_BUS();
+	private Products_BUS products_BUS = new Products_BUS();
+	private Providers_BUS providers_BUS = new Providers_BUS();
 
-	/**
-	 * Launch the application.
-	 */
 	public Add_Product_Form() {
 		initComponents();
-		showListCatagorys();
-		showListProviders();
-		showTime();
+		HienThiMaLSP();
+		HienThiMaNhaCC();
+		initClock();
 	}
 
 	public static void main(String[] args) {
@@ -99,9 +105,9 @@ public class Add_Product_Form extends JFrame {
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 
-		JLabel lbl_LoaiSP = new JLabel("Loại Sản Phẩm");
-		lbl_LoaiSP.setBounds(10, 44, 83, 14);
-		panel_1.add(lbl_LoaiSP);
+		JLabel lbl_MaLSP = new JLabel("Mã Loại Sản Phẩm");
+		lbl_MaLSP.setBounds(10, 44, 83, 14);
+		panel_1.add(lbl_MaLSP);
 
 		JLabel lbl_TenSP = new JLabel("Tên Sản Phẩm");
 		lbl_TenSP.setBounds(10, 87, 84, 14);
@@ -115,9 +121,9 @@ public class Add_Product_Form extends JFrame {
 		lbl_GiaTien.setBounds(10, 162, 46, 14);
 		panel_1.add(lbl_GiaTien);
 
-		JLabel lbl_NhaCungCap = new JLabel("Nhà Cung Cấp");
-		lbl_NhaCungCap.setBounds(10, 195, 83, 14);
-		panel_1.add(lbl_NhaCungCap);
+		JLabel lbl_NhaCC = new JLabel("Mã Nhà Cung Cấp");
+		lbl_NhaCC.setBounds(10, 195, 83, 14);
+		panel_1.add(lbl_NhaCC);
 
 		textField_TenSP = new JTextField();
 		textField_TenSP.setColumns(10);
@@ -129,30 +135,30 @@ public class Add_Product_Form extends JFrame {
 		textField_SoLuong.setBounds(103, 125, 129, 20);
 		panel_1.add(textField_SoLuong);
 
-		JLabel lbl_IdSP = new JLabel("ID Sản Phẩm\r\n");
-		lbl_IdSP.setBounds(10, 11, 84, 14);
-		panel_1.add(lbl_IdSP);
+		JLabel lbl_MaSP = new JLabel("Mã Sản Phẩm\r\n");
+		lbl_MaSP.setBounds(10, 11, 84, 14);
+		panel_1.add(lbl_MaSP);
 
-		textField_IdSP = new JTextField();
-		textField_IdSP.setColumns(10);
-		textField_IdSP.setBounds(102, 8, 129, 20);
-		panel_1.add(textField_IdSP);
+		textField_MaSP = new JTextField();
+		textField_MaSP.setColumns(10);
+		textField_MaSP.setBounds(102, 8, 129, 20);
+		panel_1.add(textField_MaSP);
 
 		comboBox_NhaCC = new JComboBox<Object>();
-		comboBox_NhaCC.setModel(new DefaultComboBoxModel<Object>(new String[] {"Chọn Nhà Cung Cấp"}));
+		comboBox_NhaCC.setModel(new DefaultComboBoxModel<Object>(new String[] {"Chọn Mã Nhà Cung Cấp"}));
 		comboBox_NhaCC.setBounds(104, 187, 128, 22);
 		panel_1.add(comboBox_NhaCC);
 
-		comboBox_LoaiSP = new JComboBox<Object>();
-		comboBox_LoaiSP.addActionListener(new ActionListener() {
+		comboBox_MaLSP = new JComboBox<Object>();
+		comboBox_MaLSP.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 			}
 		});
-		
-		comboBox_LoaiSP.setModel(new DefaultComboBoxModel<Object>(new String[] { "Chọn Loại Sản Phẩm" }));
-		comboBox_LoaiSP.setBounds(103, 40, 128, 22);
-		panel_1.add(comboBox_LoaiSP);
+
+		comboBox_MaLSP.setModel(new DefaultComboBoxModel<Object>(new String[] {"Chọn Mã Loại Sản Phẩm"}));
+		comboBox_MaLSP.setBounds(103, 40, 128, 22);
+		panel_1.add(comboBox_MaLSP);
 
 		JLabel lbl_MoTa = new JLabel("Mô tả");
 		lbl_MoTa.setBounds(10, 223, 84, 14);
@@ -181,108 +187,122 @@ public class Add_Product_Form extends JFrame {
 		panel_2.setBounds(0, 322, 459, 65);
 		contentPane.add(panel_2);
 
-		JButton btnThem = new JButton("Thêm");
+		btnThem = new JButton("Thêm");
 		btnThem.setBounds(105, 11, 96, 31);
 		btnThem.addActionListener(new ActionListener() {
-			@SuppressWarnings({ "unlikely-arg-type" })
 			public void actionPerformed(ActionEvent e) {
-				if (textField_TenSP.getText().equals("") || textField_SoLuong.getText().equals("")
-						|| textField_GiaTien.getText().equals("") || comboBox_LoaiSP.equals("Chọn Loại Sản Phẩm")
-						|| comboBox_NhaCC.equals("Chọn Nhà Cung Cấp")) {
-					JOptionPane.showMessageDialog(rootPane, "Bạn nhập còn thiếu");
-				} else {
-
-					Products_BUS products_BUS =  new Products_BUS();
-					int id_category = (Integer) comboBox_LoaiSP.getSelectedItem();
-					int id_provider = (Integer) comboBox_NhaCC.getSelectedItem();
-					String img = lbl_Img.getText();
-					String name = textField_TenSP.getText();
-					double price = Double.parseDouble(textField_SoLuong.getText());
-					double quatity = Double.parseDouble(textField_GiaTien.getText());
-					String description = textField_MoTa.getText();
-					String time = textField_ThoiGian.getText();
-					
-
-					products_BUS.addProduct(id_category, id_provider, img, name, price, quatity, description,time);
-					JOptionPane.showMessageDialog(rootPane, "Thêm thành công");
-					ResetTextField();
-
-				}
-
+				ThemSanPham();
 			}
 		});
 		panel_2.setLayout(null);
 		panel_2.add(btnThem);
 
-		JButton btnQuaLai = new JButton("Quay Lại");
-		btnQuaLai.addActionListener(new ActionListener() {
+		btnQuayLai = new JButton("Quay Lại");
+		btnQuayLai.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				toBack();
 				setVisible(false);
 			}
 		});
-		btnQuaLai.setBounds(252, 11, 96, 31);
-		panel_2.add(btnQuaLai);
+		btnQuayLai.setBounds(252, 11, 96, 31);
+		panel_2.add(btnQuayLai);
 
-		lbl_Img = new JLabel("");
-		lbl_Img.setBounds(303, 96, 139, 126);
-		contentPane.add(lbl_Img);
-		lbl_Img.setBorder(new LineBorder(new Color(0, 0, 0)));
+		JPanel panel_3 = new JPanel();
+		panel_3.setBounds(296, 72, 163, 203);
+		contentPane.add(panel_3);
+		panel_3.setLayout(null);
 
-		JButton btnNewButton = new JButton("Hình Ảnh");
-		btnNewButton.setBounds(333, 233, 89, 23);
-		contentPane.add(btnNewButton);
-		btnNewButton.addActionListener(new ActionListener() {
+		lbl_HinhAnh = new JLabel("");
+		lbl_HinhAnh.setBounds(10, 11, 139, 126);
+		panel_3.add(lbl_HinhAnh);
+		lbl_HinhAnh.setBorder(new LineBorder(new Color(0, 0, 0)));
+
+		btnChonHinh = new JButton("Hình Ảnh");
+		btnChonHinh.setBounds(35, 148, 89, 23);
+		panel_3.add(btnChonHinh);
+
+		textField_PathIMG = new JTextField();
+		textField_PathIMG.setBounds(11, 172, 138, 20);
+		panel_3.add(textField_PathIMG);
+		textField_PathIMG.setColumns(10);
+		btnChonHinh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFileChooser filechooser = new JFileChooser();
-				FileNameExtensionFilter imgFilter = new FileNameExtensionFilter("Hinh ảnh", "png", "jpg");
-				filechooser.setFileFilter(imgFilter);
-				filechooser.setMultiSelectionEnabled(false);
-				int response = filechooser.showOpenDialog(null);
-
-				if (response == JFileChooser.APPROVE_OPTION) {
-					File imgFile = filechooser.getSelectedFile();
-					lbl_Img.setIcon(new ImageIcon(imgFile.getAbsolutePath()));
-					// System.out.println(imgFile.getAbsolutePath());
-				}
-
+				ChonHinh();
 			}
 		});
 	}
 
-	private void showListCatagorys() {
-		Category_BUS category_BUS = new Category_BUS();
-		List<Categorys> listCategory = category_BUS.listCategorys();
-
-		for (Categorys category : listCategory) {
-			comboBox_LoaiSP.addItem(category.getIdCategor());
+	private void HienThiMaLSP() {
+		List<Categorys> listCategorys = category_BUS.listCategorys();
+		for (Categorys category : listCategorys) {
+			comboBox_MaLSP.addItem(category.getIdCategor());
 		}
 	}
 
-	private void showListProviders() {
-		Providers_BUS providers_BUS = new Providers_BUS();
-		List<Providers> listProvider = providers_BUS.listProviders();
-
-		for (Providers provider : listProvider) {
+	private void HienThiMaNhaCC() {
+		List<Providers> listProviders = providers_BUS.listProviders();
+		for (Providers provider : listProviders) {
 			comboBox_NhaCC.addItem(provider.getIdProvider());
 		}
 	}
-	private void showTime() {
-		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-		String localDateTime = LocalDateTime.now().format(dateTimeFormatter);
-		
-		textField_ThoiGian.setText(localDateTime);
+
+	private void initClock() {
+		ClockThead clock = new ClockThead(textField_ThoiGian);
+		clock.start();
 	}
+
 	private void ResetTextField() {
-		comboBox_LoaiSP.setSelectedItem("Chọn Loại Sản Phẩm");
+		comboBox_MaLSP.setSelectedItem("Chọn Loại Sản Phẩm");
 		comboBox_NhaCC.setSelectedItem("Chọn Nhà Cung Cấp");
-		lbl_Img.setText("");
+		lbl_HinhAnh.setText("");
 		textField_TenSP.setText("");
 		textField_SoLuong.setText("");
 		textField_GiaTien.setText("");
 		textField_MoTa.setText("");
-		showTime();
-		
+		lbl_HinhAnh.setIcon(null);
+		textField_PathIMG.setText("");
+		initClock();
+
 	}
 
+	@SuppressWarnings("unlikely-arg-type")
+	private void ThemSanPham() {
+		if (textField_TenSP.getText().equals("") || textField_SoLuong.getText().equals("")
+				|| textField_GiaTien.getText().equals("") || comboBox_MaLSP.equals("Chọn Loại Sản Phẩm")
+				|| comboBox_NhaCC.equals("Chọn Nhà Cung Cấp")) {
+			JOptionPane.showMessageDialog(rootPane, "Bạn nhập còn thiếu");
+		} else {
+			int maSP = (Integer) comboBox_MaLSP.getSelectedItem();
+			int maLSP = (Integer) comboBox_NhaCC.getSelectedItem();
+			String hinhAnh = textField_PathIMG.getText();
+			String tenSP = textField_TenSP.getText();
+			double giaSP = Double.parseDouble(textField_SoLuong.getText());
+			double soLuong = Double.parseDouble(textField_GiaTien.getText());
+			String moTa = textField_MoTa.getText();
+			String thoiGian = textField_ThoiGian.getText();
+
+			products_BUS.addProduct(maSP, maLSP, hinhAnh, tenSP, giaSP, soLuong, moTa, thoiGian);
+			JOptionPane.showMessageDialog(rootPane, "Thêm thành công");
+			ResetTextField();
+		}
+	}
+
+	private void ChonHinh() {
+		JFileChooser filechooser = new JFileChooser("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\img");
+		FileNameExtensionFilter imgFilter = new FileNameExtensionFilter("Hinh ảnh", "png", "jpg");
+		filechooser.setFileFilter(imgFilter);
+
+		filechooser.setMultiSelectionEnabled(false);
+
+		filechooser.showOpenDialog(null);
+
+		File file = filechooser.getSelectedFile();
+		String pathImg = file.toString();
+	
+		ImageIcon imageIcon = new ImageIcon(pathImg);
+		Image hinhAnh = imageIcon.getImage().getScaledInstance(lbl_HinhAnh.getWidth(), lbl_HinhAnh.getHeight(), Image.SCALE_SMOOTH);
+		lbl_HinhAnh.setIcon(new ImageIcon(hinhAnh));
+		
+		textField_PathIMG.setText(pathImg);
+	}
 }

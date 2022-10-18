@@ -22,24 +22,19 @@ import java.awt.event.MouseEvent;
 
 public class Update_Provider_Form extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	JTextField textField_IdNhaCC;
-	JTextField textField_SDT;
-	JTextField textField_DiaChi;
-	JTextField textField_TenNhaCC;
+	private JTextField textField_MaNhaCC;
+	private JTextField textField_SDT;
+	private JTextField textField_DiaChi;
+	private JTextField textField_TenNhaCC;
 	
+	private Providers_BUS provider_BUS = new Providers_BUS();
 	
-	/**
-	 * Launch the application.
-	 */
 
 	public Update_Provider_Form(String idncc, String TenNCC, String SDT, String DiaChi) {
 		initComponents();
-		textField_IdNhaCC.setText(idncc);
+		textField_MaNhaCC.setText(idncc);
 		textField_TenNhaCC.setText(TenNCC);
 		textField_SDT.setText(SDT);
 		textField_DiaChi.setText(DiaChi);
@@ -105,21 +100,21 @@ public class Update_Provider_Form extends JFrame {
 		textField_DiaChi.setBounds(130, 122, 129, 20);
 		panel_1.add(textField_DiaChi);
 		
-		JLabel lbl_IdNhaCC = new JLabel("ID Nhà Cung Cấp");
+		JLabel lbl_IdNhaCC = new JLabel("Mã Nhà Cung Cấp");
 		lbl_IdNhaCC.setBounds(10, 11, 84, 14);
 		panel_1.add(lbl_IdNhaCC);
 		
-		textField_IdNhaCC = new JTextField();
-		textField_IdNhaCC.addMouseListener(new MouseAdapter() {
+		textField_MaNhaCC = new JTextField();
+		textField_MaNhaCC.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				textField_IdNhaCC.setEditable(false);
-				textField_IdNhaCC.setBackground(Color.LIGHT_GRAY);
+				textField_MaNhaCC.setEditable(false);
+				textField_MaNhaCC.setBackground(Color.LIGHT_GRAY);
 			}
 		});
-		textField_IdNhaCC.setColumns(10);
-		textField_IdNhaCC.setBounds(130, 8, 129, 20);
-		panel_1.add(textField_IdNhaCC);
+		textField_MaNhaCC.setColumns(10);
+		textField_MaNhaCC.setBounds(130, 8, 129, 20);
+		panel_1.add(textField_MaNhaCC);
 		
 		JLabel lbl_SDT = new JLabel("Số Điện Thoại");
 		lbl_SDT.setBounds(10, 92, 84, 14);
@@ -138,18 +133,7 @@ public class Update_Provider_Form extends JFrame {
 		JButton btnSua = new JButton("Sửa");
 		btnSua.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				String message = "";
-				if(textField_TenNhaCC.getText().equals("")|| textField_SDT.getText().equals("")|| textField_DiaChi.getText().equals("")) {
-					message = "Bạn không được bỏ trống";
-					JOptionPane.showMessageDialog(rootPane, message);
-				}else {
-					Providers_BUS provider_BUS = new Providers_BUS();
-					provider_BUS.updateProvider(textField_TenNhaCC.getText(),textField_SDT.getText(),textField_DiaChi.getText());
-					message = "Cập nhật thành công";
-					JOptionPane.showMessageDialog(rootPane, message);
-				}
-				
+				SuaNhaCungCap();
 			}
 		});
 		btnSua.setBounds(92, 11, 96, 31);
@@ -165,6 +149,23 @@ public class Update_Provider_Form extends JFrame {
 		btnQuayLai.setBounds(271, 11, 96, 31);
 		panel_2.add(btnQuayLai);
 		
+	}
+	
+	private void SuaNhaCungCap() {
+		if(textField_TenNhaCC.getText().equals("")|| textField_SDT.getText().equals("")|| textField_DiaChi.getText().equals("")) {
+			
+			JOptionPane.showMessageDialog(rootPane, "Bạn không được bỏ trống");
+		}else {
+			provider_BUS.updateProvider(textField_TenNhaCC.getText(),textField_SDT.getText(),textField_DiaChi.getText());
+			JOptionPane.showMessageDialog(rootPane, "Cập nhật thành công");
+			ResetTextField();
+		}
+	}
+	
+	private void ResetTextField() {
+		textField_TenNhaCC.setText("");
+		textField_SDT.setText("");
+		textField_DiaChi.setText("");
 		
 	}
 

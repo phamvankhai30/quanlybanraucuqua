@@ -19,19 +19,20 @@ import java.awt.event.ActionEvent;
 
 public class Add_Employee_Form extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
 	private JPanel contentPane;
+	
 	private JTextField textField_SDT;
 	private JTextField textField_DiaChi;
 	private JTextField textField_IdNV;
 	private JTextField textField_TenNV;
 
-	/**
-	 * Launch the application.
-	 */
+	private JButton btnThem;
+	private JButton btnQuayLai;
+	
+	Employees_BUS employee_BUS = new Employees_BUS();
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -45,9 +46,7 @@ public class Add_Employee_Form extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+
 	public Add_Employee_Form() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 471, 300);
@@ -113,39 +112,40 @@ public class Add_Employee_Form extends JFrame {
 		panel_2.setBounds(0, 208, 459, 53);
 		contentPane.add(panel_2);
 		
-		JButton btnNewButton = new JButton("Thêm");
-		btnNewButton.addActionListener(new ActionListener() {
+		btnThem = new JButton("Thêm");
+		btnThem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(textField_TenNV.getText().equals("") || textField_SDT.getText().equals("") ||textField_DiaChi.getText().equals("")) {	
-					JOptionPane.showMessageDialog(rootPane, "Bạn nhập còn thiếu");
-				}else {
-					Employees_BUS employee_BUS = new Employees_BUS();
-					employee_BUS.addEmployee(textField_TenNV.getText(),textField_SDT.getText(),textField_DiaChi.getText());
-					JOptionPane.showMessageDialog(rootPane, "Thêm thành công");
-					ResetTextField();
-					
-				} 
+				ThemNhanVien();
 			}
 		});
-		btnNewButton.setBounds(103, 11, 96, 31);
-		panel_2.add(btnNewButton);
+		btnThem.setBounds(103, 11, 96, 31);
+		panel_2.add(btnThem);
 		
-		JButton btnQuayLi = new JButton("Quay Lại");
-		btnQuayLi.addActionListener(new ActionListener() {
+		btnQuayLai = new JButton("Quay Lại");
+		btnQuayLai.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				toBack();
 				setVisible(false);
 			}
 		});
-		btnQuayLi.setBounds(255, 11, 96, 31);
-		panel_2.add(btnQuayLi);
+		btnQuayLai.setBounds(255, 11, 96, 31);
+		panel_2.add(btnQuayLai);
 	}
 	
 	private void ResetTextField() {
 		textField_TenNV.setText("");
 		textField_SDT.setText("");
 		textField_DiaChi.setText("");
-		
+	}
+	
+	private void ThemNhanVien() {
+		if(textField_TenNV.getText().equals("") || textField_SDT.getText().equals("") ||textField_DiaChi.getText().equals("")) {	
+			JOptionPane.showMessageDialog(rootPane, "Bạn nhập còn thiếu");
+		}else {
+			employee_BUS.addEmployee(textField_TenNV.getText(),textField_SDT.getText(),textField_DiaChi.getText());
+			JOptionPane.showMessageDialog(rootPane, "Thêm thành công");
+			ResetTextField();
+		} 
 	}
 
 }

@@ -24,19 +24,17 @@ import java.awt.event.MouseEvent;
 
 public class Add_Customer_Form extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
 	private JPanel contentPane;
-	private JTextField textField_SoDienThoai;
+	
+	private JTextField textField_SDT;
 	private JTextField textField_DiaChi;
-	private JTextField textField_KhachHang;
-	private JTextField textField_TenKhachHang;
+	private JTextField textField_MaKH;
+	private JTextField textField_TenKH;
+	
+	private Customers_BUS customers_BUS = new Customers_BUS();
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -50,9 +48,7 @@ public class Add_Customer_Form extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+
 	public Add_Customer_Form() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 471, 300);
@@ -85,40 +81,40 @@ public class Add_Customer_Form extends JFrame {
 		lbl_DiaChi.setBounds(10, 134, 84, 14);
 		panel_1.add(lbl_DiaChi);
 		
-		textField_SoDienThoai = new JTextField();
-		textField_SoDienThoai.setColumns(10);
-		textField_SoDienThoai.setBounds(104, 90, 129, 20);
-		panel_1.add(textField_SoDienThoai);
+		textField_SDT = new JTextField();
+		textField_SDT.setColumns(10);
+		textField_SDT.setBounds(104, 90, 129, 20);
+		panel_1.add(textField_SDT);
 		
 		textField_DiaChi = new JTextField();
 		textField_DiaChi.setColumns(10);
 		textField_DiaChi.setBounds(104, 131, 129, 20);
 		panel_1.add(textField_DiaChi);
 		
-		JLabel lbl_IdKhachHang = new JLabel("ID Khách Hàng\r\n");
+		JLabel lbl_IdKhachHang = new JLabel("Mã Khách Hàng\r\n");
 		lbl_IdKhachHang.setBounds(10, 11, 84, 14);
 		panel_1.add(lbl_IdKhachHang);
 		
-		textField_KhachHang = new JTextField();
-		textField_KhachHang.addMouseListener(new MouseAdapter() {
+		textField_MaKH = new JTextField();
+		textField_MaKH.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				textField_KhachHang.setEditable(false);
-				textField_KhachHang.setBackground(Color.LIGHT_GRAY);
+				textField_MaKH.setEditable(false);
+				textField_MaKH.setBackground(Color.LIGHT_GRAY);
 			}
 		});
-		textField_KhachHang.setColumns(10);
-		textField_KhachHang.setBounds(102, 8, 129, 20);
-		panel_1.add(textField_KhachHang);
+		textField_MaKH.setColumns(10);
+		textField_MaKH.setBounds(102, 8, 129, 20);
+		panel_1.add(textField_MaKH);
 		
 		JLabel lbl_SDT = new JLabel("Số Điện Thoại");
 		lbl_SDT.setBounds(10, 93, 84, 14);
 		panel_1.add(lbl_SDT);
 		
-		textField_TenKhachHang = new JTextField();
-		textField_TenKhachHang.setColumns(10);
-		textField_TenKhachHang.setBounds(103, 52, 129, 20);
-		panel_1.add(textField_TenKhachHang);
+		textField_TenKH = new JTextField();
+		textField_TenKH.setColumns(10);
+		textField_TenKH.setBounds(103, 52, 129, 20);
+		panel_1.add(textField_TenKH);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setLayout(null);
@@ -128,15 +124,7 @@ public class Add_Customer_Form extends JFrame {
 		JButton btnThem = new JButton("Thêm");
 		btnThem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(textField_TenKhachHang.getText().equals("") || textField_SoDienThoai.getText().equals("") ||textField_DiaChi.getText().equals("")) {	
-					JOptionPane.showMessageDialog(rootPane, "Bạn nhập còn thiếu");
-				}else {
-					Customers_BUS customers_BUS = new Customers_BUS();
-					customers_BUS.addCustomer(textField_TenKhachHang.getText(),textField_SoDienThoai.getText(),textField_DiaChi.getText());
-					JOptionPane.showMessageDialog(rootPane, "Thêm thành công");
-					ResetTextField();
-					
-				} 
+				 ThemKhachHang();
 			}
 		});
 		btnThem.setBounds(101, 11, 96, 31);
@@ -155,12 +143,20 @@ public class Add_Customer_Form extends JFrame {
 		
 	}
 	private void ResetTextField() {
-		textField_TenKhachHang.setText("");
-		textField_SoDienThoai.setText("");
+		textField_TenKH.setText("");
+		textField_SDT.setText("");
 		textField_DiaChi.setText("");
 		
 	}
 	
+	private void ThemKhachHang() {
+		if(textField_TenKH.getText().equals("") || textField_SDT.getText().equals("") ||textField_DiaChi.getText().equals("")) {	
+			JOptionPane.showMessageDialog(rootPane, "Bạn nhập còn thiếu");
+		}else {
+			customers_BUS.addCustomer(textField_TenKH.getText(),textField_SDT.getText(),textField_DiaChi.getText());
+			JOptionPane.showMessageDialog(rootPane, "Thêm thành công");
+			ResetTextField();
+		}
+	}
 	
-
 }

@@ -19,21 +19,18 @@ import java.awt.event.ActionEvent;
 
 public class Update_Category_Form extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField_TenLoaiSP;
 	private JTextField textField_IdLoaiSP;
+	
+	private Category_BUS category_BUS = new Category_BUS();
 
-	/**
-	 * Launch the application.
-	 */
-	public Update_Category_Form(String idloaisp, String tenloaisp) {
+
+	public Update_Category_Form(String maLoaiSP, String tenLoaiSP) {
 		initComponents();
-		textField_IdLoaiSP.setText(idloaisp);
-		textField_TenLoaiSP.setText(tenloaisp);
+		textField_IdLoaiSP.setText(maLoaiSP);
+		textField_TenLoaiSP.setText(tenLoaiSP);
 	}
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -49,9 +46,7 @@ public class Update_Category_Form extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+
 	public void initComponents() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 466, 274);
@@ -102,15 +97,7 @@ public class Update_Category_Form extends JFrame {
 		JButton btnSua = new JButton("Sửa");
 		btnSua.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(textField_TenLoaiSP.getText().equals("")) {	
-					JOptionPane.showMessageDialog(rootPane, "Bạn nhập còn thiếu");
-				}else {
-					Category_BUS category_BUS = new Category_BUS();
-					category_BUS.updateCategory(textField_TenLoaiSP.getName());
-					JOptionPane.showMessageDialog(rootPane, "Thêm thành công");
-					ResetTextField();
-					
-				} 
+				SuaLoaiSanPham();
 				
 			}
 		});
@@ -130,6 +117,15 @@ public class Update_Category_Form extends JFrame {
 	}
 	private void ResetTextField() {
 		textField_TenLoaiSP.setText("");
+	}
+	private void SuaLoaiSanPham() {
+		if(textField_TenLoaiSP.getText().equals("")) {	
+			JOptionPane.showMessageDialog(rootPane, "Bạn nhập còn thiếu");
+		}else {
+			category_BUS.updateCategory(textField_TenLoaiSP.getName());
+			JOptionPane.showMessageDialog(rootPane, "Thêm thành công");
+			ResetTextField();
+		} 
 	}
 
 }

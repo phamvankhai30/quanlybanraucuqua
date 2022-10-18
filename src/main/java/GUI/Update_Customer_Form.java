@@ -22,22 +22,20 @@ import java.awt.event.MouseEvent;
 
 public class Update_Customer_Form extends JFrame {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField_IdKH;
 	private JTextField textField_TenKH;
 	private JTextField textField_SDT;
 	private JTextField textField_DiaChi;
+	
+	private Customers_BUS customers_BUS = new Customers_BUS();
 
-	/**
-	 * Launch the application.
-	 */
-	public Update_Customer_Form(String idKH, String TenKH, String SDT, String DiaChi) {
+
+	public Update_Customer_Form(String maKH, String TenKH, String SDT, String DiaChi) {
 		initComponents();
-		textField_IdKH.setText(idKH);
+		textField_IdKH.setText(maKH);
 		textField_TenKH.setText(TenKH);
 		textField_SDT.setText(SDT);
 		textField_DiaChi.setText(DiaChi);
@@ -56,9 +54,7 @@ public class Update_Customer_Form extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+
 	public void initComponents() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 471, 300);
@@ -135,15 +131,7 @@ public class Update_Customer_Form extends JFrame {
 		JButton btnSua = new JButton("Sửa");
 		btnSua.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				if(textField_TenKH.getText().equals("")|| textField_SDT.getText().equals("")|| textField_DiaChi.getText().equals("")) {
-					
-					JOptionPane.showMessageDialog(rootPane, "Bạn không được bỏ trống");
-				}else {
-					Customers_BUS customers_BUS = new Customers_BUS();
-					customers_BUS.updateCustomer(textField_TenKH.getText(),textField_SDT.getText(),textField_DiaChi.getText());				
-					JOptionPane.showMessageDialog(rootPane, "Cập nhật thành công");
-				}
+				SuaKhachHang();
 			}
 		});
 		btnSua.setBounds(88, 11, 96, 31);
@@ -158,6 +146,16 @@ public class Update_Customer_Form extends JFrame {
 		});
 		btnQuayLai.setBounds(238, 11, 96, 31);
 		panel_2.add(btnQuayLai);
+	}
+	
+	private void SuaKhachHang() {
+		if(textField_TenKH.getText().equals("")|| textField_SDT.getText().equals("")|| textField_DiaChi.getText().equals("")) {
+			
+			JOptionPane.showMessageDialog(rootPane, "Bạn không được bỏ trống");
+		}else {
+			customers_BUS.updateCustomer(textField_TenKH.getText(),textField_SDT.getText(),textField_DiaChi.getText());				
+			JOptionPane.showMessageDialog(rootPane, "Cập nhật thành công");
+		}
 	}
 
 }

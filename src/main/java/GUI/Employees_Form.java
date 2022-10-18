@@ -27,20 +27,26 @@ import java.awt.Color;
 
 public class Employees_Form extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
 	private JPanel contentPane;
-	private JTextField textField_TimKiem;
+	
 	private JTable table_QLNV;
 
-	/**
-	 * Launch the application.
-	 */
+	private JTextField textField_TimKiem;
+	
+	private JButton btnThem;
+	private JButton btnSua;
+	private JButton btnXoa;
+	private JButton btnTimKiem;
+	
+	private Customers_BUS customers_BUS= new Customers_BUS();
+	private Employees_BUS employee_BUS = new Employees_BUS();
+	
+	
 	public Employees_Form() {
 		initComponents();
-		showEmployees();
+		HienThiNhanVien();
 		
 	}
 	public static void main(String[] args) {
@@ -57,9 +63,6 @@ public class Employees_Form extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public void initComponents() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 671, 431);
@@ -86,64 +89,37 @@ public class Employees_Form extends JFrame {
 		panel_1.setBounds(0, 41, 655, 48);
 		contentPane.add(panel_1);
 		
-		JButton btnThem = new JButton("Thêm");
+		btnThem = new JButton("Thêm");
 		btnThem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Add_Employee_Form add_Employee_Form = new Add_Employee_Form ();
-				add_Employee_Form.setLocationRelativeTo(null);
-				add_Employee_Form.setVisible(true);
-				
-				
+				ThemNhanVien();
 			}
 		});
 		btnThem.setBounds(323, 11, 89, 23);
 		panel_1.add(btnThem);
 		
-		JButton btnSua = new JButton("Sửa");
+		btnSua = new JButton("Sửa");
 		btnSua.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int i = table_QLNV.getSelectedRow();
-				if(i <= -1) {
-					JOptionPane.showMessageDialog(rootPane, "Chưa chọn thông tin cần sửa");
-				}else {
-					String id = table_QLNV.getModel().getValueAt(i, 0)+"";
-					String ten = table_QLNV.getModel().getValueAt(i, 1)+"";
-					String SDT = table_QLNV.getModel().getValueAt(i, 2)+"";
-					String DiaChi = table_QLNV.getModel().getValueAt(i, 3)+"";
-					Update_Employee_Form update_Employee_Form = new Update_Employee_Form(id,ten,SDT,DiaChi);
-					update_Employee_Form.setLocationRelativeTo(null);
-					update_Employee_Form.setVisible(true);
-				}
-				
+				SuaNhanVien();
 			}
 		});
 		btnSua.setBounds(422, 11, 89, 23);
 		panel_1.add(btnSua);
 		
-		JButton btnXoa = new JButton("Xoá");
+		btnXoa = new JButton("Xoá");
 		btnXoa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int i = table_QLNV.getSelectedRow();
-				if(i <= -1) {
-					JOptionPane.showMessageDialog(rootPane, "Chưa chọn thông tin cần xoá");
-				}else {
-					String id_Customer = table_QLNV.getModel().getValueAt(i, 0).toString();
-					int id = Integer.parseInt(id_Customer);
-
-					Customers_BUS customers_BUS= new Customers_BUS();
-					customers_BUS.deleteCustomerById(id);
-					JOptionPane.showMessageDialog(rootPane, "Xoá thành công");
-					showEmployees();
-				}
+				XoaNhanVien();
 			}
 		});
 		btnXoa.setBounds(521, 11, 89, 23);
 		panel_1.add(btnXoa);
 		
-		JButton btnTimKiem = new JButton("Tìm kiếm");
+		btnTimKiem = new JButton("Tìm kiếm");
 		btnTimKiem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				searchEmployeeById();
+				TimKiemNVTheoId();
 			}
 		});
 		btnTimKiem.setBounds(224, 11, 89, 23);
@@ -191,21 +167,54 @@ public class Employees_Form extends JFrame {
 		panel_1_1_1.setBounds(509, 0, 146, 39);
 		contentPane.add(panel_1_1_1);
 		
-		JButton btnReset = new JButton("Reset");
+		JButton btnReset = new JButton("Làm Mới");
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				showEmployees();
+				HienThiNhanVien();
 			}
 		});
 		btnReset.setBounds(27, 6, 94, 28);
 		panel_1_1_1.add(btnReset);
 	}
 	
-	public void showEmployees() {
+	private void ThemNhanVien() {
+		Add_Employee_Form add_Employee_Form = new Add_Employee_Form ();
+		add_Employee_Form.setLocationRelativeTo(null);
+		add_Employee_Form.setVisible(true);
+	}
+	private void XoaNhanVien() {
+		int i = table_QLNV.getSelectedRow();
+		if(i <= -1) {
+			JOptionPane.showMessageDialog(rootPane, "Chưa chọn thông tin cần xoá");
+		}else {
+			String maNV = table_QLNV.getModel().getValueAt(i, 0).toString();
+			int idNV = Integer.parseInt(maNV);
 
-		Employees_BUS employee_BUS = new Employees_BUS();
+			customers_BUS.deleteCustomerById(idNV);
+			JOptionPane.showMessageDialog(rootPane, "Xoá thành công");
+			HienThiNhanVien();
+		}
+	}
+	private void SuaNhanVien() {
+		int i = table_QLNV.getSelectedRow();
+		if(i <= -1) {
+			JOptionPane.showMessageDialog(rootPane, "Chưa chọn thông tin cần sửa");
+		}else {
+			String maNV = table_QLNV.getModel().getValueAt(i, 0)+"";
+			String tenNV = table_QLNV.getModel().getValueAt(i, 1)+"";
+			String soDienThoai = table_QLNV.getModel().getValueAt(i, 2)+"";
+			String diaChi = table_QLNV.getModel().getValueAt(i, 3)+"";
+			
+			Update_Employee_Form update_Employee_Form = new Update_Employee_Form(maNV,tenNV,soDienThoai,diaChi);
+			update_Employee_Form.setLocationRelativeTo(null);
+			update_Employee_Form.setVisible(true);
+		}
+	}
+	
+	private void HienThiNhanVien() {
+		
 		 DefaultTableModel model = new DefaultTableModel();
-		 Object[] columns = {"ID Nhân Viên", "Tên Nhân Viên", "Số Điện Thoại", "Địa Chỉ"};
+		 Object[] columns = {"Mã Nhân Viên", "Tên Nhân Viên", "Số Điện Thoại", "Địa Chỉ"};
 		 model.setColumnIdentifiers(columns);
 		
 		 List<Users> employee = employee_BUS.listEmployee();
@@ -221,18 +230,19 @@ public class Employees_Form extends JFrame {
 
 	}
 	
-	public  void searchEmployeeById () {
+	private  void TimKiemNVTheoId () {
 		Employees_BUS employee_BUS = new Employees_BUS();
 		 DefaultTableModel model = new DefaultTableModel();
 		 Object[] columns = {"ID Khân Viên", "Tên Nhân Viên", "Số Điện Thoại", "Địa Chỉ"};
 		 model.setColumnIdentifiers(columns);
+		 
 		 if(textField_TimKiem.getText().equals("")) {
 			 JOptionPane.showMessageDialog(rootPane, "Chưa nhập Id Cần Tìm Kiếm");
 		 }else {
-			 String id = textField_TimKiem.getText();
-			 int id_Employee = Integer.parseInt(id);			
-			 List<Users> employee = employee_BUS.searchEmployeeById(id_Employee);
-		
+			 String maNV = textField_TimKiem.getText();
+			 int idNV = Integer.parseInt(maNV);			
+			 List<Users> employee = employee_BUS.searchEmployeeById(idNV);
+
 			 for(int i = 0; i < employee.size(); i++) {
 				 model.addRow(new Object[] {
 						 employee.get(i).getIdUser(),

@@ -30,20 +30,17 @@ import java.awt.event.MouseEvent;
 
 public class Providers_Form extends JFrame {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	JPanel contentPane;
-	JTextField textField_TimKiem;
-	JTable table_QLNCC;
 
-	/**
-	 * Launch the application.
-	 */
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField textField_TimKiem;
+	private JTable table_QLNCC;
+	
+	private Providers_BUS providers_BUS = new Providers_BUS();
+
 	public Providers_Form() {
 		initComponents();
-		showProviders();
+		HienThiNhaCungCap();
 	}
 
 	public static void main(String[] args) {
@@ -60,9 +57,7 @@ public class Providers_Form extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+	
 	public void initComponents() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 581, 348);
@@ -123,18 +118,7 @@ public class Providers_Form extends JFrame {
 		JButton btnXoa = new JButton("Xoá");
 		btnXoa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int i = table_QLNCC.getSelectedRow();
-				if(i <= -1) {
-					JOptionPane.showMessageDialog(rootPane, "Chưa chọn thông tin cần xoá");
-				}else {
-					String id_Provider = table_QLNCC.getModel().getValueAt(i, 0).toString();
-					int id = Integer.parseInt(id_Provider);
-
-					Providers_BUS providers_BUS= new Providers_BUS();
-					providers_BUS.deleteProviderById(id);
-					JOptionPane.showMessageDialog(rootPane, "Xoá thành công");
-					showProviders();
-				}
+				XoaNhaCungCap();
 			}
 		});
 		btnXoa.setBounds(466, 11, 89, 23);
@@ -143,7 +127,7 @@ public class Providers_Form extends JFrame {
 		JButton btnTimKiem = new JButton("Tìm kiếm");
 		btnTimKiem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				searchProviderById();
+				TimKiemNhaCCTheoId();
 			}
 		});
 		btnTimKiem.setBounds(171, 11, 89, 23);
@@ -202,10 +186,10 @@ public class Providers_Form extends JFrame {
 		panel_1_1_1.setBounds(419, 0, 146, 49);
 		contentPane.add(panel_1_1_1);
 		
-		JButton btnReset = new JButton("Reset");
+		JButton btnReset = new JButton("Làm Mới");
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				showProviders();
+				HienThiNhaCungCap();
 			}
 		});
 		btnReset.setBounds(27, 6, 94, 28);
@@ -215,9 +199,7 @@ public class Providers_Form extends JFrame {
 	
 	
 	
-	public void showProviders () {
-
-		 Providers_BUS providers_BUS = new Providers_BUS();
+	private void HienThiNhaCungCap () {
 		 DefaultTableModel model = new DefaultTableModel();
 		 Object[] columns = {"ID Nhà Cung Cấp", "Tên Nhà Cung Cấp", "Số Điện Thoại", "Địa Chỉ"};
 		 model.setColumnIdentifiers(columns);
@@ -237,7 +219,7 @@ public class Providers_Form extends JFrame {
 	}
 
 	
-	private  void searchProviderById () {
+	private  void TimKiemNhaCCTheoId () {
 		 Providers_BUS providers_BUS = new Providers_BUS();
 		 DefaultTableModel model = new DefaultTableModel();
 		 Object[] columns = {"ID Nhà Cung Cấp", "Tên Nhà Cung Cấp", "Số Điện Thoại", "Địa Chỉ"};
@@ -247,7 +229,7 @@ public class Providers_Form extends JFrame {
 		 }else {
 			 String id = textField_TimKiem.getText();
 			 int id_Provider = Integer.parseInt(id);			
-			 Providers providers = providers_BUS.getProvidersById(id_Provider);
+			 Providers providers = providers_BUS.searchProvidersById(id_Provider);
 		
 			 model.addRow(new Object[] {
 					 providers.getIdProvider(),
@@ -256,7 +238,20 @@ public class Providers_Form extends JFrame {
 					providers.getAddress() 
 			 });
 			 table_QLNCC.setModel(model);
-		 }
-		 
+		 } 
+	}
+	
+	private void XoaNhaCungCap() {
+		int iRow = table_QLNCC.getSelectedRow();
+		if(iRow <= -1) {
+			JOptionPane.showMessageDialog(rootPane, "Chưa chọn thông tin cần xoá");
+		}else {
+			String id_Provider = table_QLNCC.getModel().getValueAt(iRow, 0).toString();
+			int id = Integer.parseInt(id_Provider);
+			
+			providers_BUS.deleteProviderById(id);
+			JOptionPane.showMessageDialog(rootPane, "Xoá thành công");
+			HienThiNhaCungCap();
+		}
 	}
 }

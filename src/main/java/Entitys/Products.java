@@ -19,7 +19,7 @@ public class Products implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_product")
-	private int id_product;
+	private int idProduct;
 	
 	@Column(name = "id_category")
 	private int idCategory;
@@ -47,12 +47,12 @@ public class Products implements Serializable {
 
 	
 
-	public int getId_product() {
-		return id_product;
+	public int getIdProduct() {
+		return idProduct;
 	}
 
-	public void setId_product(int id_product) {
-		this.id_product = id_product;
+	public void setIdProduct(int id_product) {
+		this.idProduct = id_product;
 	}
 
 	public int getIdCategory() {

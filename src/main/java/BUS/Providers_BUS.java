@@ -32,7 +32,7 @@ public class Providers_BUS {
     public List<Providers> listProviders() {
     	return provider_DAO.getAllProvider();
     }
-    public Providers getProvidersById(int id) {
+    public Providers searchProvidersById(int id) {
     	return provider_DAO.getProviderById(id);
     }
 

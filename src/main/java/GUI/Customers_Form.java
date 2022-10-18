@@ -26,20 +26,18 @@ import java.awt.Color;
 
 public class Customers_Form extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
 	private JPanel contentPane;
+	
 	private JTextField textField_TimKiem;
 	private JTable table_QLKH;
+	
+	private  Customers_BUS customers_BUS = new Customers_BUS();
 
-	/**
-	 * Launch the application.
-	 */
 	public Customers_Form() {
 		initComponents();
-		showCustomers();
+		HienThiKhachHang();
 	}
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -55,9 +53,6 @@ public class Customers_Form extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public void initComponents() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 671, 431);
@@ -122,11 +117,11 @@ public class Customers_Form extends JFrame {
 				if(i <= -1) {
 					JOptionPane.showMessageDialog(rootPane, "Chưa chọn thông tin cần sửa");
 				}else {
-					String id = table_QLKH.getModel().getValueAt(i, 0)+"";
+					String idKH = table_QLKH.getModel().getValueAt(i, 0)+"";
 					String ten = table_QLKH.getModel().getValueAt(i, 1)+"";
 					String SDT = table_QLKH.getModel().getValueAt(i, 2)+"";
 					String DiaChi = table_QLKH.getModel().getValueAt(i, 3)+"";
-					Update_Customer_Form update_Customer_Form  = new Update_Customer_Form (id,ten,SDT,DiaChi);
+					Update_Customer_Form update_Customer_Form  = new Update_Customer_Form (idKH,ten,SDT,DiaChi);
 					update_Customer_Form.setLocationRelativeTo(null);
 					update_Customer_Form.setVisible(true);
 				}
@@ -139,18 +134,7 @@ public class Customers_Form extends JFrame {
 		JButton btnXoa = new JButton("Xoá");
 		btnXoa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int i = table_QLKH.getSelectedRow();
-				if(i <= -1) {
-					JOptionPane.showMessageDialog(rootPane, "Chưa chọn thông tin cần xoá");
-				}else {
-					String id_Customer = table_QLKH.getModel().getValueAt(i, 0).toString();
-					int id = Integer.parseInt(id_Customer);
-
-					Customers_BUS customers_BUS= new Customers_BUS();
-					customers_BUS.deleteCustomerById(id);
-					JOptionPane.showMessageDialog(rootPane, "Xoá thành công");
-					showCustomers();
-				}
+				XoaKhachHang();
 			}
 		});
 		btnXoa.setBounds(521, 11, 89, 23);
@@ -159,7 +143,7 @@ public class Customers_Form extends JFrame {
 		JButton btnTimKiem = new JButton("Tìm kiếm");
 		btnTimKiem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				searchCustomerById();
+				TimKiemKHTheoId();
 			}
 		});
 		btnTimKiem.setBounds(224, 11, 89, 23);
@@ -191,54 +175,68 @@ public class Customers_Form extends JFrame {
 		panel_1_1_1.setBounds(499, 0, 160, 39);
 		contentPane.add(panel_1_1_1);
 		
-		JButton btnReset = new JButton("Reset");
+		JButton btnReset = new JButton("Làm Mới");
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				showCustomers();
+				HienThiKhachHang();
 			}
 		});
 		btnReset.setBounds(27, 6, 94, 28);
 		panel_1_1_1.add(btnReset);
 	}
 	
-	public void showCustomers() {
+	
+	
+	private void XoaKhachHang() {
+		int iRow = table_QLKH.getSelectedRow();
+		if(iRow <= -1) {
+			JOptionPane.showMessageDialog(rootPane, "Chưa chọn thông tin cần xoá");
+		}else {
+			String maKH = table_QLKH.getModel().getValueAt(iRow, 0).toString();
+			int idKH = Integer.parseInt(maKH);
 
-		 Customers_BUS customers_BUS = new Customers_BUS();
+			customers_BUS.deleteCustomerById(idKH);
+			JOptionPane.showMessageDialog(rootPane, "Xoá thành công");
+			HienThiKhachHang();
+		}
+	}
+	
+	private void HienThiKhachHang() {		
 		 DefaultTableModel model = new DefaultTableModel();
 		 Object[] columns = {"ID Khách Hàng", "Tên Khách Hàng", "Số Điện Thoại", "Địa Chỉ"};
 		 model.setColumnIdentifiers(columns);
 		
-		 List<Users> customer = customers_BUS.listCustomers();
-		 for(int i = 0; i < customer.size(); i++) {
+		 List<Users> listCustomers = customers_BUS.listCustomers();
+		 for(int i = 0; i < listCustomers.size(); i++) {
 			 model.addRow(new Object[] {
-					 customer.get(i).getIdUser(),
-					 customer.get(i).getName(),
-					 customer.get(i).getPhone(),
-					 customer.get(i).getAddress()
+					 listCustomers.get(i).getIdUser(),
+					 listCustomers.get(i).getName(),
+					 listCustomers.get(i).getPhone(),
+					 listCustomers.get(i).getAddress()
 			 });
 		 }
 		 table_QLKH.setModel(model);
 
 	}
 	
-	private  void searchCustomerById () {
-		 Customers_BUS customers_BUS = new Customers_BUS();
+	private  void TimKiemKHTheoId () {
+		 
 		 DefaultTableModel model = new DefaultTableModel();
 		 Object[] columns = {"ID Khách Hàng", "Tên Nhà Khách Hàng", "Số Điện Thoại", "Địa Chỉ"};
 		 model.setColumnIdentifiers(columns);
+		 
 		 if(textField_TimKiem.getText().equals("")) {
 			 JOptionPane.showMessageDialog(rootPane, "Chưa nhập Id Cần Tìm Kiếm");
 		 }else {
-			 String id = textField_TimKiem.getText();
-			 int id_Customer = Integer.parseInt(id);
+			 String maKH = textField_TimKiem.getText();
+			 int idKH = Integer.parseInt(maKH);
 
-			 List<Users> customer = customers_BUS.searchCustomerById(id_Customer);
-				
-			 for(int i = 0; i < customer.size(); i++) {
+			 List<Users> listCustomers = customers_BUS.searchCustomerById(idKH);
+			 for(int i = 0; i < listCustomers.size(); i++) {
 				 model.addRow(new Object[] {
-						 customer.get(i).getIdUser(),
-						 customer.get(i).getName(),
-						 customer.get(i).getPhone(),
+						 listCustomers.get(i).getIdUser(),
+						 listCustomers.get(i).getName(),
+						 listCustomers.get(i).getPhone(),
 				 });
 			 }
 			 table_QLKH.setModel(model);

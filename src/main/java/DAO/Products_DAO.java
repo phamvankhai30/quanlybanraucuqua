@@ -115,5 +115,8 @@ public class Products_DAO {
 		return product;
 		
 	}
-
+	
+	public double TongTien(double soluong, double giatien) {
+		return soluong*giatien;
+	}
 }

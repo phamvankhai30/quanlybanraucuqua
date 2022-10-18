@@ -25,20 +25,17 @@ import java.awt.Color;
 
 public class Categorys_Form extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField_TimKiem;
 	private JTable table_QLLSP;
+	
+	private Category_BUS category_BUS = new Category_BUS();
 
-	/**
-	 * Launch the application.
-	 */
+
 	public Categorys_Form() {
 		initComponents();
-		showCategorys();
+		HienThiLoaiSanPham();
 	}
 
 	public static void main(String[] args) {
@@ -55,9 +52,7 @@ public class Categorys_Form extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+
 	public void initComponents() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 673, 435);
@@ -87,9 +82,7 @@ public class Categorys_Form extends JFrame {
 		JButton btnThem = new JButton("Thêm");
 		btnThem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Add_Category_Form add_Category_Form = new Add_Category_Form();
-				add_Category_Form.setLocationRelativeTo(null);
-				add_Category_Form.setVisible(true);
+				ThemLoaiSanPham();
 			}
 		});
 		btnThem.setBounds(323, 11, 89, 23);
@@ -98,16 +91,7 @@ public class Categorys_Form extends JFrame {
 		JButton btnSua = new JButton("Sửa");
 		btnSua.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int i = table_QLLSP.getSelectedRow();
-				if (i <= -1) {
-					JOptionPane.showMessageDialog(rootPane, "Chưa chọn thông tin cần sửa");
-				} else {
-					String idloaisp = table_QLLSP.getModel().getValueAt(i, 0) + "";
-					String tenloaisp = table_QLLSP.getModel().getValueAt(i, 1) + "";
-					Update_Category_Form update_Category = new Update_Category_Form(idloaisp, tenloaisp);
-					update_Category.setLocationRelativeTo(null);
-					update_Category.setVisible(true);
-				}
+				SuaLoaiSanPham();
 			}
 		});
 		btnSua.setBounds(422, 11, 89, 23);
@@ -116,17 +100,7 @@ public class Categorys_Form extends JFrame {
 		JButton btnXoa = new JButton("Xoá");
 		btnXoa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int i = table_QLLSP.getSelectedRow();
-				if (i <= -1) {
-					JOptionPane.showMessageDialog(rootPane, "Chưa chọn thông tin cần xoá");
-				} else {
-					Category_BUS category_BUS = new Category_BUS();
-					String idloaisp = table_QLLSP.getModel().getValueAt(i, 0) + "";
-					int id = Integer.parseInt(idloaisp);
-					category_BUS.deleteCategoryById(id);
-					JOptionPane.showMessageDialog(rootPane, "Xoá thành công");
-					showCategorys();
-				}
+				XoaLoaiSanPham();
 
 			}
 		});
@@ -136,7 +110,7 @@ public class Categorys_Form extends JFrame {
 		JButton btnTimKiem = new JButton("Tìm kiếm");
 		btnTimKiem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				searchCategoryById();
+				TimKiemLoaiSPTheoId();
 			}
 		});
 		btnTimKiem.setBounds(224, 11, 89, 23);
@@ -179,44 +153,77 @@ public class Categorys_Form extends JFrame {
 		panel_1_1_1.setBounds(513, 0, 146, 39);
 		contentPane.add(panel_1_1_1);
 
-		JButton btnReset = new JButton("Reset");
+		JButton btnReset = new JButton("Làm Mới");
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				showCategorys();
+				HienThiLoaiSanPham();
 			}
 		});
 		btnReset.setBounds(27, 6, 94, 28);
 		panel_1_1_1.add(btnReset);
 	}
+	
+	
 
-	private void showCategorys() {
-		Category_BUS category_BUS = new Category_BUS();
+	private void HienThiLoaiSanPham() {
+		
 		DefaultTableModel model = new DefaultTableModel();
-		Object[] columns = { "ID Loại Sản Phẩm", "Tên Sản Phẩm" };
+		Object[] columns = { "Mã Loại Sản Phẩm", "Tên Sản Phẩm" };
 		model.setColumnIdentifiers(columns);
 
-		List<Categorys> category = category_BUS.listCategorys();
-		for (int i = 0; i < category.size(); i++) {
-			model.addRow(new Object[] { category.get(i).getIdCategor(), category.get(i).getName() });
+		List<Categorys> listCategorys = category_BUS.listCategorys();
+		for (int i = 0; i < listCategorys.size(); i++) {
+			model.addRow(new Object[] { listCategorys.get(i).getIdCategor(), listCategorys.get(i).getName() });
 		}
 		table_QLLSP.setModel(model);
 	}
 
-	private void searchCategoryById() {
-		Category_BUS category_BUS = new Category_BUS();
+	private void TimKiemLoaiSPTheoId() {
+		
 		DefaultTableModel model = new DefaultTableModel();
-		Object[] columns = { "ID Loại Sản Phẩm", "Tên Loại Sản Phẩm" };
+		Object[] columns = { "Mã Loại Sản Phẩm", "Tên Loại Sản Phẩm" };
 		model.setColumnIdentifiers(columns);
 		if (textField_TimKiem.getText().equals("")) {
 			JOptionPane.showMessageDialog(rootPane, "Chưa nhập Id Cần Tìm Kiếm");
 		} else {
-			String id = textField_TimKiem.getText();
-			int id_Category = Integer.parseInt(id);
-			Categorys categorys = category_BUS.searchCategoryById(id_Category);
-			model.addRow(new Object[] { categorys.getIdCategor(), categorys.getName() });
+			String maLoaiSP = textField_TimKiem.getText();
+			int idLoaiSP = Integer.parseInt(maLoaiSP);
+			Categorys category = category_BUS.searchCategoryById(idLoaiSP);
+			model.addRow(new Object[] { category.getIdCategor(), category.getName() });
 			
 			table_QLLSP.setModel(model);
 		}
-
+	}
+	
+	private void ThemLoaiSanPham() {
+		Add_Category_Form add_Category_Form = new Add_Category_Form();
+		add_Category_Form.setLocationRelativeTo(null);
+		add_Category_Form.setVisible(true);
+	}
+	
+	private void SuaLoaiSanPham() {
+		int iRow = table_QLLSP.getSelectedRow();
+		if (iRow <= -1) {
+			JOptionPane.showMessageDialog(rootPane, "Chưa chọn thông tin cần sửa");
+		} else {
+			String maLoaiSP = table_QLLSP.getModel().getValueAt(iRow, 0) + "";
+			String tenLoaiSP = table_QLLSP.getModel().getValueAt(iRow, 1) + "";
+			
+			Update_Category_Form update_Category = new Update_Category_Form(maLoaiSP, tenLoaiSP);
+			update_Category.setLocationRelativeTo(null);
+			update_Category.setVisible(true);
+		}
+	}
+	private void XoaLoaiSanPham() {
+		int iRow = table_QLLSP.getSelectedRow();
+		if (iRow <= -1) {
+			JOptionPane.showMessageDialog(rootPane, "Chưa chọn thông tin cần xoá");
+		} else {
+			String maLoaiSP = table_QLLSP.getModel().getValueAt(iRow, 0) + "";
+			int idLoaiSP = Integer.parseInt(maLoaiSP);
+			category_BUS.deleteCategoryById(idLoaiSP);
+			JOptionPane.showMessageDialog(rootPane, "Xoá thành công");
+			HienThiLoaiSanPham();
+		}
 	}
 }

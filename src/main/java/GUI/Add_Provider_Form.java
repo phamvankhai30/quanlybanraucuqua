@@ -22,19 +22,16 @@ import java.awt.event.MouseEvent;
 
 public class Add_Provider_Form extends JFrame {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField_SDT;
 	private JTextField textField_DiaChi;
 	private JTextField textField_IdNhaCC;
 	private JTextField textField_TenNhaCC;
+	private Providers_BUS provider_BUS = new Providers_BUS();
 
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -48,9 +45,6 @@ public class Add_Provider_Form extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public Add_Provider_Form() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 468, 290);
@@ -126,15 +120,7 @@ public class Add_Provider_Form extends JFrame {
 		JButton btnThem = new JButton("Thêm");
 		btnThem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(textField_TenNhaCC.getText().equals("") || textField_SDT.getText().equals("") ||textField_DiaChi.getText().equals("")) {	
-					JOptionPane.showMessageDialog(rootPane, "Bạn nhập còn thiếu");
-				}else {
-					Providers_BUS provider_BUS = new Providers_BUS();
-					provider_BUS.addProvider(textField_TenNhaCC.getText(),textField_SDT.getText(),textField_DiaChi.getText());
-					JOptionPane.showMessageDialog(rootPane, "Thêm thành công");
-					ResetTextField();
-					
-				} 
+				ThemNhaCungCap(); 
 			}
 		});
 		btnThem.setBounds(77, 11, 96, 31);
@@ -157,6 +143,17 @@ public class Add_Provider_Form extends JFrame {
 		textField_SDT.setText("");
 		textField_DiaChi.setText("");
 		
+	}
+	
+	private void ThemNhaCungCap() {
+		if(textField_TenNhaCC.getText().equals("") || textField_SDT.getText().equals("") ||textField_DiaChi.getText().equals("")) {	
+			JOptionPane.showMessageDialog(rootPane, "Bạn nhập còn thiếu");
+		}else {
+			provider_BUS.addProvider(textField_TenNhaCC.getText(),textField_SDT.getText(),textField_DiaChi.getText());
+			JOptionPane.showMessageDialog(rootPane, "Thêm thành công");
+			ResetTextField();
+			
+		}
 	}
 	
 }
