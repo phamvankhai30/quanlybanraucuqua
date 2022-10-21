@@ -11,26 +11,30 @@ import java.awt.Font;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import BUS.OrderDetails_BUS;
+import Entitys.Orderdetails;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class OrderDetail_Form extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable table_ChiTietHD;
+	private OrderDetails_BUS orderDetails_BUS = new OrderDetails_BUS();
 
-	/**
-	 * Launch the application.
-	 */
+	public OrderDetail_Form(int idHD) {
+		initComponents();
+		HienThiChiTietHoaDonTheoID(idHD);
+	}
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					OrderDetail_Form frame = new OrderDetail_Form();
+					OrderDetail_Form frame = new OrderDetail_Form(0);
+					
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,10 +43,8 @@ public class OrderDetail_Form extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
-	public OrderDetail_Form() {
+
+	public void initComponents()  {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 630, 384);
 		contentPane = new JPanel();
@@ -66,26 +68,10 @@ public class OrderDetail_Form extends JFrame {
 		table_ChiTietHD = new JTable();
 		table_ChiTietHD.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, "", null, "", null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
+		
 			},
 			new String[] {
-				"ID Ho\u00E1 \u0110\u01A1n", "ID S\u1EA3n Ph\u1EA9m", "T\u00EAn S\u1EA3n Ph\u1EA9m", "S\u1ED1 L\u01B0\u1EE3ng", "Gi\u00E1 Ti\u1EC1n"
+				"Mã Ho\u00E1 \u0110\u01A1n", "Mã S\u1EA3n Ph\u1EA9m", "T\u00EAn S\u1EA3n Ph\u1EA9m", "S\u1ED1 L\u01B0\u1EE3ng", "Gi\u00E1 Ti\u1EC1n"
 			}
 		));
 		JScrollPane scrollPane_ChiTietHD = new JScrollPane(table_ChiTietHD);
@@ -106,7 +92,25 @@ public class OrderDetail_Form extends JFrame {
 		});
 		btn_QuayLai.setBounds(499, 11, 105, 33);
 		panel_1.add(btn_QuayLai);
-
+	}
+	
+	public void HienThiChiTietHoaDonTheoID(int idHD) {
+		DefaultTableModel model = new DefaultTableModel();
+		Object[] columns = {"Mã Hoá Đơn","Mã Sản Phẩm", "Tên Sản Phẩm", "Số Lượng", "Giá Tiền"};
+		model.setColumnIdentifiers(columns);
+	 
+		List<Orderdetails> orderdetails =  orderDetails_BUS.listOrderDetailsByID(idHD);
+		for(int i = 0; i<orderdetails.size(); i++) {
+			model.addRow(new Object[] {
+					orderdetails.get(i).getIdOrder(),
+					orderdetails.get(i).getIdProduct(),
+					orderdetails.get(i).getNameProduct(),
+					orderdetails.get(i).getQuatity(),
+					orderdetails.get(i).getPrice()
+			});
+		}
+		table_ChiTietHD.setModel(model);
+		  
 	}
 
-}
+}//end

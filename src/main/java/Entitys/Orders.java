@@ -1,8 +1,6 @@
 package Entitys;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,8 +22,8 @@ public class Orders implements Serializable {
 	@Column(name = "id_order")
 	private int idOrder;
 
-	@Column(name = "id_user")
-	private int idUser;
+	@Column(name = "id_employee")
+	private int idEmployee;
 	
 	@Column(name = "id_custommer")
 	private int idCustommer;
@@ -34,7 +32,7 @@ public class Orders implements Serializable {
 	private double total;
 	
 	@Column(name ="Date")
-	private LocalDateTime date;
+	private String date;
 
 	public int getIdOrder() {
 		return idOrder;
@@ -44,12 +42,12 @@ public class Orders implements Serializable {
 		this.idOrder = idOrder;
 	}
 
-	public int getIdUser() {
-		return idUser;
+	public int getIdEmployee() {
+		return idEmployee;
 	}
 
-	public void setIdUser(int idUser) {
-		this.idUser = idUser;
+	public void setIdEmployee(int idEmployee) {
+		this.idEmployee = idEmployee;
 	}
 
 	public int getIdCustommer() {
@@ -64,17 +62,16 @@ public class Orders implements Serializable {
 		return total;
 	}
 
-	public void setTotal(int total) {
+	public void setTotal(double total) {
 		this.total = total;
 	}
 
-	public LocalDateTime getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDateTime date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
-		
 
 }

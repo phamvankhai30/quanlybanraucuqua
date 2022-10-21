@@ -102,6 +102,7 @@ public class Update_Customer_Form extends JFrame {
 		panel_1.add(lbl_IdKH);
 		
 		textField_IdKH = new JTextField();
+		textField_IdKH.setEnabled(false);
 		textField_IdKH.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

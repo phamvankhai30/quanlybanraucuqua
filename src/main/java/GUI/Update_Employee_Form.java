@@ -100,6 +100,7 @@ public class Update_Employee_Form extends JFrame {
 		panel_1.add(lbl_IdNV);
 
 		textField_MaNV = new JTextField();
+		textField_MaNV.setEnabled(false);
 		textField_MaNV.setColumns(10);
 		textField_MaNV.setBounds(102, 8, 129, 20);
 		panel_1.add(textField_MaNV);

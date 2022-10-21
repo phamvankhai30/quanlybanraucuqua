@@ -91,11 +91,11 @@ public class Report_Sales_Form extends JFrame {
 		table_BaoCaoBH = new JTable();
 		table_BaoCaoBH.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
 			},
 			new String[] {
-				"ID B\u00E1o B\u00E1o", "ID S\u1EA3n Ph\u1EA9m", "ID Nh\u00E2n Vi\u00EAn", "S\u1ED1 L\u01B0\u1EE3ng", "T\u1ED5ng Ti\u1EC1n", "Th\u1EDDi Gian"
+				"M\u00E3 S\u1EA3n Ph\u1EA9m", "M\u00E3 Nh\u00E2n Vi\u00EAn", "S\u1ED1 L\u01B0\u1EE3ng", "T\u1ED5ng Ti\u1EC1n", "Th\u1EDDi Gian"
 			}
 		));
 		JScrollPane scrollPane_BaoCaoBH = new JScrollPane(table_BaoCaoBH);

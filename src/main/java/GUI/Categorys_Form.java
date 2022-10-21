@@ -180,14 +180,17 @@ public class Categorys_Form extends JFrame {
 
 	private void TimKiemLoaiSPTheoId() {
 		
-		DefaultTableModel model = new DefaultTableModel();
-		Object[] columns = { "Mã Loại Sản Phẩm", "Tên Loại Sản Phẩm" };
-		model.setColumnIdentifiers(columns);
+		
 		if (textField_TimKiem.getText().equals("")) {
 			JOptionPane.showMessageDialog(rootPane, "Chưa nhập Id Cần Tìm Kiếm");
 		} else {
+			DefaultTableModel model = new DefaultTableModel();
+			Object[] columns = { "Mã Loại Sản Phẩm", "Tên Loại Sản Phẩm" };
+			model.setColumnIdentifiers(columns);
+			
 			String maLoaiSP = textField_TimKiem.getText();
 			int idLoaiSP = Integer.parseInt(maLoaiSP);
+			
 			Categorys category = category_BUS.searchCategoryById(idLoaiSP);
 			model.addRow(new Object[] { category.getIdCategor(), category.getName() });
 			

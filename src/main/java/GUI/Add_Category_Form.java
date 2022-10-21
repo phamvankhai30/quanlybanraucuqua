@@ -78,6 +78,7 @@ public class Add_Category_Form extends JFrame {
 		panel_1.add(lbl_IdLoaiSP);
 		
 		textField_LoaiSP = new JTextField();
+		textField_LoaiSP.setEnabled(false);
 		textField_LoaiSP.setColumns(10);
 		textField_LoaiSP.setBounds(128, 32, 160, 20);
 		panel_1.add(textField_LoaiSP);

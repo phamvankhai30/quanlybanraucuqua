@@ -96,6 +96,7 @@ public class Add_Customer_Form extends JFrame {
 		panel_1.add(lbl_IdKhachHang);
 		
 		textField_MaKH = new JTextField();
+		textField_MaKH.setEnabled(false);
 		textField_MaKH.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

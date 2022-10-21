@@ -105,6 +105,7 @@ public class Update_Provider_Form extends JFrame {
 		panel_1.add(lbl_IdNhaCC);
 		
 		textField_MaNhaCC = new JTextField();
+		textField_MaNhaCC.setEnabled(false);
 		textField_MaNhaCC.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

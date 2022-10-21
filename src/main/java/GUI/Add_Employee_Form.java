@@ -94,6 +94,7 @@ public class Add_Employee_Form extends JFrame {
 		panel_1.add(lblNewLabel_6);
 		
 		textField_IdNV = new JTextField();
+		textField_IdNV.setEnabled(false);
 		textField_IdNV.setColumns(10);
 		textField_IdNV.setBounds(102, 8, 129, 20);
 		panel_1.add(textField_IdNV);

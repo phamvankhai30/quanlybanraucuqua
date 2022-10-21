@@ -30,7 +30,7 @@ public class Orderdetails implements Serializable{
 	private int idProduct;
 	
 	@Column(name = "name_product")
-	private int nameProduct;
+	private String nameProduct;
 	
 
 	@Column(name = "Quatity")
@@ -63,12 +63,12 @@ public class Orderdetails implements Serializable{
 		this.idProduct = idProduct;
 	}
 	
-	
-	public int getNameProduct() {
+
+	public String getNameProduct() {
 		return nameProduct;
 	}
 
-	public void setNameProduct(int nameProduct) {
+	public void setNameProduct(String nameProduct) {
 		this.nameProduct = nameProduct;
 	}
 

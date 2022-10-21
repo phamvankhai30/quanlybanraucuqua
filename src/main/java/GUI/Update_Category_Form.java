@@ -85,6 +85,7 @@ public class Update_Category_Form extends JFrame {
 		panel_1.add(lbl_IdLoaiSP);
 		
 		textField_IdLoaiSP = new JTextField();
+		textField_IdLoaiSP.setEnabled(false);
 		textField_IdLoaiSP.setColumns(10);
 		textField_IdLoaiSP.setBounds(128, 32, 160, 20);
 		panel_1.add(textField_IdLoaiSP);

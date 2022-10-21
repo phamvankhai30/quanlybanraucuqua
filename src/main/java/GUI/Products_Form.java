@@ -8,7 +8,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import BUS.Products_BUS;
-
 import Entitys.Products;
 
 import javax.swing.JLabel;
@@ -130,7 +129,7 @@ public class Products_Form extends JFrame {
 		JButton btnTimKiem = new JButton("Tìm kiếm");
 		btnTimKiem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				TimKiemSanPham();
 			}
 		});
 		btnTimKiem.setBounds(224, 11, 89, 23);
@@ -350,4 +349,35 @@ public class Products_Form extends JFrame {
 			HienThiSanPham();
 		}
 	}
-}
+	
+	private void TimKiemSanPham() {
+		if(textField_TimKiem.getText().equals("")) {
+			JOptionPane.showMessageDialog(rootPane, "Chưa nhập Id Cần Tìm");
+		}else {
+			DefaultTableModel model = new DefaultTableModel();
+			Object[] columns = {  "Mã Sản Phẩm", "Mã Loại Sản Phẩm", "Tên Sản Phẩm", "Số Lượng", "Giá Tiền",
+					"Mã Nhà Cung Cấp", "Mô Tả", "Thời Gian"};
+			model.setColumnIdentifiers(columns);
+			
+			int id = Integer.parseInt(textField_TimKiem.getText());
+			Products products = products_BUS.searchProductById(id);
+			if(products != null) {
+				model.addRow(new Object[] {
+						products.getIdProduct(),
+						products.getIdCategory(),
+						products.getName(),
+						products.getQuatity(),
+						products.getPrice(),
+						products.getIdProvider(),
+						products.getDescription(),
+						products.getDate()
+				 });
+				 table_QLSP.setModel(model);
+			}else {
+				JOptionPane.showMessageDialog(rootPane, "Không Tìm Thấy Sản Phẩm");
+			}
+			
+			
+		}
+	}
+}//end

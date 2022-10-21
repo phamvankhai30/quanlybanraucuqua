@@ -92,6 +92,7 @@ public class Add_Provider_Form extends JFrame {
 		panel_1.add(lbl_IdNhaCC);
 		
 		textField_IdNhaCC = new JTextField();
+		textField_IdNhaCC.setEnabled(false);
 		textField_IdNhaCC.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

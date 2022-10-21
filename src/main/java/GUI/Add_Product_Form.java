@@ -140,6 +140,7 @@ public class Add_Product_Form extends JFrame {
 		panel_1.add(lbl_MaSP);
 
 		textField_MaSP = new JTextField();
+		textField_MaSP.setEnabled(false);
 		textField_MaSP.setColumns(10);
 		textField_MaSP.setBounds(102, 8, 129, 20);
 		panel_1.add(textField_MaSP);
