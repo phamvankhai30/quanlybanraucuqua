@@ -24,9 +24,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 import BUS.Products_BUS;
-import DTO.ClockThead;
+import DTO.ClockThread;
 
 import java.awt.Color;
+import java.awt.Toolkit;
 
 public class Update_Product_Form extends JFrame {
 
@@ -52,6 +53,7 @@ public class Update_Product_Form extends JFrame {
 
 	public Update_Product_Form(String maSP, String maLSP, String hinhAnh, String tenSP, String soLuong,
 			String giaTien, String maNhaCC, String moTa) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\iconfinder-healthcare-and-medicalorganicvegansaladhealthy-foodavocadodietvegetarianfoodfruit-4394779_119506.png"));
 		initComponents();
 		initClock();
 		textField_MaSP.setText(maSP);
@@ -83,7 +85,7 @@ public class Update_Product_Form extends JFrame {
 
 	public void initComponents()   {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 466, 418);
+		setBounds(100, 100, 495, 466);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -91,8 +93,9 @@ public class Update_Product_Form extends JFrame {
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
+		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel.setLayout(null);
-		panel.setBounds(0, 0, 459, 37);
+		panel.setBounds(10, 11, 459, 37);
 		contentPane.add(panel);
 		
 		JLabel lbl_SuaSP = new JLabel("Sửa Sản Phẩm");
@@ -101,36 +104,40 @@ public class Update_Product_Form extends JFrame {
 		panel.add(lbl_SuaSP);
 		
 		JPanel panel_2 = new JPanel();
+		panel_2.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_2.setLayout(null);
-		panel_2.setBounds(0, 326, 446, 53);
+		panel_2.setBounds(13, 363, 456, 53);
 		contentPane.add(panel_2);
 		
 		JButton btnSua = new JButton("Sửa");
+		btnSua.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\cloudrefresh_icon-icons.com_54403.png"));
 		btnSua.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SuaSanPham();
 			}
 		});
-		btnSua.setBounds(102, 11, 96, 31);
+		btnSua.setBounds(292, 11, 123, 31);
 		panel_2.add(btnSua);
 		
 		JButton btnQuayLai = new JButton("Quay Lại");
+		btnQuayLai.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\back_icon_155778.png"));
 		btnQuayLai.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				toBack();
 				setVisible(false);
 			}
 		});
-		btnQuayLai.setBounds(248, 11, 96, 31);
+		btnQuayLai.setBounds(22, 11, 123, 31);
 		panel_2.add(btnQuayLai);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_1.setLayout(null);
-		panel_1.setBounds(36, 36, 241, 285);
+		panel_1.setBounds(10, 59, 267, 293);
 		contentPane.add(panel_1);
 		
 		JLabel lbl_MaLSP = new JLabel("Mã Loại Sản Phẩm");
-		lbl_MaLSP.setBounds(10, 44, 83, 14);
+		lbl_MaLSP.setBounds(10, 46, 108, 14);
 		panel_1.add(lbl_MaLSP);
 		
 		JLabel lbl_TenSP = new JLabel("Tên Sản Phẩm");
@@ -151,63 +158,64 @@ public class Update_Product_Form extends JFrame {
 		
 		textField_TenSP = new JTextField();
 		textField_TenSP.setColumns(10);
-		textField_TenSP.setBounds(104, 84, 129, 20);
+		textField_TenSP.setBounds(128, 84, 129, 20);
 		panel_1.add(textField_TenSP);
 		
 		textField_SoLuong = new JTextField();
 		textField_SoLuong.setColumns(10);
-		textField_SoLuong.setBounds(103, 125, 129, 20);
+		textField_SoLuong.setBounds(128, 125, 129, 20);
 		panel_1.add(textField_SoLuong);
 		
 		JLabel lbl_MaSP = new JLabel("Mã Sản Phẩm\r\n");
-		lbl_MaSP.setBounds(10, 11, 84, 14);
+		lbl_MaSP.setBounds(10, 14, 84, 14);
 		panel_1.add(lbl_MaSP);
 		
 		textField_MaSP = new JTextField();
 		textField_MaSP.setColumns(10);
-		textField_MaSP.setBounds(102, 8, 129, 20);
+		textField_MaSP.setBounds(128, 11, 129, 20);
 		panel_1.add(textField_MaSP);
 		
 		 comboBox_NhaCC = new JComboBox<Object>();
-		comboBox_NhaCC.setBounds(104, 187, 128, 22);
+		comboBox_NhaCC.setBounds(128, 191, 128, 22);
 		panel_1.add(comboBox_NhaCC);
 		
 		comboBox_MaLSP = new JComboBox<Object>();
-		comboBox_MaLSP.setBounds(103, 40, 128, 22);
+		comboBox_MaLSP.setBounds(128, 42, 128, 22);
 		panel_1.add(comboBox_MaLSP);
 		
 		JLabel lbl_MoTa = new JLabel("Mô tả");
-		lbl_MoTa.setBounds(10, 223, 84, 14);
+		lbl_MoTa.setBounds(10, 234, 84, 14);
 		panel_1.add(lbl_MoTa);
 		
 		textField_GiaTien = new JTextField();
 		textField_GiaTien.setColumns(10);
-		textField_GiaTien.setBounds(104, 156, 129, 20);
+		textField_GiaTien.setBounds(128, 159, 129, 20);
 		panel_1.add(textField_GiaTien);
 		
 		textField_MoTa = new JTextField();
 		textField_MoTa.setColumns(10);
-		textField_MoTa.setBounds(104, 220, 129, 20);
+		textField_MoTa.setBounds(128, 231, 129, 20);
 		panel_1.add(textField_MoTa);
 		
 		textField_ThoiGian = new JTextField();
 		textField_ThoiGian.setText("17-10-2022 21:22");
 		textField_ThoiGian.setColumns(10);
-		textField_ThoiGian.setBounds(104, 251, 129, 20);
+		textField_ThoiGian.setBounds(128, 262, 129, 20);
 		panel_1.add(textField_ThoiGian);
 		
 		JLabel lbl_ThoiGian = new JLabel("Thời Gian");
-		lbl_ThoiGian.setBounds(10, 254, 84, 14);
+		lbl_ThoiGian.setBounds(10, 265, 84, 14);
 		panel_1.add(lbl_ThoiGian);
 		
 		JPanel panel_3 = new JPanel();
+		panel_3.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_3.setLayout(null);
-		panel_3.setBounds(287, 65, 163, 203);
+		panel_3.setBounds(287, 65, 182, 287);
 		contentPane.add(panel_3);
 		
 		lbl_HinhAnh = new JLabel("");
 		lbl_HinhAnh.setBorder(new LineBorder(new Color(0, 0, 0)));
-		lbl_HinhAnh.setBounds(10, 11, 139, 126);
+		lbl_HinhAnh.setBounds(15, 21, 157, 138);
 		panel_3.add(lbl_HinhAnh);
 		
 		JButton btnChonHinh = new JButton("Hình Ảnh");
@@ -216,17 +224,17 @@ public class Update_Product_Form extends JFrame {
 				ChonHinh();
 			}
 		});
-		btnChonHinh.setBounds(35, 148, 89, 23);
+		btnChonHinh.setBounds(41, 182, 102, 33);
 		panel_3.add(btnChonHinh);
 		
 		textField_PathIMG = new JTextField();
 		textField_PathIMG.setColumns(10);
-		textField_PathIMG.setBounds(11, 172, 138, 20);
+		textField_PathIMG.setBounds(15, 234, 157, 20);
 		panel_3.add(textField_PathIMG);
 	}
 
 	private void initClock() {
-		ClockThead clock = new ClockThead(textField_ThoiGian);
+		ClockThread clock = new ClockThread(textField_ThoiGian);
 		clock.start();
 	}
 	

@@ -19,6 +19,8 @@
   <mapping class="Entitys.Providers"/>
   <mapping class="Entitys.Reports"/>
   <mapping class="Entitys.Users"/>
+  <mapping class="Entitys.ImportBills"/>
+  <mapping class="Entitys.ImportBillDetails"/>
   
  </session-factory>
 </hibernate-configuration>

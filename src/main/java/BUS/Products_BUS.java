@@ -9,7 +9,7 @@ public class Products_BUS {
 	Products product = new Products();
 	Products_DAO product_DAO = new Products_DAO();
 	
-    public void addProduct(int idCategory,int provider, String img, String name, double SoLuong, double price, String Description, String time){
+    public Products addProduct(int idCategory,int provider, String img, String name, double SoLuong, double price, String Description, String time){
         	
         	product.setIdCategory(idCategory);
         	product.setIdProvider(provider);
@@ -19,7 +19,7 @@ public class Products_BUS {
         	product.setPrice(price);
         	product.setDescription(Description);
         	product.setDate(time);
-            product_DAO.addProduct(product);
+            return product_DAO.addProduct(product);
     }
     
     public void updateProduct(int idCategory, int provider, String img, String name, double SoLuong, double price, String Description, String time){

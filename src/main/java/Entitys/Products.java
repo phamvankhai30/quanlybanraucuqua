@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Products implements Serializable {
@@ -45,7 +46,18 @@ public class Products implements Serializable {
 	@Column(name = "Date")
 	private String date;
 
+	@OneToOne(mappedBy = "productID")
+	private ImportBills importBills;
 	
+	
+
+	public ImportBills getImportBills() {
+		return importBills;
+	}
+
+	public void setImportBills(ImportBills importBills) {
+		this.importBills = importBills;
+	}
 
 	public int getIdProduct() {
 		return idProduct;
@@ -111,8 +123,6 @@ public class Products implements Serializable {
 		this.img = img;
 	}
 
-
-
 	public String getDate() {
 		return date;
 	}
@@ -120,8 +130,4 @@ public class Products implements Serializable {
 	public void setDate(String date) {
 		this.date = date;
 	}
-	
-
-	
-	
 }

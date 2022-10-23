@@ -39,7 +39,7 @@ public class OrderDetails_DAO {
 			session = factory.openSession();
 			transaction = session.beginTransaction();
 			
-			String hql = "from Orderdetails O where O.idOrder = :id_HD";
+			String hql = "from Orderdetails O where O.idorders.idOrder = :id_HD";
 			Query<Orderdetails> query = session.createQuery(hql);
 			query.setParameter("id_HD",idHD);
 			orderdetail = query.list();
@@ -80,4 +80,35 @@ public class OrderDetails_DAO {
 		
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Orderdetails> getallOrder(){
+		List <Orderdetails> order_details = null;
+		try {
+			session = factory.openSession();
+			transaction = session.beginTransaction();
+			
+			String hql = "FROM Orderdetails odt INNER JOIN Orders od ON odt.idOrder = od.idOrder";
+			Query<Orderdetails> query = session.createQuery(hql);
+			order_details = query.list();
+			
+			transaction.commit();
+		} catch (Exception e) {
+			if (transaction != null) {
+				transaction.rollback();
+			}
+
+		}finally {
+			session.clear();
+			session.close();
+		}
+		return order_details;
+	}
+	public static void main(String[] args) {
+		OrderDetails_DAO dao = new OrderDetails_DAO();
+		//List<Orderdetails> list = dao.getAllOrderDetail();
+		List<Orderdetails> list = dao.getOrderDetailById(24);
+		for(Orderdetails o : list) {
+			System.out.println(o.getIdorders().getIdOrder());
+		}
+	}
 }

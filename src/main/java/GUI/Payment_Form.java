@@ -4,7 +4,6 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -20,7 +19,8 @@ import BUS.Employees_BUS;
 import BUS.OrderDetails_BUS;
 import BUS.Orders_BUS;
 import BUS.Products_BUS;
-import DTO.ClockThead;
+import DTO.ClockThread;
+import Entitys.Orders;
 import Entitys.Products;
 import Entitys.Users;
 
@@ -36,6 +36,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Toolkit;
+import javax.swing.SwingConstants;
 
 public class Payment_Form extends JFrame {
 
@@ -67,6 +69,7 @@ public class Payment_Form extends JFrame {
 	 * Launch the application.
 	 */
 	public Payment_Form() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\iconfinder-healthcare-and-medicalorganicvegansaladhealthy-foodavocadodietvegetarianfoodfruit-4394779_119506.png"));
 		initComponents();
 		HienThiSanPham();
 		DanhSachKhachHang();
@@ -76,7 +79,7 @@ public class Payment_Form extends JFrame {
 	}
 
 	private void initClock() {
-		ClockThead clock = new ClockThead(textField_ThoiGian);
+		ClockThread clock = new ClockThread(textField_ThoiGian);
 		clock.start();
 	}
 
@@ -99,31 +102,33 @@ public class Payment_Form extends JFrame {
 	 */
 	public void initComponents() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 810, 432);
+		setBounds(100, 100, 854, 495);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new LineBorder(Color.CYAN));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel.setBounds(145, 0, 403, 49);
+		panel.setBounds(166, 11, 216, 49);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
 		JLabel lbl_ThanhToanHD = new JLabel("Thanh Toán Hoá Đơn");
+		lbl_ThanhToanHD.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl_ThanhToanHD.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lbl_ThanhToanHD.setBounds(126, 11, 177, 28);
+		lbl_ThanhToanHD.setBounds(0, 11, 216, 27);
 		panel.add(lbl_ThanhToanHD);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_1.setBounds(0, 0, 146, 49);
+		panel_1.setBounds(10, 11, 146, 49);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 
 		JButton btnTrangChu = new JButton("Trang Chủ");
+		btnTrangChu.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\home_house_10811 (1).png"));
 		btnTrangChu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Index index = new Index();
@@ -132,12 +137,12 @@ public class Payment_Form extends JFrame {
 				setVisible(false);
 			}
 		});
-		btnTrangChu.setBounds(21, 11, 94, 27);
+		btnTrangChu.setBounds(0, 0, 156, 49);
 		panel_1.add(btnTrangChu);
 
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_3.setBounds(548, 0, 246, 393);
+		panel_3.setBounds(548, 11, 279, 433);
 		contentPane.add(panel_3);
 		panel_3.setLayout(null);
 
@@ -156,19 +161,20 @@ public class Payment_Form extends JFrame {
 		table_HoaDon.setModel(new DefaultTableModel(new Object[][] {},
 				new String[] { "Mã Sản Phẩm", "Tên Sản Phẩm", "Số Lượng", "Giá Tiền" }));
 		JScrollPane scrollPane_HoaDon = new JScrollPane(table_HoaDon);
-		scrollPane_HoaDon.setBounds(0, 106, 246, 153);
+		scrollPane_HoaDon.setViewportBorder(new LineBorder(new Color(0, 0, 0)));
+		scrollPane_HoaDon.setBounds(10, 145, 259, 181);
 		panel_3.add(scrollPane_HoaDon);
 
 		JLabel lbl_ThoiGian = new JLabel("Thời Gian");
-		lbl_ThoiGian.setBounds(10, 31, 69, 14);
+		lbl_ThoiGian.setBounds(10, 45, 69, 14);
 		panel_3.add(lbl_ThoiGian);
 
 		JLabel lbl_TenKH = new JLabel("Tên Khách Hàng");
-		lbl_TenKH.setBounds(10, 56, 104, 14);
+		lbl_TenKH.setBounds(10, 81, 104, 14);
 		panel_3.add(lbl_TenKH);
 
 		JLabel lbl_NVThuNgan = new JLabel("Nhân Viên Thu Ngân");
-		lbl_NVThuNgan.setBounds(10, 81, 114, 14);
+		lbl_NVThuNgan.setBounds(10, 120, 114, 14);
 		panel_3.add(lbl_NVThuNgan);
 
 		JLabel lblNewLabel_5 = new JLabel("Tổng tiền");
@@ -176,47 +182,51 @@ public class Payment_Form extends JFrame {
 		panel_3.add(lblNewLabel_5);
 
 		JButton btnNewButton_1 = new JButton("Thanh Toán");
+		btnNewButton_1.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\Plus_36851.png"));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ThanhToanHoaDon();
 			}
 		});
-		btnNewButton_1.setBounds(132, 343, 104, 37);
+		btnNewButton_1.setBounds(140, 385, 129, 37);
 		panel_3.add(btnNewButton_1);
 
 		JButton btnNewButton_3 = new JButton("Xoá");
+		btnNewButton_3.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\vcsconflicting_93497.png"));
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				XoaSPTrongHoaDon();
 
 			}
 		});
-		btnNewButton_3.setBounds(10, 343, 104, 37);
+		btnNewButton_3.setBounds(10, 385, 120, 37);
 		panel_3.add(btnNewButton_3);
 
 		JButton btnNewButton_4 = new JButton("Cập nhật");
+		btnNewButton_4.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\cloudrefresh_icon-icons.com_54403.png"));
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CapNhatHoaDon();
 				TongTienHoaDon();
 			}
 		});
-		btnNewButton_4.setBounds(10, 295, 104, 37);
+		btnNewButton_4.setBounds(10, 337, 114, 37);
 		panel_3.add(btnNewButton_4);
 
 		comboBox_NhanVien = new JComboBox<Object>();
 		comboBox_NhanVien.setModel(new DefaultComboBoxModel<Object>(new String[] { "Chọn Mã Nhân Viên" }));
-		comboBox_NhanVien.setBounds(134, 77, 102, 22);
+		comboBox_NhanVien.setBounds(134, 112, 135, 22);
 		panel_3.add(comboBox_NhanVien);
 
 		comboBox_KH = new JComboBox<Object>();
 		comboBox_KH.setModel(new DefaultComboBoxModel<Object>(new String[] { "Chọn Mã Khách Hàng" }));
-		comboBox_KH.setBounds(132, 52, 102, 22);
+		comboBox_KH.setBounds(132, 77, 137, 22);
 		panel_3.add(comboBox_KH);
 
 		textField_ThoiGian = new JTextField();
+		textField_ThoiGian.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_ThoiGian.setEnabled(false);
-		textField_ThoiGian.setBounds(80, 28, 156, 20);
+		textField_ThoiGian.setBounds(132, 42, 137, 20);
 		panel_3.add(textField_ThoiGian);
 		textField_ThoiGian.setColumns(10);
 
@@ -227,7 +237,7 @@ public class Payment_Form extends JFrame {
 
 		JPanel panel_4 = new JPanel();
 		panel_4.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_4.setBounds(0, 99, 548, 117);
+		panel_4.setBounds(10, 131, 528, 117);
 		contentPane.add(panel_4);
 		panel_4.setLayout(null);
 
@@ -242,28 +252,30 @@ public class Payment_Form extends JFrame {
 
 		}, new String[] { "ID Sản Phẩm", "ID Loại Sản Phẩm", "Tên Sản Phẩm", "Số Lượng", "Giá Tiền" }));
 		JScrollPane scrollPane_ThanhToanHD = new JScrollPane(table_ThanhToanHD);
-		scrollPane_ThanhToanHD.setBounds(0, 11, 548, 103);
+		scrollPane_ThanhToanHD.setViewportBorder(new LineBorder(new Color(0, 0, 0)));
+		scrollPane_ThanhToanHD.setBounds(0, 0, 528, 117);
 		panel_4.add(scrollPane_ThanhToanHD);
 
 		JPanel panel_2 = new JPanel();
+		panel_2.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_2.setLayout(null);
-		panel_2.setBounds(47, 227, 441, 166);
+		panel_2.setBounds(10, 259, 528, 185);
 		contentPane.add(panel_2);
 
 		lbl_img = new JLabel("");
 		lbl_img.setBorder(new LineBorder(new Color(0, 0, 0)));
-		lbl_img.setBounds(20, 11, 136, 103);
+		lbl_img.setBounds(26, 11, 136, 114);
 		panel_2.add(lbl_img);
 
 		JLabel lblNewLabel_1 = new JLabel("Mã Sản Phẩm");
-		lblNewLabel_1.setBounds(173, 11, 89, 14);
+		lblNewLabel_1.setBounds(172, 11, 89, 14);
 		panel_2.add(lblNewLabel_1);
 
 		textField_MaSP = new JTextField();
 		textField_MaSP.setEnabled(false);
 
 		textField_MaSP.setColumns(10);
-		textField_MaSP.setBounds(252, 8, 111, 20);
+		textField_MaSP.setBounds(290, 8, 149, 20);
 		panel_2.add(textField_MaSP);
 
 		JLabel lblNewLabel_2 = new JLabel("Mã Loại Sản Phẩm");
@@ -273,11 +285,11 @@ public class Payment_Form extends JFrame {
 		textField_MaLSP = new JTextField();
 		textField_MaLSP.setEnabled(false);
 		textField_MaLSP.setColumns(10);
-		textField_MaLSP.setBounds(262, 33, 111, 20);
+		textField_MaLSP.setBounds(290, 33, 149, 20);
 		panel_2.add(textField_MaLSP);
 
 		JLabel lblNewLabel_3 = new JLabel("Tên Sản Phẩm");
-		lblNewLabel_3.setBounds(171, 61, 91, 14);
+		lblNewLabel_3.setBounds(173, 61, 91, 14);
 		panel_2.add(lblNewLabel_3);
 
 		JLabel lblNewLabel_4 = new JLabel("Số Lượng");
@@ -291,43 +303,62 @@ public class Payment_Form extends JFrame {
 		textField_TenSP = new JTextField();
 		textField_TenSP.setEnabled(false);
 		textField_TenSP.setColumns(10);
-		textField_TenSP.setBounds(252, 61, 111, 20);
+		textField_TenSP.setBounds(290, 58, 149, 20);
 		panel_2.add(textField_TenSP);
 
 		textField_SoLuong = new JTextField();
 		textField_SoLuong.setColumns(10);
-		textField_SoLuong.setBounds(252, 86, 111, 20);
+		textField_SoLuong.setBounds(290, 83, 149, 20);
 		panel_2.add(textField_SoLuong);
 
 		textField_DonGia = new JTextField();
 		textField_DonGia.setForeground(new Color(0, 0, 0));
 		textField_DonGia.setEnabled(false);
 		textField_DonGia.setColumns(10);
-		textField_DonGia.setBounds(252, 108, 111, 20);
+		textField_DonGia.setBounds(290, 108, 149, 20);
 		panel_2.add(textField_DonGia);
 
 		JButton btn_Them = new JButton("Thêm");
-		btn_Them.setBounds(139, 125, 104, 37);
+		btn_Them.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\Plus_36851.png"));
+		btn_Them.setBounds(200, 137, 104, 37);
 		panel_2.add(btn_Them);
 
 		JPanel panel_5 = new JPanel();
-		panel_5.setBounds(10, 52, 528, 36);
+		panel_5.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel_5.setBounds(10, 71, 528, 49);
 		contentPane.add(panel_5);
 		panel_5.setLayout(null);
 
 		textField_TimKiem = new JTextField();
-		textField_TimKiem.setBounds(114, 11, 120, 20);
+		textField_TimKiem.setBounds(182, 11, 120, 27);
 		panel_5.add(textField_TimKiem);
 		textField_TimKiem.setColumns(10);
 
 		JButton btn_TimKiem = new JButton("Tìm Kiếm");
+		btn_TimKiem.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\iconfinder-documents07-1622836_121949.png"));
 		btn_TimKiem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TimKiemSanPham();
 			}
 		});
-		btn_TimKiem.setBounds(256, 10, 89, 23);
+		btn_TimKiem.setBounds(312, 5, 128, 38);
 		panel_5.add(btn_TimKiem);
+		
+		JPanel panel_1_1 = new JPanel();
+		panel_1_1.setLayout(null);
+		panel_1_1.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel_1_1.setBounds(392, 11, 146, 49);
+		contentPane.add(panel_1_1);
+		
+		JButton btnLmMi = new JButton("Làm Mới");
+		btnLmMi.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\power_reset_1847.png"));
+		btnLmMi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				HienThiSanPham();
+			}
+		});
+		btnLmMi.setBounds(0, 0, 146, 49);
+		panel_1_1.add(btnLmMi);
 		btn_Them.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ThemSPVaoHoaDon();
@@ -490,15 +521,16 @@ public class Payment_Form extends JFrame {
 			int maKH = Integer.parseInt(comboBox_KH.getSelectedItem().toString());
 			int maNV = Integer.parseInt(comboBox_NhanVien.getSelectedItem().toString());
 			double tongTien = Double.parseDouble(lbl_TongTien.getText().toString());
-			int idOrder = orders_BUS.addOrder(maKH, maNV, tongTien, thoiGian); // insert table order
+			Orders idorder = orders_BUS.addOrder(maKH, maNV, tongTien, thoiGian); // insert table order
+			
 
 			for (int i = 0; i < countRow; i++) {
 				int maSP = Integer.parseInt(table_HoaDon.getValueAt(i, 0).toString());
 				String tenSP = (String) table_HoaDon.getValueAt(i, 1);
 				double soLuong = Double.parseDouble(table_HoaDon.getValueAt(i, 2).toString());
 				double giaTien = Double.parseDouble(table_HoaDon.getValueAt(i, 3).toString());
-				System.out.println("id"+idOrder+" ma " + maSP + "ten "+tenSP+"Soluong");
-				orderDetails_BUS.addOrderDetail(idOrder, maSP, tenSP, soLuong, giaTien); // insert table order detail
+				
+				orderDetails_BUS.addOrderDetail(idorder, maSP, tenSP, soLuong, giaTien); // insert table order detail
 			}
 			JOptionPane.showMessageDialog(rootPane, "Thanh Toán Thành Công");
 			ResetText();
@@ -539,17 +571,6 @@ public class Payment_Form extends JFrame {
 	}
 
 	private void HienThiSanPham() {
-		/*
-		 * Cách 1 Products_BUS products_BUS = new Products_BUS(); DefaultTableModel
-		 * model = new DefaultTableModel(); Object[] columns = {"ID Sản Phẩm",
-		 * "ID Loại Sản Phẩm", "Tên Sản Phẩm", "Số Lượng", "Giá Tiền" };
-		 * model.setColumnIdentifiers(columns); List<Products> product =
-		 * products_BUS.ListProducts(); for (int i = 0; i < product.size(); i++) {
-		 * model.addRow(new Object[] { product.get(i).getId_product(),
-		 * product.get(i).getIdCategory(), product.get(i).getName(),
-		 * product.get(i).getQuatity(), product.get(i).getPrice() }); }
-		 * table_ThanhToanHD.setModel(model);
-		 */
 
 		DefaultTableModel model = (DefaultTableModel) table_ThanhToanHD.getModel();
 		Object[] row = new Object[5];

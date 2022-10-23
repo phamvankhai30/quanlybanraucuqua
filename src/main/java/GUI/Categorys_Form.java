@@ -4,7 +4,6 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import BUS.Category_BUS;
 import Entitys.Categorys;
@@ -22,6 +21,8 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 
 public class Categorys_Form extends JFrame {
 
@@ -44,6 +45,7 @@ public class Categorys_Form extends JFrame {
 				try {
 					Categorys_Form frame = new Categorys_Form();
 					frame.setLocationRelativeTo(null);
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -55,9 +57,9 @@ public class Categorys_Form extends JFrame {
 
 	public void initComponents() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 673, 435);
+		setBounds(100, 100, 670, 413);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new LineBorder(Color.CYAN));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -65,60 +67,65 @@ public class Categorys_Form extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel.setLayout(null);
-		panel.setBounds(147, 0, 367, 39);
+		panel.setBounds(166, 11, 317, 51);
 		contentPane.add(panel);
 
 		JLabel lbl_QLLoaiSP = new JLabel("Quản Lý Loại Sản Phẩm");
+		lbl_QLLoaiSP.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl_QLLoaiSP.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lbl_QLLoaiSP.setBounds(78, 11, 207, 20);
+		lbl_QLLoaiSP.setBounds(0, 0, 317, 51);
 		panel.add(lbl_QLLoaiSP);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_1.setLayout(null);
-		panel_1.setBounds(0, 38, 659, 51);
+		panel_1.setBounds(10, 73, 637, 43);
 		contentPane.add(panel_1);
 
 		JButton btnThem = new JButton("Thêm");
+		btnThem.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\Plus_36851.png"));
 		btnThem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ThemLoaiSanPham();
 			}
 		});
-		btnThem.setBounds(323, 11, 89, 23);
+		btnThem.setBounds(278, 5, 111, 34);
 		panel_1.add(btnThem);
 
 		JButton btnSua = new JButton("Sửa");
+		btnSua.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\cloudrefresh_icon-icons.com_54403.png"));
 		btnSua.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SuaLoaiSanPham();
 			}
 		});
-		btnSua.setBounds(422, 11, 89, 23);
+		btnSua.setBounds(403, 5, 99, 34);
 		panel_1.add(btnSua);
 
 		JButton btnXoa = new JButton("Xoá");
+		btnXoa.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\vcsconflicting_93497.png"));
 		btnXoa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				XoaLoaiSanPham();
 
 			}
 		});
-		btnXoa.setBounds(521, 11, 89, 23);
+		btnXoa.setBounds(512, 5, 115, 34);
 		panel_1.add(btnXoa);
 
 		JButton btnTimKiem = new JButton("Tìm kiếm");
+		btnTimKiem.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\iconfinder-documents07-1622836_121949.png"));
 		btnTimKiem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TimKiemLoaiSPTheoId();
 			}
 		});
-		btnTimKiem.setBounds(224, 11, 89, 23);
+		btnTimKiem.setBounds(144, 5, 124, 34);
 		panel_1.add(btnTimKiem);
 
 		textField_TimKiem = new JTextField();
 		textField_TimKiem.setColumns(10);
-		textField_TimKiem.setBounds(97, 11, 124, 22);
+		textField_TimKiem.setBounds(10, 11, 124, 22);
 		panel_1.add(textField_TimKiem);
 
 		table_QLLSP = new JTable();
@@ -126,16 +133,18 @@ public class Categorys_Form extends JFrame {
 
 		}, new String[] { "ID Lo\u1EA1i S\u1EA3n Ph\u1EA9m", "T\u00EAn S\u1EA3n Ph\u1EA9m" }));
 		JScrollPane scrollPane_QLLSP = new JScrollPane(table_QLLSP);
-		scrollPane_QLLSP.setBounds(0, 89, 659, 304);
+		scrollPane_QLLSP.setViewportBorder(new LineBorder(new Color(0, 0, 0)));
+		scrollPane_QLLSP.setBounds(10, 127, 637, 232);
 		contentPane.add(scrollPane_QLLSP);
 
 		JPanel panel_1_1 = new JPanel();
 		panel_1_1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_1_1.setLayout(null);
-		panel_1_1.setBounds(0, 0, 146, 39);
+		panel_1_1.setBounds(10, 11, 146, 51);
 		contentPane.add(panel_1_1);
 
 		JButton btnTrangChu = new JButton("Trang Chủ");
+		btnTrangChu.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\home_house_10811 (1).png"));
 		btnTrangChu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Index index = new Index();
@@ -144,22 +153,23 @@ public class Categorys_Form extends JFrame {
 				setVisible(false);
 			}
 		});
-		btnTrangChu.setBounds(27, 6, 94, 28);
+		btnTrangChu.setBounds(0, 0, 146, 51);
 		panel_1_1.add(btnTrangChu);
 
 		JPanel panel_1_1_1 = new JPanel();
 		panel_1_1_1.setLayout(null);
 		panel_1_1_1.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_1_1_1.setBounds(513, 0, 146, 39);
+		panel_1_1_1.setBounds(501, 11, 146, 51);
 		contentPane.add(panel_1_1_1);
 
 		JButton btnReset = new JButton("Làm Mới");
+		btnReset.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\power_reset_1847.png"));
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				HienThiLoaiSanPham();
 			}
 		});
-		btnReset.setBounds(27, 6, 94, 28);
+		btnReset.setBounds(0, 0, 146, 51);
 		panel_1_1_1.add(btnReset);
 	}
 	

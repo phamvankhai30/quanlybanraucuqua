@@ -7,37 +7,43 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "orderdetails")
-public class Orderdetails implements Serializable{
-
-	/**
-	 * 
-	 */
+public class Orderdetails implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_orderDetail")
 	private int idOrderDetail;
-	
-	@Column(name = "id_order")
-	private int idOrder;
-	
+
 	@Column(name = "id_product")
 	private int idProduct;
-	
+
 	@Column(name = "name_product")
 	private String nameProduct;
-	
 
 	@Column(name = "Quatity")
 	private double quatity;
 
 	@Column(name = "Price")
 	private double price;
+
+	@ManyToOne
+	@JoinColumn(name = "id_order", nullable = false)
+	private Orders idorders;
+
+	public Orders getIdorders() {
+		return idorders;
+	}
+
+	public void setIdorders(Orders idorders) {
+		this.idorders = idorders;
+	}
 
 	public int getIdOrderDetail() {
 		return idOrderDetail;
@@ -47,14 +53,6 @@ public class Orderdetails implements Serializable{
 		this.idOrderDetail = idOrderDetail;
 	}
 
-	public int getIdOrder() {
-		return idOrder;
-	}
-
-	public void setIdOrder(int idOrder) {
-		this.idOrder = idOrder;
-	}
-
 	public int getIdProduct() {
 		return idProduct;
 	}
@@ -62,7 +60,6 @@ public class Orderdetails implements Serializable{
 	public void setIdProduct(int idProduct) {
 		this.idProduct = idProduct;
 	}
-	
 
 	public String getNameProduct() {
 		return nameProduct;
@@ -88,5 +85,4 @@ public class Orderdetails implements Serializable{
 		this.price = price;
 	}
 
-	
 }

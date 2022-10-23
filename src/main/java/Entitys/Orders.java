@@ -1,22 +1,23 @@
 package Entitys;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "orders")
 public class Orders implements Serializable {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_order")
@@ -24,15 +25,26 @@ public class Orders implements Serializable {
 
 	@Column(name = "id_employee")
 	private int idEmployee;
-	
+
 	@Column(name = "id_custommer")
 	private int idCustommer;
-	
+
 	@Column(name = "Total")
 	private double total;
-	
-	@Column(name ="Date")
+
+	@Column(name = "Date")
 	private String date;
+
+	@OneToMany(mappedBy = "idorders")
+	private Set<Orderdetails> orderdetails = new HashSet<Orderdetails>();
+
+	public Set<Orderdetails> getOrderdetails() {
+		return orderdetails;
+	}
+
+	public void setOrderdetails(Set<Orderdetails> orderdetails) {
+		this.orderdetails = orderdetails;
+	}
 
 	public int getIdOrder() {
 		return idOrder;

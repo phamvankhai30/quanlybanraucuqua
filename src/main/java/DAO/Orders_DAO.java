@@ -13,13 +13,13 @@ public class Orders_DAO {
 	Session session = null;
 	Transaction transaction = null;
 	
-	public int addOrder(Orders order) {
-		int id = 0;
+	public Orders addOrder(Orders order) {
+		Orders idOrder = null;
 		try {
 			session = factory.openSession();
 			transaction = session.beginTransaction();
 			session.save(order);
-			id = order.getIdOrder();
+			idOrder = order;
 			transaction.commit();
 			
 		} catch (Exception e) {
@@ -31,7 +31,7 @@ public class Orders_DAO {
 			session.clear();
 			session.close();
 		}
-		return id;
+		return idOrder;
 	}
 	
 	public void deletOrderById(int id) {	
@@ -99,4 +99,6 @@ public class Orders_DAO {
 		return orderById;
 		
 	}
+
+
 }

@@ -4,7 +4,6 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -23,6 +22,8 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 
 public class Customers_Form extends JFrame {
 
@@ -36,6 +37,7 @@ public class Customers_Form extends JFrame {
 	private  Customers_BUS customers_BUS = new Customers_BUS();
 
 	public Customers_Form() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\iconfinder-healthcare-and-medicalorganicvegansaladhealthy-foodavocadodietvegetarianfoodfruit-4394779_119506.png"));
 		initComponents();
 		HienThiKhachHang();
 	}
@@ -55,9 +57,9 @@ public class Customers_Form extends JFrame {
 
 	public void initComponents() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 671, 431);
+		setBounds(100, 100, 678, 336);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new LineBorder(Color.CYAN));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -65,10 +67,11 @@ public class Customers_Form extends JFrame {
 		JPanel panel_1_1 = new JPanel();
 		panel_1_1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_1_1.setLayout(null);
-		panel_1_1.setBounds(0, 0, 146, 39);
+		panel_1_1.setBounds(10, 11, 146, 51);
 		contentPane.add(panel_1_1);
 		
 		JButton btnTrangChu = new JButton("Trang Chủ");
+		btnTrangChu.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\home_house_10811 (1).png"));
 		btnTrangChu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Index index = new Index();
@@ -77,27 +80,28 @@ public class Customers_Form extends JFrame {
 				setVisible(false);
 			}
 		});
-		btnTrangChu.setBounds(27, 6, 94, 28);
+		btnTrangChu.setBounds(0, 0, 146, 51);
 		panel_1_1.add(btnTrangChu);
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel.setLayout(null);
-		panel.setBounds(144, 0, 356, 39);
+		panel.setBounds(166, 11, 330, 51);
 		contentPane.add(panel);
 		
 		JLabel lbl_QLKH = new JLabel("Quản Lý Khách Hàng");
 		lbl_QLKH.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lbl_QLKH.setBounds(101, 11, 174, 20);
+		lbl_QLKH.setBounds(89, 0, 174, 51);
 		panel.add(lbl_QLKH);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_1.setLayout(null);
-		panel_1.setBounds(0, 36, 659, 51);
+		panel_1.setBounds(10, 73, 642, 51);
 		contentPane.add(panel_1);
 		
 		JButton btnThem = new JButton("Thêm");
+		btnThem.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\Plus_36851.png"));
 		btnThem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Add_Customer_Form add_Customer_Form = new Add_Customer_Form();
@@ -106,10 +110,11 @@ public class Customers_Form extends JFrame {
 				
 			}
 		});
-		btnThem.setBounds(323, 11, 89, 23);
+		btnThem.setBounds(271, 5, 112, 40);
 		panel_1.add(btnThem);
 		
 		JButton btnSua = new JButton("Sửa");
+		btnSua.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\cloudrefresh_icon-icons.com_54403.png"));
 		btnSua.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -128,30 +133,32 @@ public class Customers_Form extends JFrame {
 				
 			}
 		});
-		btnSua.setBounds(422, 11, 89, 23);
+		btnSua.setBounds(393, 5, 106, 40);
 		panel_1.add(btnSua);
 		
 		JButton btnXoa = new JButton("Xoá");
+		btnXoa.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\vcsconflicting_93497.png"));
 		btnXoa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				XoaKhachHang();
 			}
 		});
-		btnXoa.setBounds(521, 11, 89, 23);
+		btnXoa.setBounds(509, 5, 106, 40);
 		panel_1.add(btnXoa);
 		
 		JButton btnTimKiem = new JButton("Tìm kiếm");
+		btnTimKiem.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\iconfinder-documents07-1622836_121949.png"));
 		btnTimKiem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TimKiemKHTheoId();
 			}
 		});
-		btnTimKiem.setBounds(224, 11, 89, 23);
+		btnTimKiem.setBounds(144, 5, 117, 40);
 		panel_1.add(btnTimKiem);
 		
 		textField_TimKiem = new JTextField();
 		textField_TimKiem.setColumns(10);
-		textField_TimKiem.setBounds(97, 11, 124, 22);
+		textField_TimKiem.setBounds(10, 11, 124, 22);
 		panel_1.add(textField_TimKiem);
 		
 		
@@ -166,22 +173,24 @@ public class Customers_Form extends JFrame {
 			}
 		));
 		JScrollPane scrollPane_QLKH = new JScrollPane(table_QLKH);
-		scrollPane_QLKH.setBounds(0, 88, 659, 304);
+		scrollPane_QLKH.setViewportBorder(new LineBorder(new Color(0, 0, 0)));
+		scrollPane_QLKH.setBounds(10, 135, 642, 151);
 		contentPane.add(scrollPane_QLKH);
 		
 		JPanel panel_1_1_1 = new JPanel();
+		panel_1_1_1.setBounds(506, 11, 146, 51);
+		contentPane.add(panel_1_1_1);
 		panel_1_1_1.setLayout(null);
 		panel_1_1_1.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_1_1_1.setBounds(499, 0, 160, 39);
-		contentPane.add(panel_1_1_1);
 		
 		JButton btnReset = new JButton("Làm Mới");
+		btnReset.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\power_reset_1847.png"));
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				HienThiKhachHang();
 			}
 		});
-		btnReset.setBounds(27, 6, 94, 28);
+		btnReset.setBounds(0, 0, 146, 51);
 		panel_1_1_1.add(btnReset);
 	}
 	

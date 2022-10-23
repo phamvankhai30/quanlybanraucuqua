@@ -15,11 +15,13 @@ public class Products_DAO {
 	Transaction transaction = null;
 
 
-	public void addProduct(Products product) {
+	public Products addProduct(Products product) {
+		Products products = null;
 		try {
 			session = factory.openSession();
 			transaction = session.beginTransaction();
 			session.save(product);
+			products = product;
 			transaction.commit();
 			
 		} catch (Exception e) {
@@ -31,6 +33,7 @@ public class Products_DAO {
 			session.clear();
 			session.close();
 		}
+		return products;
 	}
 	
 	public void updateProduct(Products product) {

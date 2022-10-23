@@ -6,12 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import BUS.OrderDetails_BUS;
 import BUS.Orders_BUS;
-import Entitys.Orderdetails;
 import Entitys.Orders;
 
 import javax.swing.JButton;
@@ -25,6 +22,10 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 
 public class Order_Form extends JFrame {
 
@@ -36,12 +37,9 @@ public class Order_Form extends JFrame {
 	private JTextField textField_TimKiem;
 	private JTable table_QLHD;
 	private Orders_BUS orders_BUS = new  Orders_BUS();
-	private OrderDetails_BUS orderDetails_BUS = new OrderDetails_BUS();
 	
-	/**
-	 * Launch the application.
-	 */
 	public Order_Form() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\iconfinder-healthcare-and-medicalorganicvegansaladhealthy-foodavocadodietvegetarianfoodfruit-4394779_119506.png"));
 		initComponents();
 		HienThiHoaDon();
 	}
@@ -61,9 +59,9 @@ public class Order_Form extends JFrame {
 
 	public void initComponents() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 630, 384);
+		setBounds(100, 100, 630, 363);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new LineBorder(new Color(0, 0, 0)));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -71,10 +69,11 @@ public class Order_Form extends JFrame {
 		JPanel panel_1_1 = new JPanel();
 		panel_1_1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_1_1.setLayout(null);
-		panel_1_1.setBounds(0, 0, 146, 39);
+		panel_1_1.setBounds(10, 10, 146, 51);
 		contentPane.add(panel_1_1);
 		
 		JButton btnTrangChu = new JButton("Trang Chủ");
+		btnTrangChu.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\home_house_10811 (1).png"));
 		btnTrangChu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Index index = new Index();
@@ -83,56 +82,59 @@ public class Order_Form extends JFrame {
 				setVisible(false);
 			}
 		});
-		btnTrangChu.setBounds(27, 6, 94, 28);
+		btnTrangChu.setBounds(0, 0, 146, 51);
 		panel_1_1.add(btnTrangChu);
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel.setBounds(147, 0, 467, 39);
+		panel.setBounds(166, 10, 283, 51);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
 		JLabel lbl_QLHD = new JLabel("Quản Lý Hoá Đơn");
 		lbl_QLHD.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lbl_QLHD.setBounds(128, 0, 172, 39);
+		lbl_QLHD.setBounds(69, 0, 172, 51);
 		panel.add(lbl_QLHD);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_1.setLayout(null);
-		panel_1.setBounds(0, 39, 614, 51);
+		panel_1.setBounds(10, 72, 594, 51);
 		contentPane.add(panel_1);
 		
 		JButton btnXoa = new JButton("Xoá");
+		btnXoa.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\vcsconflicting_93497.png"));
 		btnXoa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				XoaHoaDon();
 			}
 		});
-		btnXoa.setBounds(376, 11, 89, 23);
+		btnXoa.setBounds(307, 11, 97, 31);
 		panel_1.add(btnXoa);
 		
 		JButton btnTimKiem = new JButton("Tìm kiếm");
+		btnTimKiem.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\iconfinder-documents07-1622836_121949.png"));
 		btnTimKiem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TimKiemHoaDon();
 			}
 		});
-		btnTimKiem.setBounds(261, 11, 89, 23);
+		btnTimKiem.setBounds(173, 11, 124, 31);
 		panel_1.add(btnTimKiem);
 		
 		textField_TimKiem = new JTextField();
 		textField_TimKiem.setColumns(10);
-		textField_TimKiem.setBounds(127, 11, 124, 22);
+		textField_TimKiem.setBounds(39, 11, 124, 22);
 		panel_1.add(textField_TimKiem);
 		
 		JButton btnChiTietHD = new JButton("Chi Tiết Hoá Đơn");
+		btnChiTietHD.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\view_grid_detail_icon_154644.png"));
 		btnChiTietHD.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ChiTietHoaDon();
 			}
 		});
-		btnChiTietHD.setBounds(475, 11, 129, 23);
+		btnChiTietHD.setBounds(414, 11, 149, 31);
 		panel_1.add(btnChiTietHD);
 		
 		table_QLHD = new JTable();
@@ -144,8 +146,25 @@ public class Order_Form extends JFrame {
 			}
 		));
 		JScrollPane scrollPane_QLHD = new JScrollPane(table_QLHD);
-		scrollPane_QLHD.setBounds(0, 89, 614, 256);
+		scrollPane_QLHD.setBounds(10, 134, 594, 181);
 		contentPane.add(scrollPane_QLHD);
+		
+		JPanel panel_1_1_1 = new JPanel();
+		panel_1_1_1.setLayout(null);
+		panel_1_1_1.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel_1_1_1.setBounds(459, 10, 145, 51);
+		contentPane.add(panel_1_1_1);
+		
+		JButton btnReset = new JButton("Làm Mới");
+		btnReset.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\power_reset_1847.png"));
+		btnReset.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				HienThiHoaDon();
+			}
+		});
+		btnReset.setBounds(0, 0, 145, 51);
+		panel_1_1_1.add(btnReset);
 		
 	}
 	
@@ -210,16 +229,7 @@ public class Order_Form extends JFrame {
 			JOptionPane.showMessageDialog(rootPane, "Chưa Chọn Hoá Đơn");
 		}else {
 			int maHD = Integer.parseInt(table_QLHD.getValueAt(iRow, 0).toString());	
-			List<Orderdetails> listOrderDetail = orderDetails_BUS.listAllOrderDetail();
 			
-			for(Orderdetails orderdetails : listOrderDetail) {
-				int idHD = orderdetails.getIdOrder();
-				if(maHD == idHD) {
-					maHD = idHD;
-					
-					break;
-				}
-			}
 			OrderDetail_Form orderDetail = new OrderDetail_Form(maHD);
 			orderDetail.setLocationRelativeTo(null);
 			orderDetail.setVisible(true);

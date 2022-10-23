@@ -5,11 +5,11 @@ import java.time.format.DateTimeFormatter;
 
 import javax.swing.JTextField;
 
-public class ClockThead extends Thread{
+public class ClockThread extends Thread{
 	private JTextField jtextfield;
 
 	
-	public ClockThead(JTextField jtextField) {
+	public ClockThread(JTextField jtextField) {
 		this.jtextfield = jtextField;
 	}
 

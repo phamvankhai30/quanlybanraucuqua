@@ -9,8 +9,8 @@ public class Orders_BUS {
 	Orders_DAO orders_DAO = new  Orders_DAO();
 	Orders order = new Orders();
 	
-	public int addOrder(int idCustomer, int idEmployee, double total, String date) {
-		//order.setIdOrder(idOrder);
+	public Orders addOrder(int idCustomer, int idEmployee, double total, String date) {
+		
 		order.setIdCustommer(idCustomer);
 		order.setIdEmployee(idEmployee);
 		order.setTotal(total);

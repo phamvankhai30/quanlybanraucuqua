@@ -19,6 +19,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.border.LineBorder;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 
 public class Add_Provider_Form extends JFrame {
 
@@ -46,8 +49,9 @@ public class Add_Provider_Form extends JFrame {
 	}
 
 	public Add_Provider_Form() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\iconfinder-healthcare-and-medicalorganicvegansaladhealthy-foodavocadodietvegetarianfoodfruit-4394779_119506.png"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 468, 290);
+		setBounds(100, 100, 298, 308);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -56,35 +60,36 @@ public class Add_Provider_Form extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
-		panel.setBounds(0, 0, 459, 37);
+		panel.setBounds(10, 11, 262, 37);
 		contentPane.add(panel);
 		
 		JLabel lbl_ThemNhaCC = new JLabel("Thêm Nhà Cung Cấp");
 		lbl_ThemNhaCC.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lbl_ThemNhaCC.setBounds(124, 11, 179, 14);
+		lbl_ThemNhaCC.setBounds(59, 0, 179, 37);
 		panel.add(lbl_ThemNhaCC);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_1.setLayout(null);
-		panel_1.setBounds(74, 37, 269, 152);
+		panel_1.setBounds(10, 59, 262, 133);
 		contentPane.add(panel_1);
 		
 		JLabel lbl_TenNhaCC = new JLabel("Tên Nhà Cung Cấp");
-		lbl_TenNhaCC.setBounds(10, 50, 110, 14);
+		lbl_TenNhaCC.setBounds(10, 45, 110, 14);
 		panel_1.add(lbl_TenNhaCC);
 		
 		JLabel lbl_DiaChi = new JLabel("Địa Chỉ");
-		lbl_DiaChi.setBounds(10, 125, 84, 14);
+		lbl_DiaChi.setBounds(10, 104, 84, 14);
 		panel_1.add(lbl_DiaChi);
 		
 		textField_SDT = new JTextField();
 		textField_SDT.setColumns(10);
-		textField_SDT.setBounds(130, 89, 129, 20);
+		textField_SDT.setBounds(116, 70, 136, 20);
 		panel_1.add(textField_SDT);
 		
 		textField_DiaChi = new JTextField();
 		textField_DiaChi.setColumns(10);
-		textField_DiaChi.setBounds(130, 122, 129, 20);
+		textField_DiaChi.setBounds(116, 101, 136, 20);
 		panel_1.add(textField_DiaChi);
 		
 		JLabel lbl_IdNhaCC = new JLabel("ID Nhà Cung Cấp");
@@ -101,40 +106,43 @@ public class Add_Provider_Form extends JFrame {
 			}
 		});
 		textField_IdNhaCC.setColumns(10);
-		textField_IdNhaCC.setBounds(130, 8, 129, 20);
+		textField_IdNhaCC.setBounds(116, 8, 136, 20);
 		panel_1.add(textField_IdNhaCC);
 		
 		JLabel lbl_SoDienThoai = new JLabel("Số Điện Thoại");
-		lbl_SoDienThoai.setBounds(10, 92, 84, 14);
+		lbl_SoDienThoai.setBounds(10, 73, 84, 14);
 		panel_1.add(lbl_SoDienThoai);
 		
 		textField_TenNhaCC = new JTextField();
 		textField_TenNhaCC.setColumns(10);
-		textField_TenNhaCC.setBounds(130, 47, 129, 20);
+		textField_TenNhaCC.setBounds(116, 39, 136, 20);
 		panel_1.add(textField_TenNhaCC);
 		
 		JPanel panel_2 = new JPanel();
+		panel_2.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_2.setLayout(null);
-		panel_2.setBounds(0, 193, 459, 65);
+		panel_2.setBounds(10, 204, 262, 54);
 		contentPane.add(panel_2);
 		
 		JButton btnThem = new JButton("Thêm");
+		btnThem.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\Plus_36851.png"));
 		btnThem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ThemNhaCungCap(); 
 			}
 		});
-		btnThem.setBounds(77, 11, 96, 31);
+		btnThem.setBounds(143, 11, 109, 31);
 		panel_2.add(btnThem);
 		
 		JButton btnQuayLai = new JButton("Quay Lại");
+		btnQuayLai.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\back_icon_155778.png"));
 		btnQuayLai.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				toBack();
 				setVisible(false);
 			}
 		});
-		btnQuayLai.setBounds(242, 11, 96, 31);
+		btnQuayLai.setBounds(10, 11, 123, 31);
 		panel_2.add(btnQuayLai);
 		
 		
