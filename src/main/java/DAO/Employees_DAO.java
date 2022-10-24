@@ -38,7 +38,7 @@ public class Employees_DAO {
 		try {
 			session = factory.openSession();
 			transaction = session.beginTransaction();
-			session.saveOrUpdate(employee);
+			session.update(employee);
 			transaction.commit();
 		} catch (Exception e) {
 			if (transaction != null) {

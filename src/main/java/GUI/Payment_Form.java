@@ -27,6 +27,7 @@ import Entitys.Users;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Locale;
 import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
@@ -36,6 +37,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
 import java.awt.Toolkit;
 import javax.swing.SwingConstants;
 
@@ -58,6 +60,8 @@ public class Payment_Form extends JFrame {
 	private JTextField textField_DonGia;
 	private JLabel lbl_img;
 	private JLabel lbl_TongTien;
+	private Locale locale = new Locale("vi", "VN");
+	private DecimalFormat decimalFormat = (DecimalFormat) DecimalFormat.getCurrencyInstance(locale);
 	private Products_BUS products_BUS = new Products_BUS();
 	private Customers_BUS customer_BUS = new Customers_BUS();
 	private Employees_BUS employees_BUS = new Employees_BUS();
@@ -178,7 +182,7 @@ public class Payment_Form extends JFrame {
 		panel_3.add(lbl_NVThuNgan);
 
 		JLabel lblNewLabel_5 = new JLabel("Tổng tiền");
-		lblNewLabel_5.setBounds(10, 270, 52, 14);
+		lblNewLabel_5.setBounds(140, 360, 52, 14);
 		panel_3.add(lblNewLabel_5);
 
 		JButton btnNewButton_1 = new JButton("Thanh Toán");
@@ -231,7 +235,8 @@ public class Payment_Form extends JFrame {
 		textField_ThoiGian.setColumns(10);
 
 		lbl_TongTien = new JLabel("");
-		lbl_TongTien.setBounds(72, 270, 144, 14);
+		lbl_TongTien.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lbl_TongTien.setBounds(202, 360, 67, 15);
 		// lbl_TongTien.setBorder(null);
 		panel_3.add(lbl_TongTien);
 
@@ -248,9 +253,13 @@ public class Payment_Form extends JFrame {
 				XemChiTietSanPham();
 			}
 		});
-		table_ThanhToanHD.setModel(new DefaultTableModel(new Object[][] {
-
-		}, new String[] { "ID Sản Phẩm", "ID Loại Sản Phẩm", "Tên Sản Phẩm", "Số Lượng", "Giá Tiền" }));
+		table_ThanhToanHD.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"M\u00E3 S\u1EA3n Ph\u1EA9m", "M\u00E3 Lo\u1EA1i S\u1EA3n Ph\u1EA9m", "T\u00EAn S\u1EA3n Ph\u1EA9m", "S\u1ED1 L\u01B0\u1EE3ng", "Gi\u00E1 Ti\u1EC1n"
+			}
+		));
 		JScrollPane scrollPane_ThanhToanHD = new JScrollPane(table_ThanhToanHD);
 		scrollPane_ThanhToanHD.setViewportBorder(new LineBorder(new Color(0, 0, 0)));
 		scrollPane_ThanhToanHD.setBounds(0, 0, 528, 117);
@@ -405,10 +414,8 @@ public class Payment_Form extends JFrame {
 
 		textField_MaSP.setText(id_Product + "");
 		textField_MaLSP.setText(id_Category);
-		;
 		textField_TenSP.setText(name);
 		textField_SoLuong.setText(1 + "");
-		;
 		textField_DonGia.setText(gia);
 
 	}
@@ -465,15 +472,17 @@ public class Payment_Form extends JFrame {
 		} else {
 			int idsp = Integer.parseInt(textField_MaSP.getText());
 			String nameSP = textField_TenSP.getText();
-			double soluong = Double.parseDouble(textField_SoLuong.getText());
-			double GiaTien = Double.parseDouble(textField_DonGia.getText());
-			double TongTien = products_BUS.TongTienSP(soluong, GiaTien);
+			double soLuong = Double.parseDouble(textField_SoLuong.getText());
+			double giaTien = Double.parseDouble(textField_DonGia.getText().replaceAll("\\D+",""));
+			double TongTien = products_BUS.TongTienSP(soLuong, giaTien);
+			
+			
 			DefaultTableModel model = (DefaultTableModel) table_HoaDon.getModel();
 			Object row[] = new Object[4];
 			row[0] = idsp;
 			row[1] = nameSP;
-			row[2] = soluong;
-			row[3] = TongTien;
+			row[2] = soLuong;
+			row[3] = decimalFormat.format(TongTien);
 			model.addRow(row);
 		}
 	}
@@ -482,9 +491,9 @@ public class Payment_Form extends JFrame {
 		double tongTien = 0;
 		int rows = table_HoaDon.getRowCount();
 		for (int i = 0; i < rows; i++) {
-			tongTien = tongTien + Double.parseDouble(table_HoaDon.getValueAt(i, 3).toString());
+			tongTien = tongTien + Double.parseDouble(table_HoaDon.getValueAt(i, 3).toString().replaceAll("\\D+",""));
 		}
-		lbl_TongTien.setText(Double.toString(tongTien));
+		lbl_TongTien.setText(decimalFormat.format(tongTien));
 	}
 
 	private void CapNhatHoaDon() {
@@ -494,18 +503,17 @@ public class Payment_Form extends JFrame {
 			int idsp = Integer.parseInt(textField_MaSP.getText());
 			String nameSP = textField_TenSP.getText();
 			double soluong = Double.parseDouble(textField_SoLuong.getText());
-			double GiaTien = Double.parseDouble(textField_DonGia.getText());
+			double GiaTien = Double.parseDouble(textField_DonGia.getText().replaceAll("\\D+",""));
 			double TongTien = products_BUS.TongTienSP(soluong, GiaTien);
 
 			model.setValueAt(idsp, table_HoaDon.getSelectedRow(), 0);
 			model.setValueAt(nameSP, table_HoaDon.getSelectedRow(), 1);
 			model.setValueAt(soluong, table_HoaDon.getSelectedRow(), 2);
-			model.setValueAt(TongTien, table_HoaDon.getSelectedRow(), 3);
+			model.setValueAt(decimalFormat.format(TongTien), table_HoaDon.getSelectedRow(), 3);
 			JOptionPane.showMessageDialog(rootPane, "Đã cập nhật");
 
 		} else if (table_HoaDon.getRowCount() == 0) {
 			JOptionPane.showMessageDialog(rootPane, "Không có thông để cập nhật");
-
 		}
 	}
 
@@ -528,7 +536,7 @@ public class Payment_Form extends JFrame {
 				int maSP = Integer.parseInt(table_HoaDon.getValueAt(i, 0).toString());
 				String tenSP = (String) table_HoaDon.getValueAt(i, 1);
 				double soLuong = Double.parseDouble(table_HoaDon.getValueAt(i, 2).toString());
-				double giaTien = Double.parseDouble(table_HoaDon.getValueAt(i, 3).toString());
+				double giaTien = Double.parseDouble(table_HoaDon.getValueAt(i, 3).toString().replaceAll("\\D|",""));
 				
 				orderDetails_BUS.addOrderDetail(idorder, maSP, tenSP, soLuong, giaTien); // insert table order detail
 			}
@@ -542,23 +550,27 @@ public class Payment_Form extends JFrame {
 		if (textField_TimKiem.getText().equals("")) {
 			JOptionPane.showMessageDialog(rootPane, "Chưa nhập Id Cần Tìm");
 		} else {
-			DefaultTableModel model = new DefaultTableModel();
-			Object[] columns = { "Mã Sản Phẩm", "Mã Loại Sản Phẩm", "Tên Sản Phẩm", "Số Lượng", "Giá Tiền" };
-			model.setColumnIdentifiers(columns);
+			try {
+				DefaultTableModel model = new DefaultTableModel();
+				Object[] columns = { "Mã Sản Phẩm", "Mã Loại Sản Phẩm", "Tên Sản Phẩm", "Số Lượng", "Giá Tiền" };
+				model.setColumnIdentifiers(columns);
 
-			int id = Integer.parseInt(textField_TimKiem.getText());
-			Products products = products_BUS.searchProductById(id);
-			if (products != null) {
-				model.addRow(new Object[] { 
-					products.getIdProduct(),
-					products.getIdCategory(), 
-					products.getName(),
-					products.getQuatity(), 
-					products.getPrice() });
-			} else {
-				JOptionPane.showMessageDialog(rootPane, "Không Tìm Thấy Sản Phẩm");
+				int id = Integer.parseInt(textField_TimKiem.getText());
+				Products products = products_BUS.searchProductById(id);
+				if (products != null) {
+					model.addRow(new Object[] { 
+						products.getIdProduct(),
+						products.getIdCategory(), 
+						products.getName(),
+						products.getQuatity(), 
+						decimalFormat.format(products.getPrice()) });
+					table_ThanhToanHD.setModel(model);
+				} else {
+					JOptionPane.showMessageDialog(rootPane, "Không Tìm Thấy Sản Phẩm");
+				}
+			} catch (NumberFormatException e) {
+				JOptionPane.showMessageDialog(rootPane, "Chỉ nhập số");
 			}
-			table_ThanhToanHD.setModel(model);
 		}
 	}
 
@@ -580,7 +592,7 @@ public class Payment_Form extends JFrame {
 			row[1] = product.get(i).getIdCategory();
 			row[2] = product.get(i).getName();
 			row[3] = product.get(i).getQuatity();
-			row[4] = product.get(i).getPrice();
+			row[4] = decimalFormat.format(product.get(i).getPrice());
 			model.addRow(row);
 		}
 	}

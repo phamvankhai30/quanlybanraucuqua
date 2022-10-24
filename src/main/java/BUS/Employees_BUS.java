@@ -18,8 +18,8 @@ public class Employees_BUS {
     	employee_DAO.addEmployee(employee);
     }
     
-    public void updateEmployee(String name,String phone,String address){
-    	
+    public void updateEmployee(int idEmployee, String name,String phone,String address){
+    	employee.setIdUser(idEmployee);
     	employee.setName(name);
     	employee.setPhone(phone);
     	employee.setAddress(address);

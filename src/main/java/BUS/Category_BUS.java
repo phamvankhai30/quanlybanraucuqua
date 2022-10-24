@@ -15,8 +15,8 @@ public class Category_BUS {
     	category_DAO.addCategory(category);
     }
     
-    public void updateCategory(String name){
-    	
+    public void updateCategory(int idCategory, String name){
+    	category.setIdCategory(idCategory);
     	category.setName(name);
     	category_DAO.updateCategory(category);
     }

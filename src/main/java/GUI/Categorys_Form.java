@@ -133,7 +133,7 @@ public class Categorys_Form extends JFrame {
 		table_QLLSP = new JTable();
 		table_QLLSP.setModel(new DefaultTableModel(new Object[][] {
 
-		}, new String[] { "ID Lo\u1EA1i S\u1EA3n Ph\u1EA9m", "T\u00EAn S\u1EA3n Ph\u1EA9m" }));
+		}, new String[] { "Mã Loại Sản Phẩm", "Tên Sản Phẩm" }));
 		JScrollPane scrollPane_QLLSP = new JScrollPane(table_QLLSP);
 		scrollPane_QLLSP.setViewportBorder(new LineBorder(new Color(0, 0, 0)));
 		scrollPane_QLLSP.setBounds(10, 127, 637, 232);
@@ -179,9 +179,8 @@ public class Categorys_Form extends JFrame {
 
 	private void HienThiLoaiSanPham() {
 
-		DefaultTableModel model = new DefaultTableModel();
-		Object[] columns = { "Mã Loại Sản Phẩm", "Tên Sản Phẩm" };
-		model.setColumnIdentifiers(columns);
+		DefaultTableModel model = (DefaultTableModel) table_QLLSP.getModel();
+		
 
 		List<Categorys> listCategorys = category_BUS.listCategorys();
 		for (int i = 0; i < listCategorys.size(); i++) {
@@ -220,8 +219,8 @@ public class Categorys_Form extends JFrame {
 		if (iRow <= -1) {
 			JOptionPane.showMessageDialog(rootPane, "Chưa chọn thông tin cần sửa");
 		} else {
-			String maLoaiSP = table_QLLSP.getModel().getValueAt(iRow, 0) + "";
-			String tenLoaiSP = table_QLLSP.getModel().getValueAt(iRow, 1) + "";
+			String maLoaiSP = table_QLLSP.getModel().getValueAt(iRow, 0).toString();
+			String tenLoaiSP = table_QLLSP.getModel().getValueAt(iRow, 1).toString();
 
 			Update_Category_Form update_Category = new Update_Category_Form(maLoaiSP, tenLoaiSP);
 			update_Category.setLocationRelativeTo(null);

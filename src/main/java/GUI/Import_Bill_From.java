@@ -20,7 +20,9 @@ import Entitys.ImportBills;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Locale;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 
@@ -30,6 +32,8 @@ public class Import_Bill_From extends JFrame {
 	private JPanel contentPane;
 	private JTable table_HDNH;
 	private JTextField textField_TimKiem;
+	private Locale locale = new Locale("vi", "VN");
+	private DecimalFormat decimalFormat = (DecimalFormat) DecimalFormat.getCurrencyInstance(locale);
 	private ImportBills_BUS importBills_BUS = new ImportBills_BUS();
 
 	public Import_Bill_From() {
@@ -195,7 +199,7 @@ public class Import_Bill_From extends JFrame {
 		List<ImportBills> importBill = importBills_BUS.listImportBill();
 		for (ImportBills im : importBill) {
 			model.addRow(new Object[] { im.getIdImport(), im.getProductID().getIdProduct(), im.getIdCategory(),
-					im.getIdProvider(), im.getQuatity(), im.getPrice(), im.getDate() });
+					im.getIdProvider(), im.getQuatity(), decimalFormat.format(im.getPrice()), im.getDate() });
 			table_HDNH.setModel(model);
 		}
 	}
@@ -234,7 +238,7 @@ public class Import_Bill_From extends JFrame {
 
 				model.addRow(new Object[] { importBills.getIdImport(), importBills.getProductID().getIdProduct(),
 						importBills.getIdCategory(), importBills.getIdProvider(), importBills.getQuatity(),
-						importBills.getPrice(), importBills.getDate() });
+						decimalFormat.format(importBills.getPrice()), importBills.getDate() });
 				table_HDNH.setModel(model);
 			} else {
 				JOptionPane.showMessageDialog(rootPane, "Không Tìm Thấy");

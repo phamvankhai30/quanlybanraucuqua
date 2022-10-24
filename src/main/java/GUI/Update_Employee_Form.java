@@ -156,12 +156,13 @@ public class Update_Employee_Form extends JFrame {
 				|| textField_DiaChi.getText().equals("")) {
 			JOptionPane.showMessageDialog(rootPane, "Bạn nhập còn thiếu");
 		} else {
+			int idNV = Integer.parseInt(textField_MaNV.getText());
 			String tenNV = textField_TenNV.getText();
 			String soDienThoai = textField_SDT.getText();
 			String diaChi = textField_DiaChi.getText();
 
 			if (checkPhone(soDienThoai)) {
-				employees_BUS.updateEmployee(tenNV, soDienThoai, diaChi);
+				employees_BUS.updateEmployee(idNV, tenNV, soDienThoai, diaChi);
 				JOptionPane.showMessageDialog(rootPane, "Thêm thành công");
 				setVisible(false);
 			}

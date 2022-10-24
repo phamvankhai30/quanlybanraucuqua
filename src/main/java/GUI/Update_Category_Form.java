@@ -127,8 +127,11 @@ public class Update_Category_Form extends JFrame {
 		if(textField_TenLoaiSP.getText().equals("")) {	
 			JOptionPane.showMessageDialog(rootPane, "Bạn nhập còn thiếu");
 		}else {
-			category_BUS.updateCategory(textField_TenLoaiSP.getName());
-			JOptionPane.showMessageDialog(rootPane, "Thêm thành công");
+			int idLSP = Integer.parseInt(textField_IdLoaiSP.getText());
+			String tenLoaiSP = textField_TenLoaiSP.getText();
+			
+			category_BUS.updateCategory(idLSP,tenLoaiSP);
+			JOptionPane.showMessageDialog(rootPane, "Sửa thành công");
 			setVisible(false);
 		} 
 	}

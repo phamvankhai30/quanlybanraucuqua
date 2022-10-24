@@ -172,9 +172,11 @@ public class Update_Provider_Form extends JFrame {
 			String soDienThoai = textField_SDT.getText();
 
 			if (checkPhone(soDienThoai)) {
+				int idProvider = Integer.parseInt(textField_MaNhaCC.getText());
 				String tenNCC = textField_TenNhaCC.getText();
 				String diaChi = textField_DiaChi.getText();
-				provider_BUS.updateProvider(tenNCC, soDienThoai, diaChi);
+				
+				provider_BUS.updateProvider(idProvider, tenNCC, soDienThoai, diaChi);
 				JOptionPane.showMessageDialog(rootPane, "Cập nhật thành công");
 				setVisible(false);
 			}

@@ -300,22 +300,25 @@ public class Add_Product_Form extends JFrame {
 				|| comboBox_NhaCC.equals("Chọn Nhà Cung Cấp")||txtUrl.getText().equals("")) {
 			JOptionPane.showMessageDialog(rootPane, "Bạn nhập còn thiếu");
 		} else {
-			int maLSP = (Integer) comboBox_MaLSP.getSelectedItem();
-			int maNCC = (Integer) comboBox_NhaCC.getSelectedItem();
-			String hinhAnh = txtUrl.getText();
-			String tenSP = textField_TenSP.getText();
 			String soluong = textField_SoLuong.getText();
 			String giasanpham = textField_GiaTien.getText();
-			String moTa = textField_MoTa.getText();
-			String thoiGian = textField_ThoiGian.getText();
-
+		
 			if (CheckNumber(soluong, giasanpham)) {
 				double soLuong = Double.parseDouble(soluong);
 				double giaSP = Double.parseDouble(giasanpham);
+				int maLSP = (Integer) comboBox_MaLSP.getSelectedItem();
+				int maNCC = (Integer) comboBox_NhaCC.getSelectedItem();
+				String hinhAnh = txtUrl.getText();
+				String tenSP = textField_TenSP.getText();
+				String moTa = textField_MoTa.getText();
+				String thoiGian = textField_ThoiGian.getText();
 
 				Products product = products_BUS.addProduct(maLSP, maNCC, hinhAnh, tenSP, soLuong, giaSP, moTa,
 						thoiGian);
-				ImportBills importBill = importBills_BUS.addImportBill(product, maLSP, maNCC, soLuong, giaSP, thoiGian);
+				
+				double tongTienNhapHang = importBills_BUS.tongTienHoaDonNhap(soLuong, giaSP);
+				ImportBills importBill = importBills_BUS.addImportBill(product, maLSP, maNCC, soLuong, tongTienNhapHang, thoiGian);
+				
 				importBillDetails_BUS.addImportBillDetails(importBill, tenSP, moTa);
 
 				JOptionPane.showMessageDialog(rootPane, "Thêm thành công");
@@ -342,19 +345,19 @@ public class Add_Product_Form extends JFrame {
 		JFileChooser filechooser = new JFileChooser("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\img");
 		FileNameExtensionFilter imgFilter = new FileNameExtensionFilter("Hinh ảnh", "png", "jpg");
 		filechooser.setFileFilter(imgFilter);
-
 		filechooser.setMultiSelectionEnabled(false);
 
-		filechooser.showOpenDialog(null);
+		int x = filechooser.showDialog(this, "Chọn Hình Sản Phẩm");
+		if(x == JFileChooser.APPROVE_OPTION) {
+			File file = filechooser.getSelectedFile();
+			String pathImg = file.toString();
+			
+			ImageIcon imageIcon = new ImageIcon(pathImg);
+			Image hinhAnh = imageIcon.getImage().getScaledInstance(lbl_HinhAnh.getWidth(), lbl_HinhAnh.getHeight(),
+					Image.SCALE_SMOOTH);
+			lbl_HinhAnh.setIcon(new ImageIcon(hinhAnh));
 
-		File file = filechooser.getSelectedFile();
-		String pathImg = file.toString();
-
-		ImageIcon imageIcon = new ImageIcon(pathImg);
-		Image hinhAnh = imageIcon.getImage().getScaledInstance(lbl_HinhAnh.getWidth(), lbl_HinhAnh.getHeight(),
-				Image.SCALE_SMOOTH);
-		lbl_HinhAnh.setIcon(new ImageIcon(hinhAnh));
-
-		txtUrl.setText(pathImg);
+			txtUrl.setText(pathImg);
+		}
 	}
 }

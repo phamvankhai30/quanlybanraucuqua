@@ -142,7 +142,7 @@ public class Employees_Form extends JFrame {
 				
 			},
 			new String[] {
-				
+					"Mã Nhân Viên", "Tên Nhân Viên", "Số Điện Thoại", "Địa Chỉ"
 			}
 		));
 		JScrollPane scrollPane_QLNV = new JScrollPane(table_QLNV);
@@ -227,9 +227,8 @@ public class Employees_Form extends JFrame {
 	
 	private void HienThiNhanVien() {
 		
-		 DefaultTableModel model = new DefaultTableModel();
-		 Object[] columns = {"Mã Nhân Viên", "Tên Nhân Viên", "Số Điện Thoại", "Địa Chỉ"};
-		 model.setColumnIdentifiers(columns);
+		 DefaultTableModel model = (DefaultTableModel) table_QLNV.getModel();
+
 		
 		 List<Users> employee = employee_BUS.listEmployee();
 		 for(int i = 0; i < employee.size(); i++) {
@@ -245,27 +244,33 @@ public class Employees_Form extends JFrame {
 	}
 	
 	private  void TimKiemNVTheoId () {
-		Employees_BUS employee_BUS = new Employees_BUS();
-		 DefaultTableModel model = new DefaultTableModel();
-		 Object[] columns = {"ID Khân Viên", "Tên Nhân Viên", "Số Điện Thoại", "Địa Chỉ"};
-		 model.setColumnIdentifiers(columns);
-		 
 		 if(textField_TimKiem.getText().equals("")) {
 			 JOptionPane.showMessageDialog(rootPane, "Chưa nhập Id Cần Tìm Kiếm");
 		 }else {
-			 String maNV = textField_TimKiem.getText();
-			 int idNV = Integer.parseInt(maNV);			
-			 List<Users> employee = employee_BUS.searchEmployeeById(idNV);
-
-			 for(int i = 0; i < employee.size(); i++) {
-				 model.addRow(new Object[] {
-						 employee.get(i).getIdUser(),
-						 employee.get(i).getName(),
-						 employee.get(i).getPhone(),
-						 employee.get(i).getAddress()
-				 });
-			 }
-			 table_QLNV.setModel(model);
+			try {
+				 int idNV = Integer.parseInt(textField_TimKiem.getText());			
+				 List<Users> employee = employee_BUS.searchEmployeeById(idNV);
+				 
+				 if(employee != null) {
+					 DefaultTableModel model = new DefaultTableModel();
+					 Object[] columns = {"ID Khân Viên", "Tên Nhân Viên", "Số Điện Thoại", "Địa Chỉ"};
+					 model.setColumnIdentifiers(columns);
+					 for(int i = 0; i < employee.size(); i++) {
+						 model.addRow(new Object[] {
+								 employee.get(i).getIdUser(),
+								 employee.get(i).getName(),
+								 employee.get(i).getPhone(),
+								 employee.get(i).getAddress()
+						 });
+					 }
+					 table_QLNV.setModel(model); 
+				 }else {
+					 JOptionPane.showMessageDialog(rootPane, "Không tìm thấy");
+				 }
+				
+			} catch (NumberFormatException e) {
+				JOptionPane.showMessageDialog(rootPane, "Chỉ được nhập số");
+			}
 
 		 }
 		 

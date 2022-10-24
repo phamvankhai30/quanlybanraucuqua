@@ -244,20 +244,21 @@ public class Update_Product_Form extends JFrame {
 				|| textField_GiaTien.getText().equals("")) {
 			JOptionPane.showMessageDialog(rootPane, "Bạn nhập còn thiếu");
 		} else {
-
-			int maLoaiSP = Integer.parseInt((String) comboBox_MaLSP.getSelectedItem());
-			int maNhaCC = Integer.parseInt((String) comboBox_NhaCC.getSelectedItem());
-			String hinhAnh = textField_PathIMG.getText();
-			String tenSP = textField_TenSP.getText();
 			String soluong = textField_SoLuong.getText();
 			String giasanpham = textField_GiaTien.getText();
-			String moTa = textField_MoTa.getText();
-			String thoiGian = textField_ThoiGian.getText();
 			
 			if (CheckNumber(soluong, giasanpham)) {
 				double soLuong = Double.parseDouble(soluong);
 				double giaSP = Double.parseDouble(giasanpham);
-				products_BUS.updateProduct(maLoaiSP, maNhaCC, hinhAnh, tenSP, soLuong, giaSP, moTa, thoiGian);
+				int maLoaiSP = Integer.parseInt((String) comboBox_MaLSP.getSelectedItem());
+				int maNhaCC = Integer.parseInt((String) comboBox_NhaCC.getSelectedItem());
+				int idProduct = Integer.parseInt(textField_MaSP.getText());
+				String hinhAnh = textField_PathIMG.getText();
+				String tenSP = textField_TenSP.getText();
+				String moTa = textField_MoTa.getText();
+				String thoiGian = textField_ThoiGian.getText();
+				
+				products_BUS.updateProduct(idProduct, maLoaiSP, maNhaCC, hinhAnh, tenSP, soLuong, giaSP, moTa, thoiGian);
 				JOptionPane.showMessageDialog(rootPane, "Cập nhật thành công");
 				setVisible(false);
 			}

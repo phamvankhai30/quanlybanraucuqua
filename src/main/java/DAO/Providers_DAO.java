@@ -37,7 +37,7 @@ public class Providers_DAO {
 		try {
 			session = factory.openSession();
 			transaction = session.beginTransaction();
-			session.saveOrUpdate(provider);
+			session.update(provider);
 			transaction.commit();
 		} catch (Exception e) {
 			if (transaction != null) {

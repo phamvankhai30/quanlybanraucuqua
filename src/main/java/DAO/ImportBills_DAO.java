@@ -93,4 +93,8 @@ public class ImportBills_DAO {
 		}
 		return importBills;
 	}
+	
+	public double tongTienHoaDon(double soLuong, double giaTien) {
+		return soLuong*giaTien;
+	}
 }

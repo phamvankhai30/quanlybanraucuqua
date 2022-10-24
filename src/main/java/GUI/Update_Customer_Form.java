@@ -162,11 +162,12 @@ public class Update_Customer_Form extends JFrame {
 				|| textField_DiaChi.getText().equals("")) {
 			JOptionPane.showMessageDialog(rootPane, "Bạn không được bỏ trống");
 		} else {
+			int idCustomer = Integer.parseInt(textField_IdKH.getText());
 			String tenKH = textField_TenKH.getText();
 			String soDienThoai = textField_SDT.getText();
 			String diaChi = textField_DiaChi.getText();
 			if (checkPhone(soDienThoai)) {
-				customers_BUS.updateCustomer(tenKH, soDienThoai, diaChi);
+				customers_BUS.updateCustomer(idCustomer,tenKH, soDienThoai, diaChi);
 				JOptionPane.showMessageDialog(rootPane, "Cập nhật thành công");
 				setVisible(false);
 			}

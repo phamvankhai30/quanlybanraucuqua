@@ -19,8 +19,8 @@ public class Customers_BUS {
     	customer_DAO.addCustomer(customer);
     }
     
-    public void updateCustomer(String name,String phone,String address){
-    	
+    public void updateCustomer(int idCustomer,String name,String phone,String address){
+    	customer.setIdUser(idCustomer);
     	customer.setName(name);
     	customer.setPhone(phone);
     	customer.setAddress(address);

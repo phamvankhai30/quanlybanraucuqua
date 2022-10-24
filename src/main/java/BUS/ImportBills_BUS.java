@@ -32,4 +32,7 @@ public class ImportBills_BUS {
 	public ImportBills searchImportBillById(int id) {
 		return importBills_DAO.searchImportBillById(id);
 	}
+	public double tongTienHoaDonNhap(double soLuong, double giaTien) {
+		return importBills_DAO.tongTienHoaDon(soLuong, giaTien);
+	}
 }

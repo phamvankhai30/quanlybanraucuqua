@@ -17,8 +17,8 @@ public class Providers_BUS {
             provider_DAO.addProvider(provider);
     }
     
-    public void updateProvider(String name,String phone,String address){
-    	
+    public void updateProvider(int idProvider, String name,String phone,String address){
+    	provider.setIdProvider(idProvider);
     	provider.setName(name);
     	provider.setPhone(phone);
     	provider.setAddress(address);

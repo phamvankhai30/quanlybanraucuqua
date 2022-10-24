@@ -13,7 +13,9 @@ import javax.swing.table.DefaultTableModel;
 import BUS.OrderDetails_BUS;
 import Entitys.Orderdetails;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Locale;
 import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
@@ -25,6 +27,8 @@ public class OrderDetail_Form extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable table_ChiTietHD;
+	private Locale locale = new Locale("vi", "VN");
+	private DecimalFormat decimalFormat = (DecimalFormat) DecimalFormat.getCurrencyInstance(locale);
 	private OrderDetails_BUS orderDetails_BUS = new OrderDetails_BUS();
 
 	public OrderDetail_Form(int maHD) {
@@ -73,11 +77,10 @@ public class OrderDetail_Form extends JFrame {
 		table_ChiTietHD = new JTable();
 		table_ChiTietHD.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null},
-				{null, null, null},
+				
 			},
 			new String[] {
-				"New column", "New column", "New column"
+					"Mã Hoá Đơn","Mã Sản Phẩm", "Tên Sản Phẩm", "Số Lượng", "Giá Tiền"
 			}
 		));
 		JScrollPane scrollPane_ChiTietHD = new JScrollPane(table_ChiTietHD);
@@ -104,10 +107,8 @@ public class OrderDetail_Form extends JFrame {
 	}
 	
 	public void HienThiChiTietHoaDonTheoID(int maHD) {
-		DefaultTableModel model = new DefaultTableModel();
-		Object[] columns = {"Mã Hoá Đơn","Mã Sản Phẩm", "Tên Sản Phẩm", "Số Lượng", "Giá Tiền"};
-		model.setColumnIdentifiers(columns);
-	 
+		DefaultTableModel model = (DefaultTableModel) table_ChiTietHD.getModel();
+		
 		List<Orderdetails> orderdetails =  orderDetails_BUS.listOrderDetailsByID(maHD);
 		
 		for(int i = 0; i<orderdetails.size(); i++) {
@@ -116,7 +117,7 @@ public class OrderDetail_Form extends JFrame {
 					orderdetails.get(i).getIdProduct(),
 					orderdetails.get(i).getNameProduct(),
 					orderdetails.get(i).getQuatity(),
-					orderdetails.get(i).getPrice()
+					decimalFormat.format(orderdetails.get(i).getPrice())
 			});
 		}
 		table_ChiTietHD.setModel(model);

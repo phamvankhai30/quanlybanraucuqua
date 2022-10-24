@@ -24,8 +24,6 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 
@@ -147,20 +145,13 @@ public class Providers_Form extends JFrame {
 		
 		
 		table_QLNCC = new JTable();
-		table_QLNCC.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-
-			}
-		});
 
 		table_QLNCC.setModel(new DefaultTableModel(
-			new Object[][] {
-				
+			new Object[][] {				
 				
 			},
 			new String[] {
-					
+					"Mã Nhà Cung Cấp", "Tên Nhà Cung Cấp", "Số Điện Thoại", "Địa Chỉ"	
 			}
 		));
 		table_QLNCC.setBounds(154, 149, 1, 1);
@@ -208,9 +199,8 @@ public class Providers_Form extends JFrame {
 	
 	
 	private void HienThiNhaCungCap () {
-		 DefaultTableModel model = new DefaultTableModel();
-		 Object[] columns = {"ID Nhà Cung Cấp", "Tên Nhà Cung Cấp", "Số Điện Thoại", "Địa Chỉ"};
-		 model.setColumnIdentifiers(columns);
+		 DefaultTableModel model = (DefaultTableModel) table_QLNCC.getModel();
+		
 		
 		 List<Providers> providers = providers_BUS.listProviders();
 		 for(int i = 0; i < providers.size(); i++) {
@@ -218,8 +208,7 @@ public class Providers_Form extends JFrame {
 					 providers.get(i).getIdProvider(),
 					 providers.get(i).getName(),
 					 providers.get(i).getPhone(),
-					 providers.get(i).getAddress()
-					 
+					 providers.get(i).getAddress() 
 			 });
 		 }
 		 table_QLNCC.setModel(model);
@@ -228,24 +217,31 @@ public class Providers_Form extends JFrame {
 
 	
 	private  void TimKiemNhaCCTheoId () {
-		 Providers_BUS providers_BUS = new Providers_BUS();
 		 DefaultTableModel model = new DefaultTableModel();
 		 Object[] columns = {"ID Nhà Cung Cấp", "Tên Nhà Cung Cấp", "Số Điện Thoại", "Địa Chỉ"};
 		 model.setColumnIdentifiers(columns);
 		 if(textField_TimKiem.getText().equals("")) {
 			 JOptionPane.showMessageDialog(rootPane, "Chưa nhập Id cần tìm kiếm");
 		 }else {
-			 String id = textField_TimKiem.getText();
-			 int id_Provider = Integer.parseInt(id);			
-			 Providers providers = providers_BUS.searchProvidersById(id_Provider);
-		
-			 model.addRow(new Object[] {
-					 providers.getIdProvider(),
-					 providers.getName(),
-					 providers.getPhone(),
-					providers.getAddress() 
-			 });
-			 table_QLNCC.setModel(model);
+			try {
+				 String id = textField_TimKiem.getText();
+				 int id_Provider = Integer.parseInt(id);			
+				 Providers providers = providers_BUS.searchProvidersById(id_Provider);
+				 if(providers != null) {
+					 model.addRow(new Object[] {
+							 providers.getIdProvider(),
+							 providers.getName(),
+							 providers.getPhone(),
+							providers.getAddress() 
+					 });
+					 table_QLNCC.setModel(model);
+				 }else {
+					 JOptionPane.showMessageDialog(rootPane, "Không tìm thấy nhà cung cấp theo Id");
+				 }
+			} catch (NumberFormatException e) {
+				JOptionPane.showMessageDialog(rootPane, "Chỉ được nhập số");
+			}
+			
 		 } 
 	}
 	

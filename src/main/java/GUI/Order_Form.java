@@ -19,11 +19,13 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Locale;
 import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 
@@ -36,6 +38,8 @@ public class Order_Form extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField_TimKiem;
 	private JTable table_QLHD;
+	private Locale locale = new Locale("vi", "VN");
+	private DecimalFormat decimalFormat = (DecimalFormat) DecimalFormat.getCurrencyInstance(locale);
 	private Orders_BUS orders_BUS = new Orders_BUS();
 
 	public Order_Form() {
@@ -180,7 +184,7 @@ public class Order_Form extends JFrame {
 			row[0] = listOrders.get(i).getIdOrder();
 			row[1] = listOrders.get(i).getIdCustommer();
 			row[2] = listOrders.get(i).getIdEmployee();
-			row[3] = listOrders.get(i).getTotal();
+			row[3] = decimalFormat.format(listOrders.get(i).getTotal());
 			row[4] = listOrders.get(i).getDate();
 
 			model.addRow(row);
@@ -214,16 +218,22 @@ public class Order_Form extends JFrame {
 		if (textField_TimKiem.getText().equals("")) {
 			JOptionPane.showMessageDialog(rootPane, "Chưa nhập Id Cần Tìm");
 		} else {
-			DefaultTableModel model = new DefaultTableModel();
-			Object[] columns = { "Mã Hoá Đơn", "Mã Nhân Viên", "Mã Khách Hàng", "Tổng Tiền", "Thời Gian" };
-			model.setColumnIdentifiers(columns);
-
-			int id = Integer.parseInt(textField_TimKiem.getText());
-			Orders order = orders_BUS.searchOrderById(id);
-
-			model.addRow(new Object[] { order.getIdOrder(), order.getIdEmployee(), order.getIdCustommer(),
-					order.getTotal(), order.getDate() });
-			table_QLHD.setModel(model);
+			try {
+				int id = Integer.parseInt(textField_TimKiem.getText());
+				Orders order = orders_BUS.searchOrderById(id);
+				if (order != null) {
+					DefaultTableModel model = new DefaultTableModel();
+					Object[] columns = { "Mã Hoá Đơn", "Mã Nhân Viên", "Mã Khách Hàng", "Tổng Tiền", "Thời Gian" };
+					model.setColumnIdentifiers(columns);
+					model.addRow(new Object[] { order.getIdOrder(), order.getIdEmployee(), order.getIdCustommer(),
+							decimalFormat.format(order.getTotal()), order.getDate() });
+					table_QLHD.setModel(model);
+				} else {
+					JOptionPane.showMessageDialog(rootPane, "Không tìm thấy");
+				}
+			} catch (NumberFormatException e) {
+				JOptionPane.showMessageDialog(rootPane, "Chỉ Nhập Số");
+			}
 		}
 	}
 

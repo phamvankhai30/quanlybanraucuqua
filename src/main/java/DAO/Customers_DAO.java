@@ -39,7 +39,7 @@ public class Customers_DAO {
 		try {
 			session = factory.openSession();
 			transaction = session.beginTransaction();
-			session.saveOrUpdate(customer);
+			session.update(customer);
 			transaction.commit();
 		} catch (Exception e) {
 			if (transaction != null) {

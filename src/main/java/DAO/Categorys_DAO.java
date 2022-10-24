@@ -64,7 +64,7 @@ public class Categorys_DAO {
 		try {
 			session = factory.openSession();
 			transaction = session.beginTransaction();
-			session.saveOrUpdate(category);
+			session.update(category);
 			transaction.commit();
 		} catch (Exception e) {
 			if (transaction != null) {
@@ -122,4 +122,15 @@ public class Categorys_DAO {
 		
 	}
 
+	public static void main(String[] args) {
+		Categorys_DAO categorys_DAO = new Categorys_DAO();
+		Categorys categorys = new Categorys();
+		categorys.setIdCategory(50);
+		categorys.setName("hi");
+		categorys_DAO.addCategory(categorys);
+		System.out.println("môt"+ categorys.getIdCategor()+"----"+categorys.getName());
+		categorys.setName("mới");
+		categorys_DAO.updateCategory(categorys);
+		System.out.println("môt"+ categorys.getIdCategor()+"----"+categorys.getName());
+	}
 }

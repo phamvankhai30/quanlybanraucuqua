@@ -172,7 +172,7 @@ public class Customers_Form extends JFrame {
 		table_QLKH.setModel(new DefaultTableModel(new Object[][] {
 
 		}, new String[] {
-
+				"ID Khách Hàng", "Tên Khách Hàng", "Số Điện Thoại", "Địa Chỉ"
 		}));
 		JScrollPane scrollPane_QLKH = new JScrollPane(table_QLKH);
 		scrollPane_QLKH.setViewportBorder(new LineBorder(new Color(0, 0, 0)));
@@ -219,9 +219,8 @@ public class Customers_Form extends JFrame {
 	}
 
 	private void HienThiKhachHang() {
-		DefaultTableModel model = new DefaultTableModel();
-		Object[] columns = { "ID Khách Hàng", "Tên Khách Hàng", "Số Điện Thoại", "Địa Chỉ" };
-		model.setColumnIdentifiers(columns);
+		DefaultTableModel model = (DefaultTableModel) table_QLKH.getModel();
+	
 
 		List<Users> listCustomers = customers_BUS.listCustomers();
 		for (int i = 0; i < listCustomers.size(); i++) {

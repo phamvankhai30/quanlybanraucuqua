@@ -16,7 +16,9 @@ import BUS.Report_Purchases_BUS;
 import Entitys.ImportBills;
 
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Locale;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.LineBorder;
@@ -29,12 +31,15 @@ public class Report_Purchases_Form extends JFrame {
 	private JPanel contentPane;
 	private JTable table_BaoCaoMH;
 	private JComboBox<Object> comboBox_BaoCaoMH;
+	private Locale locale = new Locale("vi", "VN");
+	private JLabel lbl_ChiTieu;
+	private DecimalFormat decimalFormat = (DecimalFormat) DecimalFormat.getCurrencyInstance(locale);
 	private Report_Purchases_BUS report_Purchases_BUS = new Report_Purchases_BUS();
 
 	public Report_Purchases_Form() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\iconfinder-healthcare-and-medicalorganicvegansaladhealthy-foodavocadodietvegetarianfoodfruit-4394779_119506.png"));
 		initComponents();
-		HienThiBaoCaoNhapHang();
+		LocBaoBaoNhap();
 	}
 
 	public static void main(String[] args) {
@@ -53,7 +58,7 @@ public class Report_Purchases_Form extends JFrame {
 
 	public void initComponents() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 644, 352);
+		setBounds(100, 100, 644, 405);
 		contentPane = new JPanel();
 		contentPane.setBorder(new LineBorder(new Color(0, 0, 0)));
 
@@ -98,12 +103,12 @@ public class Report_Purchases_Form extends JFrame {
 
 		table_BaoCaoMH = new JTable();
 		table_BaoCaoMH.setModel(new DefaultTableModel(
-				new Object[][] { { null, null, null, null, null, null }, { null, null, null, null, null, null }, },
+				new Object[][] {  },
 				new String[] { "M\u00E3 S\u1EA3n Ph\u1EA9m", "M\u00E3 Lo\u1EA1i S\u1EA3n Ph\u1EA9m",
 						"M\u00E3 Nh\u00E0 Cung C\u1EA5p", "S\u1ED1 L\u01B0\u1EE3ng", "T\u1ED5ng Ti\u1EC1n",
 						"Th\u1EDDi Gian" }));
 		JScrollPane scrollPane_BaoCaoMH = new JScrollPane(table_BaoCaoMH);
-		scrollPane_BaoCaoMH.setBounds(0, 127, 628, 175);
+		scrollPane_BaoCaoMH.setBounds(10, 127, 608, 175);
 		contentPane.add(scrollPane_BaoCaoMH);
 
 		JPanel panel_2 = new JPanel();
@@ -124,10 +129,39 @@ public class Report_Purchases_Form extends JFrame {
 		});
 		btnQuayLai.setBounds(0, 0, 163, 50);
 		panel_2.add(btnQuayLai);
+		
+		JPanel panel_1_1 = new JPanel();
+		panel_1_1.setLayout(null);
+		panel_1_1.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel_1_1.setBounds(10, 313, 608, 44);
+		contentPane.add(panel_1_1);
+		
+		JLabel lblTngChiTiu = new JLabel("Tổng Chi Tiêu :");
+		lblTngChiTiu.setForeground(new Color(0, 191, 255));
+		lblTngChiTiu.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblTngChiTiu.setBounds(286, 11, 125, 22);
+		panel_1_1.add(lblTngChiTiu);
+		
+		lbl_ChiTieu = new JLabel("");
+		lbl_ChiTieu.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lbl_ChiTieu.setBounds(420, 11, 131, 19);
+		panel_1_1.add(lbl_ChiTieu);
 	}
 
-	private void HienThiBaoCaoNhapHang() {
-		MaSanPhamTangDan();
+	private void HienThiBaoCaoNhapHang(List<ImportBills> importbill) {
+		
+		DefaultTableModel model = new DefaultTableModel();
+		Object[] columns = { "Mã Sản Phẩm", "Mã Loại Sản Phâm", "Mã Nhà Cung Cấp", "Số Lượng", "Tổng Tiền",
+				"Thời Gian" };
+		model.setColumnIdentifiers(columns);
+
+		List<ImportBills> importBill = importbill;
+		for (ImportBills im : importBill) {
+			model.addRow(new Object[] { im.getProductID().getIdProduct(), im.getIdCategory(), im.getIdProvider(),
+					im.getQuatity(), decimalFormat.format(im.getPrice()), im.getDate() });
+			table_BaoCaoMH.setModel(model);
+		}
+		TongChiTieu();
 	}
 
 	private void LocBaoBaoNhap() {
@@ -151,160 +185,70 @@ public class Report_Purchases_Form extends JFrame {
 			TienTangDan();
 		}else if(comboBox_BaoCaoMH.getSelectedItem().equals("Tổng Tiền Giảm Dần")) {
 			TienGiamDan();
-		}else {
-			MaSanPhamTangDan();
 		}
 	}
 	
 	private void MaSanPhamTangDan() {
 		List<ImportBills> importBill = report_Purchases_BUS.MaSanPhamTang();
-
-		DefaultTableModel model = new DefaultTableModel();
-		Object[] columns = { "Mã Sản Phẩm", "Mã Loại Sản Phâm", "Mã Nhà Cung Cấp", "Số Lượng", "Tổng Tiền",
-				"Thời Gian" };
-		model.setColumnIdentifiers(columns);
-
-		for (ImportBills im : importBill) {
-			model.addRow(new Object[] { im.getProductID().getIdProduct(), im.getIdCategory(), im.getIdProvider(),
-					im.getQuatity(), im.getPrice(), im.getDate() });
-			table_BaoCaoMH.setModel(model);
-		}
+		HienThiBaoCaoNhapHang(importBill);
 	}
 	
 	private void MaSanPhamGiamDan() {
 		List<ImportBills> importBill = report_Purchases_BUS.MaSanPhamGiam();
-
-		DefaultTableModel model = new DefaultTableModel();
-		Object[] columns = { "Mã Sản Phẩm", "Mã Loại Sản Phâm", "Mã Nhà Cung Cấp", "Số Lượng", "Tổng Tiền",
-				"Thời Gian" };
-		model.setColumnIdentifiers(columns);
-
-		for (ImportBills im : importBill) {
-			model.addRow(new Object[] { im.getProductID().getIdProduct(), im.getIdCategory(), im.getIdProvider(),
-					im.getQuatity(), im.getPrice(), im.getDate() });
-			table_BaoCaoMH.setModel(model);
-		}
+		HienThiBaoCaoNhapHang(importBill);
 	}
 	
 	
 	private void MaLoaiSanPhamTangDan() {
 		List<ImportBills> importBill = report_Purchases_BUS.MaLoaiSanPhamTang();
-
-		DefaultTableModel model = new DefaultTableModel();
-		Object[] columns = { "Mã Sản Phẩm", "Mã Loại Sản Phâm", "Mã Nhà Cung Cấp", "Số Lượng", "Tổng Tiền",
-				"Thời Gian" };
-		model.setColumnIdentifiers(columns);
-
-		for (ImportBills im : importBill) {
-			model.addRow(new Object[] { im.getProductID().getIdProduct(), im.getIdCategory(), im.getIdProvider(),
-					im.getQuatity(), im.getPrice(), im.getDate() });
-			table_BaoCaoMH.setModel(model);
-		}
+		HienThiBaoCaoNhapHang(importBill);
 	}
 	
 	private void MaLoaiSanPhamGiamDan() {
 		List<ImportBills> importBill = report_Purchases_BUS.MaLoaiSanPhamGiam();
-
-		DefaultTableModel model = new DefaultTableModel();
-		Object[] columns = { "Mã Sản Phẩm", "Mã Loại Sản Phâm", "Mã Nhà Cung Cấp", "Số Lượng", "Tổng Tiền",
-				"Thời Gian" };
-		model.setColumnIdentifiers(columns);
-
-		for (ImportBills im : importBill) {
-			model.addRow(new Object[] { im.getProductID().getIdProduct(), im.getIdCategory(), im.getIdProvider(),
-					im.getQuatity(), im.getPrice(), im.getDate() });
-			table_BaoCaoMH.setModel(model);
-		}
+		HienThiBaoCaoNhapHang(importBill);
 	}
 	
 	private void MaNhaCungCapTangDan() {
 		List<ImportBills> importBill = report_Purchases_BUS.MaNhaCungCapTang();
-
-		DefaultTableModel model = new DefaultTableModel();
-		Object[] columns = { "Mã Sản Phẩm", "Mã Loại Sản Phâm", "Mã Nhà Cung Cấp", "Số Lượng", "Tổng Tiền",
-				"Thời Gian" };
-		model.setColumnIdentifiers(columns);
-
-		for (ImportBills im : importBill) {
-			model.addRow(new Object[] { im.getProductID().getIdProduct(), im.getIdCategory(), im.getIdProvider(),
-					im.getQuatity(), im.getPrice(), im.getDate() });
-			table_BaoCaoMH.setModel(model);
-		}
+		HienThiBaoCaoNhapHang(importBill);
 	}
 	
 	private void MaNhaCungCapGiamDan() {
 		List<ImportBills> importBill = report_Purchases_BUS.MaNhaCungCapGiam();
-
-		DefaultTableModel model = new DefaultTableModel();
-		Object[] columns = { "Mã Sản Phẩm", "Mã Loại Sản Phâm", "Mã Nhà Cung Cấp", "Số Lượng", "Tổng Tiền",
-				"Thời Gian" };
-		model.setColumnIdentifiers(columns);
-
-		for (ImportBills im : importBill) {
-			model.addRow(new Object[] { im.getProductID().getIdProduct(), im.getIdCategory(), im.getIdProvider(),
-					im.getQuatity(), im.getPrice(), im.getDate() });
-			table_BaoCaoMH.setModel(model);
-		}
+		HienThiBaoCaoNhapHang(importBill);
 	}
 
 	private void SoLuongTangDan() {
 		List<ImportBills> importBill = report_Purchases_BUS.SoLuongTang();
-
-		DefaultTableModel model = new DefaultTableModel();
-		Object[] columns = { "Mã Sản Phẩm", "Mã Loại Sản Phâm", "Mã Nhà Cung Cấp", "Số Lượng", "Tổng Tiền",
-				"Thời Gian" };
-		model.setColumnIdentifiers(columns);
-
-		for (ImportBills im : importBill) {
-			model.addRow(new Object[] { im.getProductID().getIdProduct(), im.getIdCategory(), im.getIdProvider(),
-					im.getQuatity(), im.getPrice(), im.getDate() });
-			table_BaoCaoMH.setModel(model);
-		}
+		HienThiBaoCaoNhapHang(importBill);
 	}
 	
 	private void SoLuongGiamDan() {
 		List<ImportBills> importBill = report_Purchases_BUS.SoLuongGiam();
-
-		DefaultTableModel model = new DefaultTableModel();
-		Object[] columns = { "Mã Sản Phẩm", "Mã Loại Sản Phâm", "Mã Nhà Cung Cấp", "Số Lượng", "Tổng Tiền",
-				"Thời Gian" };
-		model.setColumnIdentifiers(columns);
-
-		for (ImportBills im : importBill) {
-			model.addRow(new Object[] { im.getProductID().getIdProduct(), im.getIdCategory(), im.getIdProvider(),
-					im.getQuatity(), im.getPrice(), im.getDate() });
-			table_BaoCaoMH.setModel(model);
-		}
+		HienThiBaoCaoNhapHang(importBill);
 	}
 	
 	private void TienTangDan() {
 		List<ImportBills> importBill = report_Purchases_BUS.TienTang();
-
-		DefaultTableModel model = new DefaultTableModel();
-		Object[] columns = { "Mã Sản Phẩm", "Mã Loại Sản Phâm", "Mã Nhà Cung Cấp", "Số Lượng", "Tổng Tiền",
-				"Thời Gian" };
-		model.setColumnIdentifiers(columns);
-
-		for (ImportBills im : importBill) {
-			model.addRow(new Object[] { im.getProductID().getIdProduct(), im.getIdCategory(), im.getIdProvider(),
-					im.getQuatity(), im.getPrice(), im.getDate() });
-			table_BaoCaoMH.setModel(model);
-		}
+		HienThiBaoCaoNhapHang(importBill);
 	}
 	
 	private void TienGiamDan() {
 		List<ImportBills> importBill = report_Purchases_BUS.TienGiam();
-
-		DefaultTableModel model = new DefaultTableModel();
-		Object[] columns = { "Mã Sản Phẩm", "Mã Loại Sản Phâm", "Mã Nhà Cung Cấp", "Số Lượng", "Tổng Tiền",
-				"Thời Gian" };
-		model.setColumnIdentifiers(columns);
-
-		for (ImportBills im : importBill) {
-			model.addRow(new Object[] { im.getProductID().getIdProduct(), im.getIdCategory(), im.getIdProvider(),
-					im.getQuatity(), im.getPrice(), im.getDate() });
-			table_BaoCaoMH.setModel(model);
-		}
+		HienThiBaoCaoNhapHang(importBill);
 	}
 	
+	private void TongChiTieu() {
+		int countRow = table_BaoCaoMH.getRowCount();
+		double sum = 0;
+		if(countRow > 0) {
+			for(int i = 0; i < countRow; i++) {
+				
+				sum = sum + Double.parseDouble(table_BaoCaoMH.getValueAt(i, 4).toString().replaceAll("\\D+",""));
+			}
+		}
+	
+		lbl_ChiTieu.setText(decimalFormat.format(sum));
+	}
 }
