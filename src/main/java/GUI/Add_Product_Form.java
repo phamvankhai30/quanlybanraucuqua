@@ -40,9 +40,9 @@ import java.awt.Toolkit;
 public class Add_Product_Form extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private JPanel contentPane;
-	
+
 	private JLabel lbl_HinhAnh;
 
 	private JTextField textField_TenSP;
@@ -52,14 +52,14 @@ public class Add_Product_Form extends JFrame {
 	private JTextField textField_MoTa;
 	private JTextField textField_ThoiGian;
 	private JTextField txtUrl;
-	
+
 	private JComboBox<Object> comboBox_MaLSP;
 	private JComboBox<Object> comboBox_NhaCC;
-	
+
 	private JButton btnChonHinh;
 	private JButton btnThem;
 	private JButton btnQuayLai;
-	
+
 	private Category_BUS category_BUS = new Category_BUS();
 	private Products_BUS products_BUS = new Products_BUS();
 	private Providers_BUS providers_BUS = new Providers_BUS();
@@ -67,7 +67,8 @@ public class Add_Product_Form extends JFrame {
 	private ImportBillDetails_BUS importBillDetails_BUS = new ImportBillDetails_BUS();
 
 	public Add_Product_Form() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\iconfinder-healthcare-and-medicalorganicvegansaladhealthy-foodavocadodietvegetarianfoodfruit-4394779_119506.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(
+				"C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\iconfinder-healthcare-and-medicalorganicvegansaladhealthy-foodavocadodietvegetarianfoodfruit-4394779_119506.png"));
 		initComponents();
 		initId();
 		HienThiMaLSP();
@@ -157,7 +158,7 @@ public class Add_Product_Form extends JFrame {
 		panel_1.add(textField_MaSP);
 
 		comboBox_NhaCC = new JComboBox<Object>();
-		comboBox_NhaCC.setModel(new DefaultComboBoxModel<Object>(new String[] {"Chọn Mã Nhà Cung Cấp"}));
+		comboBox_NhaCC.setModel(new DefaultComboBoxModel<Object>(new String[] { "Chọn Mã Nhà Cung Cấp" }));
 		comboBox_NhaCC.setBounds(131, 166, 128, 22);
 		panel_1.add(comboBox_NhaCC);
 
@@ -168,7 +169,7 @@ public class Add_Product_Form extends JFrame {
 			}
 		});
 
-		comboBox_MaLSP.setModel(new DefaultComboBoxModel<Object>(new String[] {"Chọn Mã Loại Sản Phẩm"}));
+		comboBox_MaLSP.setModel(new DefaultComboBoxModel<Object>(new String[] { "Chọn Mã Loại Sản Phẩm" }));
 		comboBox_MaLSP.setBounds(131, 40, 128, 22);
 		panel_1.add(comboBox_MaLSP);
 
@@ -201,7 +202,8 @@ public class Add_Product_Form extends JFrame {
 		contentPane.add(panel_2);
 
 		btnThem = new JButton("Thêm");
-		btnThem.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\Plus_36851.png"));
+		btnThem.setIcon(
+				new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\Plus_36851.png"));
 		btnThem.setBounds(313, 11, 119, 43);
 		btnThem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -212,7 +214,8 @@ public class Add_Product_Form extends JFrame {
 		panel_2.add(btnThem);
 
 		btnQuayLai = new JButton("Quay Lại");
-		btnQuayLai.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\back_icon_155778.png"));
+		btnQuayLai.setIcon(new ImageIcon(
+				"C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\back_icon_155778.png"));
 		btnQuayLai.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				toBack();
@@ -268,6 +271,7 @@ public class Add_Product_Form extends JFrame {
 		DisplayNumberThread id = new DisplayNumberThread(textField_MaSP);
 		id.start();
 	}
+
 	private void initClock() {
 		ClockThread clock = new ClockThread(textField_ThoiGian);
 		clock.start();
@@ -278,6 +282,7 @@ public class Add_Product_Form extends JFrame {
 		comboBox_NhaCC.setSelectedItem("Chọn Mã Nhà Cung Cấp");
 		lbl_HinhAnh.setText("");
 		textField_MaSP.setText("");
+		initId();
 		textField_TenSP.setText("");
 		textField_SoLuong.setText("");
 		textField_GiaTien.setText("");
@@ -292,28 +297,45 @@ public class Add_Product_Form extends JFrame {
 	private void ThemSanPham() {
 		if (textField_TenSP.getText().equals("") || textField_SoLuong.getText().equals("")
 				|| textField_GiaTien.getText().equals("") || comboBox_MaLSP.equals("Chọn Loại Sản Phẩm")
-				|| comboBox_NhaCC.equals("Chọn Nhà Cung Cấp")) {
+				|| comboBox_NhaCC.equals("Chọn Nhà Cung Cấp")||txtUrl.getText().equals("")) {
 			JOptionPane.showMessageDialog(rootPane, "Bạn nhập còn thiếu");
 		} else {
 			int maLSP = (Integer) comboBox_MaLSP.getSelectedItem();
 			int maNCC = (Integer) comboBox_NhaCC.getSelectedItem();
-			
 			String hinhAnh = txtUrl.getText();
 			String tenSP = textField_TenSP.getText();
-			double giaSP = Double.parseDouble(textField_SoLuong.getText());
-			double soLuong = Double.parseDouble(textField_GiaTien.getText());
+			String soluong = textField_SoLuong.getText();
+			String giasanpham = textField_GiaTien.getText();
 			String moTa = textField_MoTa.getText();
 			String thoiGian = textField_ThoiGian.getText();
 
-			Products product = products_BUS.addProduct(maLSP, maNCC, hinhAnh, tenSP, giaSP, soLuong, moTa, thoiGian);
-			
-			ImportBills importBill = importBills_BUS.addImportBill(product, maLSP, maNCC, soLuong, giaSP, thoiGian);
-			
-			importBillDetails_BUS.addImportBillDetails(importBill, tenSP, moTa);
-			
-			JOptionPane.showMessageDialog(rootPane, "Thêm thành công");
-			ResetTextField();
+			if (CheckNumber(soluong, giasanpham)) {
+				double soLuong = Double.parseDouble(soluong);
+				double giaSP = Double.parseDouble(giasanpham);
+
+				Products product = products_BUS.addProduct(maLSP, maNCC, hinhAnh, tenSP, soLuong, giaSP, moTa,
+						thoiGian);
+				ImportBills importBill = importBills_BUS.addImportBill(product, maLSP, maNCC, soLuong, giaSP, thoiGian);
+				importBillDetails_BUS.addImportBillDetails(importBill, tenSP, moTa);
+
+				JOptionPane.showMessageDialog(rootPane, "Thêm thành công");
+				ResetTextField();
+			}
 		}
+	}
+
+	private boolean CheckNumber(String soLuong, String giaSP) {
+		boolean check = true;
+		boolean soluong = soLuong.matches("^[0-9]+(.|)[0-9]+$");
+		boolean giasanpham = soLuong.matches("^[0-9]+(.|)[0-9]+$");
+		if (soluong == false) {
+			JOptionPane.showMessageDialog(rootPane, "Không được nhập chữ vào số lượng");
+			check = false;
+		} else if (giasanpham == false) {
+			JOptionPane.showMessageDialog(rootPane, "Không được nhập chữ vào giá");
+			check = false;
+		}
+		return check;
 	}
 
 	private void ChonHinh() {
@@ -327,11 +349,12 @@ public class Add_Product_Form extends JFrame {
 
 		File file = filechooser.getSelectedFile();
 		String pathImg = file.toString();
-	
+
 		ImageIcon imageIcon = new ImageIcon(pathImg);
-		Image hinhAnh = imageIcon.getImage().getScaledInstance(lbl_HinhAnh.getWidth(), lbl_HinhAnh.getHeight(), Image.SCALE_SMOOTH);
+		Image hinhAnh = imageIcon.getImage().getScaledInstance(lbl_HinhAnh.getWidth(), lbl_HinhAnh.getHeight(),
+				Image.SCALE_SMOOTH);
 		lbl_HinhAnh.setIcon(new ImageIcon(hinhAnh));
-		
+
 		txtUrl.setText(pathImg);
 	}
 }

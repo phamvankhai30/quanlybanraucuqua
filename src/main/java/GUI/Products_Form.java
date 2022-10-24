@@ -353,11 +353,19 @@ public class Products_Form extends JFrame {
 		if (iRow <= -1) {
 			JOptionPane.showMessageDialog(rootPane, "Chưa chọn thông tin cần xoá");
 		} else {
-			String maSP = table_QLSP.getModel().getValueAt(iRow, 0).toString();
-			int idSP = Integer.parseInt(maSP);
-			products_BUS.deleteProductById(idSP);
-			JOptionPane.showMessageDialog(rootPane, "Xoá thành công");
-			HienThiSanPham();
+			
+			int xacnhanxoa = JOptionPane.showConfirmDialog(rootPane, "Bạn Có Chắc Chắn Xoá Không",
+					"Thông Báo Xác Nhận Xoá", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+			if (xacnhanxoa == JOptionPane.YES_OPTION) {
+				String maSP = table_QLSP.getModel().getValueAt(iRow, 0).toString();
+				int idSP = Integer.parseInt(maSP);
+				products_BUS.deleteProductById(idSP);
+				JOptionPane.showMessageDialog(rootPane, "Xoá thành công");
+				HienThiSanPham();
+			} else {
+				JOptionPane.showMessageDialog(rootPane, "Bạn Đã Huỷ Xoá");
+			}
 		}
 	}
 	

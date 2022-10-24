@@ -122,16 +122,14 @@ public class Update_Category_Form extends JFrame {
 		btnQuayLai.setBounds(10, 11, 135, 31);
 		panel_2.add(btnQuayLai);
 	}
-	private void ResetTextField() {
-		textField_TenLoaiSP.setText("");
-	}
+
 	private void SuaLoaiSanPham() {
 		if(textField_TenLoaiSP.getText().equals("")) {	
 			JOptionPane.showMessageDialog(rootPane, "Bạn nhập còn thiếu");
 		}else {
 			category_BUS.updateCategory(textField_TenLoaiSP.getName());
 			JOptionPane.showMessageDialog(rootPane, "Thêm thành công");
-			ResetTextField();
+			setVisible(false);
 		} 
 	}
 

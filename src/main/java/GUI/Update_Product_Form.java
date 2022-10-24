@@ -228,6 +228,7 @@ public class Update_Product_Form extends JFrame {
 		panel_3.add(btnChonHinh);
 		
 		textField_PathIMG = new JTextField();
+		textField_PathIMG.setEnabled(false);
 		textField_PathIMG.setColumns(10);
 		textField_PathIMG.setBounds(15, 234, 157, 20);
 		panel_3.add(textField_PathIMG);
@@ -248,14 +249,33 @@ public class Update_Product_Form extends JFrame {
 			int maNhaCC = Integer.parseInt((String) comboBox_NhaCC.getSelectedItem());
 			String hinhAnh = textField_PathIMG.getText();
 			String tenSP = textField_TenSP.getText();
-			double giaTien = Double.parseDouble(textField_SoLuong.getText());
-			double soLuong = Double.parseDouble(textField_GiaTien.getText());
+			String soluong = textField_SoLuong.getText();
+			String giasanpham = textField_GiaTien.getText();
 			String moTa = textField_MoTa.getText();
 			String thoiGian = textField_ThoiGian.getText();
 			
-			products_BUS.updateProduct(maLoaiSP, maNhaCC, hinhAnh, tenSP, giaTien, soLuong, moTa, thoiGian);
-			JOptionPane.showMessageDialog(rootPane, "Cập nhật thành công");
+			if (CheckNumber(soluong, giasanpham)) {
+				double soLuong = Double.parseDouble(soluong);
+				double giaSP = Double.parseDouble(giasanpham);
+				products_BUS.updateProduct(maLoaiSP, maNhaCC, hinhAnh, tenSP, soLuong, giaSP, moTa, thoiGian);
+				JOptionPane.showMessageDialog(rootPane, "Cập nhật thành công");
+				setVisible(false);
+			}
 		}
+	}
+	
+	private boolean CheckNumber(String soLuong, String giaSP) {
+		boolean check = true;
+		boolean soluong = soLuong.matches("^[0-9]+(.|)[0-9]+$");
+		boolean giasanpham = soLuong.matches("^[0-9]+(.|)[0-9]+$");
+		if (soluong == false) {
+			JOptionPane.showMessageDialog(rootPane, "Không được nhập chữ vào số lượng");
+			check = false;
+		} else if (giasanpham == false) {
+			JOptionPane.showMessageDialog(rootPane, "Không được nhập chữ vào giá");
+			check = false;
+		}
+		return check;
 	}
 	
 	private void ChonHinh() {

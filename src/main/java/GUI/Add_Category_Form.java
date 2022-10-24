@@ -127,14 +127,15 @@ public class Add_Category_Form extends JFrame {
 	}
 	private void ResetTextField() {
 		textField_LoaiSP.setText("");
+		initId();
 		textField_TenLoaiSP.setText("");
 	}
 	
+
 	private void ThemLoaiSanPham() {
 		if(textField_TenLoaiSP.getText().equals("")) {	
 			JOptionPane.showMessageDialog(rootPane, "Bạn nhập còn thiếu");
 		}else {
-			
 			category_BUS.addCategory(textField_TenLoaiSP.getText());
 			JOptionPane.showMessageDialog(rootPane, "Thêm thành công");
 			ResetTextField();

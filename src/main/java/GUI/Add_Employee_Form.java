@@ -162,10 +162,35 @@ public class Add_Employee_Form extends JFrame {
 		if(textField_TenNV.getText().equals("") || textField_SDT.getText().equals("") ||textField_DiaChi.getText().equals("")) {	
 			JOptionPane.showMessageDialog(rootPane, "Bạn nhập còn thiếu");
 		}else {
-			employee_BUS.addEmployee(textField_TenNV.getText(),textField_SDT.getText(),textField_DiaChi.getText());
-			JOptionPane.showMessageDialog(rootPane, "Thêm thành công");
-			ResetTextField();
+			String tenNV = textField_TenNV.getText();
+			String soDienThoai = textField_SDT.getText();
+			String diaChi = textField_DiaChi.getText();
+			
+			if(checkPhone(soDienThoai)) {
+				employee_BUS.addEmployee(tenNV,soDienThoai,diaChi);
+				JOptionPane.showMessageDialog(rootPane, "Thêm thành công");
+				ResetTextField();
+			}
 		} 
+	}
+	
+	private boolean checkPhone(String phone) {
+		boolean check = true;
+		boolean isNumeric = phone.matches("^[0-9]+$");
+		char st1 = phone.charAt(0);
+		
+		if (isNumeric == false) {
+			JOptionPane.showMessageDialog(rootPane, "SDT phải là số");
+			check = false;
+		}else if (phone.length() != 10) {
+			JOptionPane.showMessageDialog(rootPane, "SDT phải 10 số");
+			check = false;
+		} else if (st1 != '0') {
+			JOptionPane.showMessageDialog(rootPane, "SDT phải bắt đầu là số 0");
+			check = false;
+		}
+		return check;
+
 	}
 
 }

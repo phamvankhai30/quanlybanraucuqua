@@ -205,10 +205,17 @@ public class Import_Bill_From extends JFrame {
 		if (iRow <= -1) {
 			JOptionPane.showMessageDialog(rootPane, "Chưa Chọn Hoá Đơn Cần Xoá");
 		} else {
-			int maHDN = (Integer) table_HDNH.getValueAt(iRow, 0);
-			importBills_BUS.deleteImportBill(maHDN);
-			JOptionPane.showMessageDialog(rootPane, "Xoá Thành Công");
-			HienThiHoaDonNhap();
+			int xacnhanxoa = JOptionPane.showConfirmDialog(rootPane, "Bạn Có Chắc Chắn Xoá Không",
+					"Thông Báo Xác Nhận Xoá", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+			
+			if (xacnhanxoa == JOptionPane.YES_OPTION) {
+				int maHDN = (Integer) table_HDNH.getValueAt(iRow, 0);
+				importBills_BUS.deleteImportBill(maHDN);
+				JOptionPane.showMessageDialog(rootPane, "Xoá Thành Công");
+				HienThiHoaDonNhap();
+			} else {
+				JOptionPane.showMessageDialog(rootPane, "Bạn Đã Huỷ Xoá");
+			}
 		}
 
 	}

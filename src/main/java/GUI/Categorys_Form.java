@@ -30,9 +30,8 @@ public class Categorys_Form extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField_TimKiem;
 	private JTable table_QLLSP;
-	
-	private Category_BUS category_BUS = new Category_BUS();
 
+	private Category_BUS category_BUS = new Category_BUS();
 
 	public Categorys_Form() {
 		initComponents();
@@ -53,7 +52,6 @@ public class Categorys_Form extends JFrame {
 			}
 		});
 	}
-
 
 	public void initComponents() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -83,7 +81,8 @@ public class Categorys_Form extends JFrame {
 		contentPane.add(panel_1);
 
 		JButton btnThem = new JButton("Thêm");
-		btnThem.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\Plus_36851.png"));
+		btnThem.setIcon(
+				new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\Plus_36851.png"));
 		btnThem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ThemLoaiSanPham();
@@ -93,7 +92,8 @@ public class Categorys_Form extends JFrame {
 		panel_1.add(btnThem);
 
 		JButton btnSua = new JButton("Sửa");
-		btnSua.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\cloudrefresh_icon-icons.com_54403.png"));
+		btnSua.setIcon(new ImageIcon(
+				"C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\cloudrefresh_icon-icons.com_54403.png"));
 		btnSua.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SuaLoaiSanPham();
@@ -103,7 +103,8 @@ public class Categorys_Form extends JFrame {
 		panel_1.add(btnSua);
 
 		JButton btnXoa = new JButton("Xoá");
-		btnXoa.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\vcsconflicting_93497.png"));
+		btnXoa.setIcon(new ImageIcon(
+				"C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\vcsconflicting_93497.png"));
 		btnXoa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				XoaLoaiSanPham();
@@ -114,7 +115,8 @@ public class Categorys_Form extends JFrame {
 		panel_1.add(btnXoa);
 
 		JButton btnTimKiem = new JButton("Tìm kiếm");
-		btnTimKiem.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\iconfinder-documents07-1622836_121949.png"));
+		btnTimKiem.setIcon(new ImageIcon(
+				"C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\iconfinder-documents07-1622836_121949.png"));
 		btnTimKiem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TimKiemLoaiSPTheoId();
@@ -144,7 +146,8 @@ public class Categorys_Form extends JFrame {
 		contentPane.add(panel_1_1);
 
 		JButton btnTrangChu = new JButton("Trang Chủ");
-		btnTrangChu.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\home_house_10811 (1).png"));
+		btnTrangChu.setIcon(new ImageIcon(
+				"C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\home_house_10811 (1).png"));
 		btnTrangChu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Index index = new Index();
@@ -163,7 +166,8 @@ public class Categorys_Form extends JFrame {
 		contentPane.add(panel_1_1_1);
 
 		JButton btnReset = new JButton("Làm Mới");
-		btnReset.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\power_reset_1847.png"));
+		btnReset.setIcon(new ImageIcon(
+				"C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\power_reset_1847.png"));
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				HienThiLoaiSanPham();
@@ -172,11 +176,9 @@ public class Categorys_Form extends JFrame {
 		btnReset.setBounds(0, 0, 146, 51);
 		panel_1_1_1.add(btnReset);
 	}
-	
-	
 
 	private void HienThiLoaiSanPham() {
-		
+
 		DefaultTableModel model = new DefaultTableModel();
 		Object[] columns = { "Mã Loại Sản Phẩm", "Tên Sản Phẩm" };
 		model.setColumnIdentifiers(columns);
@@ -189,31 +191,30 @@ public class Categorys_Form extends JFrame {
 	}
 
 	private void TimKiemLoaiSPTheoId() {
-		
-		
+
 		if (textField_TimKiem.getText().equals("")) {
 			JOptionPane.showMessageDialog(rootPane, "Chưa nhập Id Cần Tìm Kiếm");
 		} else {
 			DefaultTableModel model = new DefaultTableModel();
 			Object[] columns = { "Mã Loại Sản Phẩm", "Tên Loại Sản Phẩm" };
 			model.setColumnIdentifiers(columns);
-			
+
 			String maLoaiSP = textField_TimKiem.getText();
 			int idLoaiSP = Integer.parseInt(maLoaiSP);
-			
+
 			Categorys category = category_BUS.searchCategoryById(idLoaiSP);
 			model.addRow(new Object[] { category.getIdCategor(), category.getName() });
-			
+
 			table_QLLSP.setModel(model);
 		}
 	}
-	
+
 	private void ThemLoaiSanPham() {
 		Add_Category_Form add_Category_Form = new Add_Category_Form();
 		add_Category_Form.setLocationRelativeTo(null);
 		add_Category_Form.setVisible(true);
 	}
-	
+
 	private void SuaLoaiSanPham() {
 		int iRow = table_QLLSP.getSelectedRow();
 		if (iRow <= -1) {
@@ -221,22 +222,32 @@ public class Categorys_Form extends JFrame {
 		} else {
 			String maLoaiSP = table_QLLSP.getModel().getValueAt(iRow, 0) + "";
 			String tenLoaiSP = table_QLLSP.getModel().getValueAt(iRow, 1) + "";
-			
+
 			Update_Category_Form update_Category = new Update_Category_Form(maLoaiSP, tenLoaiSP);
 			update_Category.setLocationRelativeTo(null);
 			update_Category.setVisible(true);
 		}
 	}
+
 	private void XoaLoaiSanPham() {
 		int iRow = table_QLLSP.getSelectedRow();
 		if (iRow <= -1) {
 			JOptionPane.showMessageDialog(rootPane, "Chưa chọn thông tin cần xoá");
 		} else {
-			String maLoaiSP = table_QLLSP.getModel().getValueAt(iRow, 0) + "";
-			int idLoaiSP = Integer.parseInt(maLoaiSP);
-			category_BUS.deleteCategoryById(idLoaiSP);
-			JOptionPane.showMessageDialog(rootPane, "Xoá thành công");
-			HienThiLoaiSanPham();
+
+			int xacnhanxoa = JOptionPane.showConfirmDialog(rootPane, "Bạn Có Chắc Chắn Xoá Không",
+					"Thông Báo Xác Nhận Xoá", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+			
+			if (xacnhanxoa == JOptionPane.YES_OPTION) {
+				String maLoaiSP = table_QLLSP.getModel().getValueAt(iRow, 0) + "";
+				int idLoaiSP = Integer.parseInt(maLoaiSP);
+				category_BUS.deleteCategoryById(idLoaiSP);
+				JOptionPane.showMessageDialog(rootPane, "Xoá thành công");
+				HienThiLoaiSanPham();
+			} else {
+				JOptionPane.showMessageDialog(rootPane, "Bạn Đã Huỷ Xoá");
+			}
+
 		}
 	}
 }

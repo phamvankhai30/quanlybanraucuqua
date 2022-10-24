@@ -127,7 +127,8 @@ public class Update_Employee_Form extends JFrame {
 		contentPane.add(panel_2);
 
 		btnSua = new JButton("Sửa");
-		btnSua.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\cloudrefresh_icon-icons.com_54403.png"));
+		btnSua.setIcon(new ImageIcon(
+				"C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\cloudrefresh_icon-icons.com_54403.png"));
 		btnSua.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -138,7 +139,8 @@ public class Update_Employee_Form extends JFrame {
 		panel_2.add(btnSua);
 
 		btnQuayLai = new JButton("Quay Lại");
-		btnQuayLai.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\back_icon_155778.png"));
+		btnQuayLai.setIcon(new ImageIcon(
+				"C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\back_icon_155778.png"));
 		btnQuayLai.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				toBack();
@@ -154,19 +156,36 @@ public class Update_Employee_Form extends JFrame {
 				|| textField_DiaChi.getText().equals("")) {
 			JOptionPane.showMessageDialog(rootPane, "Bạn nhập còn thiếu");
 		} else {
+			String tenNV = textField_TenNV.getText();
+			String soDienThoai = textField_SDT.getText();
+			String diaChi = textField_DiaChi.getText();
 
-			employees_BUS.updateEmployee(textField_TenNV.getText(), textField_SDT.getText(),
-					textField_DiaChi.getText());
-			JOptionPane.showMessageDialog(rootPane, "Thêm thành công");
-			ResetTextField();
+			if (checkPhone(soDienThoai)) {
+				employees_BUS.updateEmployee(tenNV, soDienThoai, diaChi);
+				JOptionPane.showMessageDialog(rootPane, "Thêm thành công");
+				setVisible(false);
+			}
+
 		}
 	}
 
-	private void ResetTextField() {
-		textField_MaNV.setText("");
-		textField_SDT.setText("");
-		textField_DiaChi.setText("");
-		textField_TenNV.setText("");
+	private boolean checkPhone(String phone) {
+		boolean check = true;
+		boolean isNumeric = phone.matches("^[0-9]+$");
+		char st1 = phone.charAt(0);
+
+		if (isNumeric == false) {
+			JOptionPane.showMessageDialog(rootPane, "SDT phải là số");
+			check = false;
+		} else if (phone.length() != 10) {
+			JOptionPane.showMessageDialog(rootPane, "SDT phải 10 số");
+			check = false;
+		} else if (st1 != '0') {
+			JOptionPane.showMessageDialog(rootPane, "SDT phải bắt đầu là số 0");
+			check = false;
+		}
+		return check;
+
 	}
 
 }

@@ -254,12 +254,20 @@ public class Providers_Form extends JFrame {
 		if(iRow <= -1) {
 			JOptionPane.showMessageDialog(rootPane, "Chưa chọn thông tin cần xoá");
 		}else {
-			String id_Provider = table_QLNCC.getModel().getValueAt(iRow, 0).toString();
-			int id = Integer.parseInt(id_Provider);
 			
-			providers_BUS.deleteProviderById(id);
-			JOptionPane.showMessageDialog(rootPane, "Xoá thành công");
-			HienThiNhaCungCap();
+			int xacnhanxoa = JOptionPane.showConfirmDialog(rootPane, "Bạn Có Chắc Chắn Xoá Không",
+					"Thông Báo Xác Nhận Xoá", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+			if (xacnhanxoa == JOptionPane.YES_OPTION) {
+				String id_Provider = table_QLNCC.getModel().getValueAt(iRow, 0).toString();
+				int id = Integer.parseInt(id_Provider);
+				
+				providers_BUS.deleteProviderById(id);
+				JOptionPane.showMessageDialog(rootPane, "Xoá thành công");
+				HienThiNhaCungCap();
+			} else {
+				JOptionPane.showMessageDialog(rootPane, "Bạn Đã Huỷ Xoá");
+			}
 		}
 	}
 }

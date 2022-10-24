@@ -195,12 +195,18 @@ public class Employees_Form extends JFrame {
 		if(i <= -1) {
 			JOptionPane.showMessageDialog(rootPane, "Chưa chọn thông tin cần xoá");
 		}else {
-			String maNV = table_QLNV.getModel().getValueAt(i, 0).toString();
-			int idNV = Integer.parseInt(maNV);
-
-			customers_BUS.deleteCustomerById(idNV);
-			JOptionPane.showMessageDialog(rootPane, "Xoá thành công");
-			HienThiNhanVien();
+			int xacnhanxoa = JOptionPane.showConfirmDialog(rootPane, "Bạn Có Chắc Chắn Xoá Không",
+					"Thông Báo Xác Nhận Xoá", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+			
+			if (xacnhanxoa == JOptionPane.YES_OPTION) {
+				String maNV = table_QLNV.getModel().getValueAt(i, 0).toString();
+				int idNV = Integer.parseInt(maNV);
+				customers_BUS.deleteCustomerById(idNV);
+				JOptionPane.showMessageDialog(rootPane, "Xoá thành công");
+				HienThiNhanVien();
+			} else {
+				JOptionPane.showMessageDialog(rootPane, "Bạn Đã Huỷ Xoá");
+			}
 		}
 	}
 	private void SuaNhanVien() {
