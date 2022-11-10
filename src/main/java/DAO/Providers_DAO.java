@@ -33,7 +33,6 @@ public class Providers_DAO {
 	}
 
 	public void updateProvider(Providers provider) {
-
 		try {
 			session = factory.openSession();
 			transaction = session.beginTransaction();
@@ -43,7 +42,6 @@ public class Providers_DAO {
 			if (transaction != null) {
 				transaction.rollback();
 			}
-
 		} finally {
 			session.clear();
 			session.close();
@@ -51,7 +49,6 @@ public class Providers_DAO {
 	}
 
 	public void deleteProviderById(int id) {
-
 		try {
 			session = factory.openSession();
 			Providers provider = session.get(Providers.class, id);

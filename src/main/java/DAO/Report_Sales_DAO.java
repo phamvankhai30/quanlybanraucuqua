@@ -154,7 +154,7 @@ public class Report_Sales_DAO {
 
 	// sắp xếp theo tiền tăng dần
 	@SuppressWarnings("unchecked")
-	public List<Object[]> OrderByMonneyASC() {
+	public List<Object[]> OrderByPriceASC() {
 		List<Object[]> orderByIdMonneyASC = null;
 		try {
 			session = factory.openSession();
@@ -177,7 +177,7 @@ public class Report_Sales_DAO {
 
 	// sắp xếp theo tiền giảm dần
 	@SuppressWarnings("unchecked")
-	public List<Object[]> OrderByMonneyDESC() {
+	public List<Object[]> OrderByPriceDESC() {
 		List<Object[]> orderByIdMonneyDESC = null;
 		try {
 			session = factory.openSession();

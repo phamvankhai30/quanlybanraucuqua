@@ -1,8 +1,6 @@
 package Entitys;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,7 +40,7 @@ public class Reports implements Serializable {
 	private double total;
 	
 	@Column(name = "Date")
-	private LocalDateTime date;
+	private String date;
 
 	public int getIdReport() {
 		return idReport;
@@ -92,11 +90,11 @@ public class Reports implements Serializable {
 		this.total = total;
 	}
 
-	public LocalDateTime getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDateTime date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 		

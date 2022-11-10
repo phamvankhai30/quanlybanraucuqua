@@ -50,6 +50,15 @@ public class Products implements Serializable {
 	private ImportBills importBills;
 	
 	
+	public Products() {
+		
+	}
+	public Products(int idProduct, String name, double quatity, double price) {
+		this.idProduct = idProduct;
+		this.name = name;
+		this.price = price;
+		this.quatity = quatity;
+	}
 
 	public ImportBills getImportBills() {
 		return importBills;

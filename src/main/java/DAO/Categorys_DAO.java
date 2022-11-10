@@ -18,27 +18,21 @@ public class Categorys_DAO {
 	
 	@SuppressWarnings("unchecked")
 	public List<Categorys> getAllCategorys() {
-
 		List <Categorys> category = null;
 		try {
 			session = factory.openSession();
 			transaction = session.beginTransaction();
-			
 			category = session.createQuery("from Categorys").list();
-
-			
 			transaction.commit();
 		} catch (Exception e) {
 			if (transaction != null) {
 				transaction.rollback();
 			}
-
 		}finally {
 			session.clear();
 			session.close();
 		}
 		return category;
-		
 	}
 
 	public void addCategory(Categorys category ) {
@@ -47,12 +41,10 @@ public class Categorys_DAO {
 			transaction = session.beginTransaction();
 			session.save(category);
 			transaction.commit();
-			
 		} catch (Exception e) {
 			if (transaction != null) {
 				transaction.rollback();
 			}
-
 		}finally {
 			session.clear();
 			session.close();
@@ -60,7 +52,6 @@ public class Categorys_DAO {
 	}
 	
 	public void updateCategory(Categorys category) {
-
 		try {
 			session = factory.openSession();
 			transaction = session.beginTransaction();
@@ -113,13 +104,11 @@ public class Categorys_DAO {
 			if (transaction != null) {
 				transaction.rollback();
 			}
-
 		}finally {
 			session.clear();
 			session.close();
 		}
-		return category;
-		
+		return category;	
 	}
 
 	public static void main(String[] args) {

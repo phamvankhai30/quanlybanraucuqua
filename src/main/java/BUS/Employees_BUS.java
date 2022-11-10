@@ -10,7 +10,6 @@ public class Employees_BUS {
 	Employees_DAO employee_DAO = new Employees_DAO();
 	
     public void addEmployee(String name,String phone,String address){
-        	
     	employee.setName(name);
     	employee.setPhone(phone);
     	employee.setAddress(address);
@@ -37,8 +36,4 @@ public class Employees_BUS {
     	return employee_DAO.searchEmployeeById(id);
     }
 
-    public static void main(String[] args) {
-		Employees_BUS bus = new Employees_BUS();
-		bus.addEmployee("Khai ne", "01245689", "Hoa binh");
-	}
 }

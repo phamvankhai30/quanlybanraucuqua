@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import Entitys.Products;
 import Utils.HibernateUtil;
@@ -53,7 +54,31 @@ public class Products_DAO {
 			session.close();
 		}
 	}
+	@SuppressWarnings("rawtypes")
+	public void updateQuatityProduct(int idSanPham, double quatity) {
+		try {
+			session = factory.openSession();
+			transaction = session.beginTransaction();
+			String hql = "UPDATE Products p SET p.quatity = :newQuatity WHERE p.idProduct = :idSP";
+			
+			Query query = session.createQuery(hql);
+			query.setParameter("idSP", idSanPham);
+			query.setParameter("newQuatity", quatity);
+			query.executeUpdate();
+			
+			transaction.commit();
+		} catch (Exception e) {
+			if (transaction != null) {
+				transaction.rollback();
+			}
 
+		}finally {
+			session.clear();
+			session.close();
+		}
+	}
+
+	
 	public void deleteProductById(int id) {	
 		
 		try {
@@ -117,9 +142,9 @@ public class Products_DAO {
 		return product;	
 	}
 	
-	public double TongTien(double soluong, double giatien) {
-		return soluong*giatien;
-	}
+//	public double TongTien(double soluong, double giatien) {
+//		return soluong*giatien;
+//	}
 
 	@SuppressWarnings("unchecked")
 	public List<Products> orderByProductIdDESC() {

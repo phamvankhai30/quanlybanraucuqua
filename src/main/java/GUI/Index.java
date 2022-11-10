@@ -79,9 +79,9 @@ public class Index extends JFrame {
 		JButton btnBanHang = new JButton("Bán Hàng");
 		btnBanHang.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Payment_Form payment_Form = new Payment_Form();
-				payment_Form.setLocationRelativeTo(null);
-				payment_Form.setVisible(true);
+				Payment_UI payment_UI = new Payment_UI();
+				payment_UI.setLocationRelativeTo(null);
+				payment_UI.setVisible(true);
 				setVisible(false);
 			}
 		});
@@ -93,9 +93,9 @@ public class Index extends JFrame {
 		JButton btnSanPham = new JButton("Sản phẩm");
 		btnSanPham.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Products_Form products_Form = new Products_Form();
-				products_Form.setLocationRelativeTo(null);
-				products_Form.setVisible(true);
+				Products_UI products_UI = new Products_UI();
+				products_UI.setLocationRelativeTo(null);
+				products_UI.setVisible(true);
 				setVisible(false);
 			}
 		});
@@ -105,15 +105,16 @@ public class Index extends JFrame {
 		panel_1.add(btnSanPham);
 		
 		JButton btnDanhMucSP = new JButton("Danh Mục Sản Phẩm");
+		btnDanhMucSP.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		btnDanhMucSP.setHorizontalAlignment(SwingConstants.LEFT);
 		btnDanhMucSP.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\category_icon-icons.com_71725.png"));
 		btnDanhMucSP.setBounds(10, 95, 180, 38);
 		panel_1.add(btnDanhMucSP);
 		btnDanhMucSP.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Categorys_Form categorys_Form = new Categorys_Form();
-				categorys_Form.setLocationRelativeTo(null);
-				categorys_Form.setVisible(true);
+				Categorys_UI categorys_UI = new Categorys_UI();
+				categorys_UI.setLocationRelativeTo(null);
+				categorys_UI.setVisible(true);
 				setVisible(false);
 			}
 		});
@@ -127,9 +128,9 @@ public class Index extends JFrame {
 		JButton btnKhachHang = new JButton("Khách Hàng");
 		btnKhachHang.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Customers_Form customers_Form = new Customers_Form();
-				customers_Form.setLocationRelativeTo(null);
-				customers_Form.setVisible(true);
+				Customers_UI customers_UI = new Customers_UI();
+				customers_UI.setLocationRelativeTo(null);
+				customers_UI.setVisible(true);
 				setVisible(false);
 			}
 		});
@@ -151,9 +152,9 @@ public class Index extends JFrame {
 		btnNhanVien.setIcon(new ImageIcon("C:\\Users\\Admin\\Desktop\\quanlybanraucuqua\\src\\main\\java\\images\\employee_icon-icons.com_66882.png"));
 		btnNhanVien.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Employees_Form employees_Form = new Employees_Form();
-				employees_Form.setLocationRelativeTo(null);
-				employees_Form.setVisible(true);
+				Employees_UI employees_UI = new Employees_UI();
+				employees_UI.setLocationRelativeTo(null);
+				employees_UI.setVisible(true);
 				setVisible(false);
 			}
 		});
@@ -168,9 +169,9 @@ public class Index extends JFrame {
 		btnHonNhp.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Import_Bill_From import_Bill_From = new Import_Bill_From();
-				import_Bill_From.setLocationRelativeTo(null);
-				import_Bill_From.setVisible(true);
+				Import_Bill_UI import_Bill_UI = new Import_Bill_UI();
+				import_Bill_UI.setLocationRelativeTo(null);
+				import_Bill_UI.setVisible(true);
 				setVisible(false);
 			}
 		});
@@ -190,9 +191,9 @@ public class Index extends JFrame {
 		panel_2_1.add(btnBaoCao);
 		btnBaoCao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Reports_Form reports_Form = new Reports_Form();
-				reports_Form.setLocationRelativeTo(null);
-				reports_Form.setVisible(true);
+				Reports_UI reports_UI = new Reports_UI();
+				reports_UI.setLocationRelativeTo(null);
+				reports_UI.setVisible(true);
 				setVisible(false);
 			}
 		});
@@ -230,17 +231,17 @@ public class Index extends JFrame {
 		panel_3.add(lblNewLabel_1_1_1_1);
 		btnHoaDon.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Order_Form order_Form = new Order_Form();
-				order_Form.setLocationRelativeTo(null);
-				order_Form.setVisible(true);
+				Order_UI order_UI = new Order_UI();
+				order_UI.setLocationRelativeTo(null);
+				order_UI.setVisible(true);
 				setVisible(false);
 			}
 		});
 		btnNhaCungCap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Providers_Form providers_Form = new Providers_Form();
-				providers_Form.setLocationRelativeTo(null);
-				providers_Form.setVisible(true);
+				Providers_UI providers_UI = new Providers_UI();
+				providers_UI.setLocationRelativeTo(null);
+				providers_UI.setVisible(true);
 				setVisible(false);
 			}
 		});

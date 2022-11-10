@@ -10,8 +10,7 @@ public class Customers_BUS {
 	Users customer = new Users();
 	Customers_DAO customer_DAO = new Customers_DAO();
 	
-    public void addCustomer(String name,String phone,String address){
-        	
+    public void addCustomer( String name,String phone,String address){
     	customer.setName(name);
     	customer.setPhone(phone);
     	customer.setAddress(address);
@@ -36,7 +35,7 @@ public class Customers_BUS {
     }
 
     public List<Users> searchCustomerById(int id) {
-    	return customer_DAO.searchCustomerById(id);
+    	return customer_DAO.getCustomerById(id);
     }
     
     

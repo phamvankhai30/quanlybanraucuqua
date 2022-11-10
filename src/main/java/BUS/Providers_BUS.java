@@ -9,8 +9,7 @@ public class Providers_BUS {
 	Providers provider = new Providers();
 	Providers_DAO provider_DAO = new Providers_DAO();
 	
-    public void addProvider(String name,String phone,String address){
-        	
+    public void addProvider( String name,String phone,String address){
         	provider.setName(name);
         	provider.setPhone(phone);
         	provider.setAddress(address);

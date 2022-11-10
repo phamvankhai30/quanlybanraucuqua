@@ -10,7 +10,6 @@ public class Category_BUS {
 	Categorys_DAO category_DAO = new  Categorys_DAO();
 	
 	public void addCategory(String name){
-    	
     	category.setName(name);
     	category_DAO.addCategory(category);
     }

@@ -104,17 +104,15 @@ public class Customers_DAO {
 		
 	}
 	@SuppressWarnings("unchecked")
-	public List<Users> searchCustomerById(int user_id){
+	public List<Users> getCustomerById(int user_id){
 		List <Users> customer = null;
 		try {
 			session = factory.openSession();
 			transaction = session.beginTransaction();
-			
 			String hql = "FROM Users U WHERE U.idUser = :userid and U.role = 1";
 			Query<Users> query = session.createQuery(hql);
 			query.setParameter("userid",user_id);
 			customer = query.list();
-			
 			transaction.commit();
 		} catch (Exception e) {
 			if (transaction != null) {
@@ -122,7 +120,6 @@ public class Customers_DAO {
 			}
 		}
 		return customer;
-		
 	}
 	public static void main(String[] args) {
 		Customers_DAO dao = new Customers_DAO();
@@ -132,6 +129,6 @@ public class Customers_DAO {
 //			System.out.println(i);
 //			
 //		}
-		System.out.println(dao.searchCustomerById(200));
+		System.out.println(dao.getCustomerById(200));
 	}
 }
